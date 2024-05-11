@@ -1,5 +1,7 @@
 import textwrap
 
+from PIL import ImageFont
+
 MM_TO_PX = 3.7795275591
 
 
@@ -11,19 +13,18 @@ A4_WIDTH, A4_HEIGHT = mm_to_px(210), mm_to_px(297)
 LINE_WIDTH = 2
 
 
-def draw_text(draw, pos, text: str, color, font, align: str = "left", width: int = None, spacing: int = None):
-    if align == "left":
-        pass
-    elif align == "right":
-        pos = (pos[0] - font.getlength(text), pos[1])
-    elif align == "center":
-        text_width = font.getlength(text)
-        pos = ((pos[0] + (width - text_width) / 2), pos[1])
-    elif align == "wrap":
-        for i, line in enumerate(textwrap.fill(text, width).split("\n")):
-            draw_text(draw, (pos[0], pos[1] + i * spacing), line, color=color, font=font)
-        return
-    else:
-        raise f"Unexpected align: {align}"
+class Font:
+    def __init__(self, font_name):
+        self._font_name = font_name
+        self._fonts = {}
 
-    draw.text(pos, text, fill=color, font=font)
+    def text(self, draw, pos, text: str, color: tuple, size: int, anchor: str = None, wrap_width: int = None):
+
+        if wrap_width is not None:
+            text = textwrap.fill(text, wrap_width)
+
+        if size not in self._fonts:
+            self._fonts[size] = ImageFont.truetype(f"./fonts/{self._font_name}.ttf", size)
+        font = self._fonts[size]
+
+        draw.text(pos, text, fill=color, font=font, anchor=anchor)

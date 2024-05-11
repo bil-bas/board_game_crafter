@@ -50,7 +50,6 @@
   title: Biomass
   cost: $2
   keywords: [ENERGY]
-  image: radiation
   left_value: +$1
   right_value: +1P
   count: 2
@@ -61,27 +60,35 @@
   title: Coastal Defences
   keywords: [Protection]
   cost: $2
-  text: Reduces effect of Rising Sea Levels by $2
+  text: |
+    Reduces effect of
+    Rising Sea Levels by $2
   count: 2
 -
   title: Defence-2
   keywords: [Protection]
   cost: $2
-  text: Reduces effect of Disaster-2 by $2
+  text: |
+    Reduces effect of
+    Disaster-2 by $2
   count: 2
 -
   title: Defence-3
   keywords: [Protection]
   cost: $2
-  text: Reduces effect of Disaster-3 by $2
+  text: |
+    Reduces effect of 
+    Disaster-3 by $2
   count: 2
 
 
 # General cards
 -
-  title: S02 Scrubbers
+  title: SO₂ Scrubbers
   cost: $1
-  text: Coal
+  text: |
+    Coal
+    ENERGY
   center_icon: then
   right_value: -1P
   flavour: Recycling is for the super cool kids. No-one else need bother!
@@ -96,9 +103,12 @@
 -
   title: Electric cars
   cost: $5
-  text: Clean ENERGY
+  text: |
+    Clean
+    ENERGY
   center_icon: then
   right_value: -1P
+  flavour: Electric cars don’t actually reduce overall pollution themselves! They only reduce emissions where they are driven and move them to where the electricity is generated.
   count: 2
 -
   title: Public Transport
@@ -108,9 +118,12 @@
 -
   title: Large Scale Storage
   cost: $4/$2
-  text: Variable ENERGY
+  text: |
+    Variable
+    ENERGY
   center_icon: then
   right_value: -1P
+  flavour: Improve renewables that are not “always on” by storing energy, for example in electric batteries.
   count: 2
 -
   title: Reforestation
@@ -136,39 +149,49 @@
   right_value: -1P
   count: 2
 -
-  title: Greenwashing
+  title: Green-washing
   cost: $4
   right_value: -1P
+  flavour: Sell more, at higher prices, by simply convincing the public that you are environmentally conscious.
   count: 2
 -
   title: Trash-digestion
   cost: $4
   right_value: -1P
+  flavour: Engineer genetically modified bacteria that like eating waste, such as plastics.
 -
   title: Fusion Research
   keywords: [Risky]
   cost: $6
-  text: Round 10 only
+  text: |
+    Round 10
+    only
+  center_icon: coin flip
   right_value: -1P
 -
   title: Built In Obsolescence
   cost: $0
   left_value: +$1
   right_value: -1P
+  flavour: Make things that break quickly and can’t be repaired, so we need to buy new ones.
   count: 2
 -
   title: Renewable Subsidies
   keywords: [Global]
   cost: $1
   center_icon: global
-  text: Renewable ENERGY
+  text: | 
+    Renewable 
+    ENERGY
   right_value: +$1
   count: 2
 -
   title: Aviation Subsidies
   keywords: [Global]
   cost: $1
-  text: Hydrocarbon ENERGY
+  text: |
+    Hydrocarbon
+    ENERGY
   center_icon: global
   right_value: +$1
   count: 2
