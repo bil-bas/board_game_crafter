@@ -32,7 +32,7 @@ def parse(parser):
         layout_page(cards_on_page).save(f"./output/page_{i}.png")
 
     with open(f"./output/cards.pdf", "wb") as f:
-        f.write(img2pdf.convert(glob.glob(f"./output/page_*.png")))
+        f.write(img2pdf.convert(sorted(glob.glob(f"./output/page_*.png"))))
 
 
 if __name__ == "__main__":

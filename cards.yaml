@@ -20,7 +20,6 @@
   cost: $4/$2
   keywords: [ENERGY, Renewable, Variable, Clean]
   image: wind-power
-  center_icon: then
   right_value: +2P
   flavour: Tilting at windmills is fun.
   count: 5
@@ -159,16 +158,18 @@
   count: 2
 -
   title: Renewable Subsidies
+  keywords: [Global]
+  cost: $1
   center_icon: global
   text: Renewable ENERGY
-  cost: $4
-  right_value: -1P
+  right_value: +$1
   count: 2
 -
   title: Aviation Subsidies
-  cost: $4
+  keywords: [Global]
+  cost: $1
   text: Hydrocarbon ENERGY
   center_icon: global
-  right_value: -1P
+  right_value: +$1
   count: 2
 
