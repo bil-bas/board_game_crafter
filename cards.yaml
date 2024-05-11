@@ -4,28 +4,28 @@
   title: Gas
   cost: Starting
   keywords: [ENERGY, Hydrocarbon]
-  right_value: +1P
+  right_value: +P
   count: 5
 -
   title: Coal
   cost: Starting
   keywords: [ENERGY, Hydrocarbon]
-  right_value: +2P
+  right_value: +P
   count: 5
 
 
 # ENERGY
 -
   title: Wind Power
-  cost: $4/$2
+  cost: 4/2$
   keywords: [ENERGY, Renewable, Variable, Clean]
   image: wind-power
-  right_value: +2P
+  right_value: +0P
   flavour: Tilting at windmills is fun.
   count: 5
 -
   title: Solar Power
-  cost: $4/$2
+  cost: 4/2$
   keywords: [ENERGY, Renewable, Variable, Clean]
   image: sun
   right_value: +0P
@@ -33,7 +33,7 @@
   count: 5
 -
   title: Nuclear Power
-  cost: $3
+  cost: 3$
   keywords: [ENERGY, Clean]
   image: radiation
   right_value: +0P
@@ -41,17 +41,17 @@
   count: 3
 -
   title: Fracking
-  cost: $1
+  cost: 2$
   keywords: [ENERGY, Hydrocarbon]
-  left_value: +$1
+  left_value: +$
   right_value: +2P
   count: 2
 -
   title: Biomass
-  cost: $2
+  cost: 2$
   keywords: [ENERGY]
-  left_value: +$1
-  right_value: +1P
+  left_value: +$
+  right_value: +P
   count: 2
 
 
@@ -59,140 +59,141 @@
 -
   title: Coastal Defences
   keywords: [Protection]
-  cost: $2
+  cost: 2$
   text: |
     Reduces effect of
-    Rising Sea Levels by $2
+    Rising Sea Levels by 2$
   count: 2
 -
   title: Defence-2
   keywords: [Protection]
-  cost: $2
+  cost: 2$
   text: |
     Reduces effect of
-    Disaster-2 by $2
+    Disaster-2 by 2$
   count: 2
 -
   title: Defence-3
   keywords: [Protection]
-  cost: $2
+  cost: 2$
   text: |
     Reduces effect of 
-    Disaster-3 by $2
+    Disaster-3 by 2$
   count: 2
 
 
 # General cards
 -
   title: SO₂ Scrubbers
-  cost: $1
+  cost: 1$
   text: |
     Coal
     ENERGY
   center_icon: then
-  right_value: -1P
-  flavour: Recycling is for the super cool kids. No-one else need bother!
+  right_value: -P
+  flavour: Sulphur dioxide in the atmosphere creates acid rain, but also slows global warming!
   count: 4
 -
   title: Development
-  cost: $3
+  cost: 3$
   text: Other player
   center_icon: then
-  right_value: +$3
+  right_value: +3$
   count: 2
 -
   title: Electric cars
-  cost: $5
+  cost: 4$
   text: |
     Clean
     ENERGY
   center_icon: then
-  right_value: -1P
+  right_value: -P
   flavour: Electric cars don’t actually reduce overall pollution themselves! They only reduce emissions where they are driven and move them to where the electricity is generated.
   count: 2
 -
   title: Public Transport
-  cost: $3
-  right_value: -1P
+  cost: 3$
+  right_value: -P
   count: 3
 -
   title: Large Scale Storage
-  cost: $4/$2
+  cost: 4/2$
   text: |
     Variable
     ENERGY
   center_icon: then
-  right_value: -1P
+  right_value: -P
   flavour: Improve renewables that are not “always on” by storing energy, for example in electric batteries.
   count: 2
 -
   title: Reforestation
-  cost: $0
-  left_value: -$1
-  right_value: -1P
+  cost: 0$
+  left_value: -$
+  right_value: -P
   count: 2
 -
   title: Cleanup
-  cost: $4
+  cost: 4$
   left_value: Instant
   right_value: -3P
   count: 4
 -
   title: Recycling
-  cost: $4
-  right_value: -1P
+  cost: 4$
+  right_value: -P
   flavour: Recycling is for the super cool kids. No-one else need bother!
   count: 2
 -
   title: Sustainability
-  cost: $4
-  right_value: -1P
+  cost: 4$
+  right_value: -P
   count: 2
 -
   title: Green-washing
-  cost: $4
-  right_value: -1P
+  cost: 4$
+  right_value: -P
   flavour: Sell more, at higher prices, by simply convincing the public that you are environmentally conscious.
   count: 2
 -
   title: Trash-digestion
-  cost: $4
-  right_value: -1P
+  cost: 4$
+  right_value: -P
   flavour: Engineer genetically modified bacteria that like eating waste, such as plastics.
 -
   title: Fusion Research
   keywords: [Risky]
-  cost: $6
+  image: radiation
+  cost: 6$
   text: |
     Round 10
     only
   center_icon: coin flip
-  right_value: -1P
+  right_value: -P
 -
   title: Built In Obsolescence
-  cost: $0
-  left_value: +$1
-  right_value: -1P
+  cost: 0$
+  left_value: +$
+  right_value: -P
   flavour: Make things that break quickly and can’t be repaired, so we need to buy new ones.
   count: 2
 -
   title: Renewable Subsidies
   keywords: [Global]
-  cost: $1
+  cost: 2$
   center_icon: global
   text: | 
     Renewable 
     ENERGY
-  right_value: +$1
+  right_value: +$
   count: 2
 -
   title: Aviation Subsidies
   keywords: [Global]
-  cost: $1
+  cost: 2$
   text: |
     Hydrocarbon
     ENERGY
   center_icon: global
-  right_value: +$1
+  right_value: +$
   count: 2
 
