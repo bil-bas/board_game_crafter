@@ -3,25 +3,18 @@
 -
   title: Gas
   cost: Starting
-  keywords: [ENERGY]
+  keywords: [ENERGY, Hydrocarbon]
   right_value: +1P
   count: 5
 -
   title: Coal
   cost: Starting
-  keywords: [ENERGY]
+  keywords: [ENERGY, Hydrocarbon]
   right_value: +2P
   count: 5
 
+
 # ENERGY
--
-  title: Solar Power
-  cost: $4/$2
-  keywords: [ENERGY, Renewable, Variable, Clean]
-  image: sun
-  right_value: +0P
-  flavour: Remote fusion generator.
-  count: 5
 -
   title: Wind Power
   cost: $4/$2
@@ -30,6 +23,14 @@
   center_icon: then
   right_value: +2P
   flavour: Tilting at windmills is fun.
+  count: 5
+-
+  title: Solar Power
+  cost: $4/$2
+  keywords: [ENERGY, Renewable, Variable, Clean]
+  image: sun
+  right_value: +0P
+  flavour: Remote fusion generator.
   count: 5
 -
   title: Nuclear Power
@@ -42,8 +43,7 @@
 -
   title: Fracking
   cost: $1
-  keywords: [ENERGY]
-  image: radiation
+  keywords: [ENERGY, Hydrocarbon]
   left_value: +$1
   right_value: +2P
   count: 2
@@ -56,13 +56,29 @@
   right_value: +1P
   count: 2
 
-# General cards
+
+# Disaster Defences
 -
-  title: Recycling
-  cost: $4
-  right_value: -1P
-  flavour: Recycling is for the super cool kids. No-one else need bother!
+  title: Coastal Defences
+  keywords: [Protection]
+  cost: $2
+  text: Reduces effect of Rising Sea Levels by $2
   count: 2
+-
+  title: Defence-2
+  keywords: [Protection]
+  cost: $2
+  text: Reduces effect of Disaster-2 by $2
+  count: 2
+-
+  title: Defence-3
+  keywords: [Protection]
+  cost: $2
+  text: Reduces effect of Disaster-3 by $2
+  count: 2
+
+
+# General cards
 -
   title: S02 Scrubbers
   cost: $1
@@ -104,17 +120,55 @@
   right_value: -1P
   count: 2
 -
-  title: Coastal Defences
-  cost: $2
-  text: Reduces effect of Rising Sea Levels by $2
+  title: Cleanup
+  cost: $4
+  left_value: Instant
+  right_value: -3P
+  count: 4
+-
+  title: Recycling
+  cost: $4
+  right_value: -1P
+  flavour: Recycling is for the super cool kids. No-one else need bother!
   count: 2
 -
-  title: Defence-2
-  cost: $2
-  text: Reduces effect of Disaster-2 by $2
+  title: Sustainability
+  cost: $4
+  right_value: -1P
   count: 2
 -
-  title: Defence-3
-  cost: $2
-  text: Reduces effect of Disaster-3 by $2
+  title: Greenwashing
+  cost: $4
+  right_value: -1P
   count: 2
+-
+  title: Trash-digestion
+  cost: $4
+  right_value: -1P
+-
+  title: Fusion Research
+  keywords: [Risky]
+  cost: $6
+  text: Round 10 only
+  right_value: -1P
+-
+  title: Built In Obsolescence
+  cost: $0
+  left_value: +$1
+  right_value: -1P
+  count: 2
+-
+  title: Renewable Subsidies
+  center_icon: global
+  text: Renewable ENERGY
+  cost: $4
+  right_value: -1P
+  count: 2
+-
+  title: Aviation Subsidies
+  cost: $4
+  text: Hydrocarbon ENERGY
+  center_icon: global
+  right_value: -1P
+  count: 2
+
