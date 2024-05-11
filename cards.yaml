@@ -1,0 +1,71 @@
+---
+# STARTING ENERGY
+-
+  title: Gas
+  keywords: [ENERGY, Starting]
+  right_value: +1P
+  count: 5
+-
+  title: Coal
+  keywords: [ENERGY, Starting]
+  right_value: +2P
+  count: 5
+
+# ENERGY
+-
+  title: Solar Power
+  keywords: [ENERGY, Renewable, Variable, Clean]
+  image: sun
+  left_value: +$0
+  right_value: +0P
+  flavour: Remote fusion generator.
+  count: 5
+-
+  title: Wind Power
+  keywords: [ENERGY, Renewable, Variable, Clean]
+  image: wind-power
+  center_icon: then
+  left_value: +$0
+  right_value: +2P
+  flavour: Tilting at windmills.
+  count: 5
+-
+  title: Nuclear Power
+  keywords: [ENERGY, Clean]
+  image: radiation
+  right_value: +0P
+  flavour: Nuclear energy is perfectly safe...most of the time.
+  count: 3
+-
+  title: Fracking
+  keywords: [ENERGY]
+  image: radiation
+  left_value: +$1
+  right_value: +2P
+  count: 2
+-
+  title: Biomass
+  keywords: [ENERGY]
+  image: radiation
+  left_value: +$1
+  right_value: +1P
+  count: 2
+
+# General cards
+-
+  title: Recycling
+  right_value: -1P
+  flavour: Recycling is for the super cool kids. No-one else need bother!
+  count: 2
+-
+  title: Recycling
+  right_value: -1P
+  flavour: Recycling is for the super cool kids. No-one else need bother!
+  count: 2
+-
+  title: S02 Scrubbers
+  text: Coal
+  center_icon: then
+  right_value: -1P
+  flavour: Recycling is for the super cool kids. No-one else need bother!
+  count: 4
