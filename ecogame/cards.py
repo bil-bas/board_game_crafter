@@ -54,8 +54,8 @@ class Cards:
             card.paste(sized_image, ((CARD_WIDTH - IMAGE_SIZE[0]) // 2, MARGIN_TOP), mask=sized_image)
 
         if keywords:
-            self._font.text(draw, (CARD_WIDTH - 110, MARGIN_TOP),
-                            "\n".join(keywords), color=INK_COLOR, size=FONT_HEIGHT_KEYWORDS)
+            self._font.text(draw, (CARD_WIDTH - MARGIN_RIGHT, MARGIN_TOP), "\n".join(keywords),
+                            anchor="ra", color=INK_COLOR, size=FONT_HEIGHT_KEYWORDS)
 
         self._font.text(draw, (CARD_WIDTH // 2, TITLE_Y), title, color=INK_COLOR, size=FONT_HEIGHT_TITLE,
                         anchor="ma")
@@ -76,12 +76,12 @@ class Cards:
                             size=FONT_HEIGHT_VALUE, anchor="ra")
 
         if flavour:
-            self._font.text(draw, (MARGIN_LEFT, FLAVOUR_Y), flavour, color=INK_COLOR, size=FONT_HEIGHT_FLAVOUR,
-                            wrap_width=44)
+            self._font.text(draw, (MARGIN_LEFT, CARD_HEIGHT - MARGIN_BOTTOM), flavour, color=INK_COLOR,
+                            size=FONT_HEIGHT_FLAVOUR, wrap_width=44, anchor="ld")
 
         if count != 1:
             self._font.text(draw, (CARD_WIDTH - MARGIN_RIGHT, CARD_HEIGHT - MARGIN_BOTTOM), str(count),
-                            color=INK_COLOR, size=FONT_HEIGHT_COUNT, anchor="rb")
+                            color=INK_COLOR, size=FONT_HEIGHT_COUNT, anchor="rd")
 
         if show_border:
             draw.rectangle((0, 0, CARD_WIDTH - 1, CARD_HEIGHT - 1), outline=(230, 230, 230, 255))
