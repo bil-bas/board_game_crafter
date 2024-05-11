@@ -36,16 +36,16 @@ class Cards:
         self._font = Font("Arimo-Bold")
         self._images = {os.path.basename(im)[:-4]: Image.open(im) for im in glob.glob("./images/*.png")}
 
-    def generate(self, config: hash, show_border: bool) -> list:
+    def generate(self, config: hash, show_border: bool, show_count: bool) -> list:
         for card_config in config:
             count = card_config.get("count", 1)
-            card = self._card(show_border=show_border, **card_config)
+            card = self._card(show_border=show_border, show_count=show_count, **card_config)
             for _ in range(count):
                 yield card
 
-    def _card(self, title: str, cost: str, image: str = "", text: str = "", left_value: str = "", center_icon: str = "",
-              right_value: str = "", flavour: str = "", keywords: list = None, count: int = 1,
-              show_border: bool = False):
+    def _card(self, show_border: bool, show_count: bool, title: str, cost: str, image: str = "", text: str = "",
+              left_value: str = "", center_icon: str = "", right_value: str = "", flavour: str = "",
+              keywords: list = None, count: int = 1):
 
         card = Image.new("RGBA", (CARD_WIDTH, CARD_HEIGHT), BACKGROUND_COLOR)
         draw = ImageDraw.Draw(card)
@@ -93,7 +93,8 @@ class Cards:
             self._font.text(draw, (MARGIN_LEFT, CARD_HEIGHT - MARGIN_BOTTOM), flavour, color=INK_COLOR,
                             size=FONT_HEIGHT_FLAVOUR, wrap_width=44, anchor="ld")
 
-        if count != 1:
+
+        if show_count and count != 1:
             self._font.text(draw, (CARD_WIDTH - MARGIN_RIGHT, CARD_HEIGHT - MARGIN_BOTTOM), str(count),
                             color=INK_COLOR, size=FONT_HEIGHT_COUNT, anchor="rd")
 

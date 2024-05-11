@@ -16,6 +16,7 @@ def create_parser():
     parser = argparse.ArgumentParser(description="Layout generator for Ishara Press Regen-D game")
 
     parser.add_argument("--show-border", action='store_true')
+    parser.add_argument("--show-count", action='store_true')
     return parser
 
 
@@ -28,7 +29,7 @@ def parse(parser):
     with open(f"./cards.yaml") as f:
         config = yaml.load(f, Loader=yaml.SafeLoader)
 
-    cards = list(Cards().generate(config, show_border=args.show_border))
+    cards = list(Cards().generate(config, show_border=args.show_border, show_count=args.show_count))
     for i, cards_on_page in enumerate(batched(cards, COLS * ROWS), 1):
         layout_page(cards_on_page).save(f"./output/page_{i}.png")
 
