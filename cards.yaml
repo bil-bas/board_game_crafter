@@ -2,35 +2,38 @@
 # STARTING ENERGY
 -
   title: Gas
-  keywords: [ENERGY, Starting]
+  cost: Starting
+  keywords: [ENERGY]
   right_value: +1P
   count: 5
 -
   title: Coal
-  keywords: [ENERGY, Starting]
+  cost: Starting
+  keywords: [ENERGY]
   right_value: +2P
   count: 5
 
 # ENERGY
 -
   title: Solar Power
+  cost: $4/$2
   keywords: [ENERGY, Renewable, Variable, Clean]
   image: sun
-  left_value: +$0
   right_value: +0P
   flavour: Remote fusion generator.
   count: 5
 -
   title: Wind Power
+  cost: $4/$2
   keywords: [ENERGY, Renewable, Variable, Clean]
   image: wind-power
   center_icon: then
-  left_value: +$0
   right_value: +2P
-  flavour: Tilting at windmills.
+  flavour: Tilting at windmills is fun.
   count: 5
 -
   title: Nuclear Power
+  cost: $3
   keywords: [ENERGY, Clean]
   image: radiation
   right_value: +0P
@@ -38,6 +41,7 @@
   count: 3
 -
   title: Fracking
+  cost: $1
   keywords: [ENERGY]
   image: radiation
   left_value: +$1
@@ -45,6 +49,7 @@
   count: 2
 -
   title: Biomass
+  cost: $2
   keywords: [ENERGY]
   image: radiation
   left_value: +$1
@@ -54,18 +59,62 @@
 # General cards
 -
   title: Recycling
-  right_value: -1P
-  flavour: Recycling is for the super cool kids. No-one else need bother!
-  count: 2
--
-  title: Recycling
+  cost: $4
   right_value: -1P
   flavour: Recycling is for the super cool kids. No-one else need bother!
   count: 2
 -
   title: S02 Scrubbers
+  cost: $1
   text: Coal
   center_icon: then
   right_value: -1P
   flavour: Recycling is for the super cool kids. No-one else need bother!
   count: 4
+-
+  title: Development
+  cost: $3
+  text: Other player
+  center_icon: then
+  right_value: +$3
+  count: 2
+-
+  title: Electric cars
+  cost: $5
+  text: Clean ENERGY
+  center_icon: then
+  right_value: -1P
+  count: 2
+-
+  title: Public Transport
+  cost: $3
+  right_value: -1P
+  count: 3
+-
+  title: Large Scale Storage
+  cost: $4/$2
+  text: Variable ENERGY
+  center_icon: then
+  right_value: -1P
+  count: 2
+-
+  title: Reforestation
+  cost: $0
+  left_value: -$1
+  right_value: -1P
+  count: 2
+-
+  title: Coastal Defences
+  cost: $2
+  text: Reduces effect of Rising Sea Levels by $2
+  count: 2
+-
+  title: Defence-2
+  cost: $2
+  text: Reduces effect of Disaster-2 by $2
+  count: 2
+-
+  title: Defence-3
+  cost: $2
+  text: Reduces effect of Disaster-3 by $2
+  count: 2
