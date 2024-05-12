@@ -61,9 +61,9 @@ class BaseCards:
         cards = list(instance.generate(config, show_border=show_border, show_count=show_count))
 
         for i, cards_on_page in enumerate(batched(cards, cls.COLS * cls.ROWS), 1):
-            layout_page(cards_on_page).save(f"./output/{cls.__name__}_{i}.png")
+            layout_page(cards_on_page).save(f"./output/{cls.__name__}_{i:02}.png")
 
         with open(f"./output/{GAME_NAME} - {cls.__name__}.pdf", "wb") as f:
             f.write(img2pdf.convert(sorted(glob.glob(f"./output/{cls.__name__}_*.png"))))
 
-        print(f"Generated {len(cards)} cards.")
+        print(f"Generated {len(cards)} {cls.__name__}.")

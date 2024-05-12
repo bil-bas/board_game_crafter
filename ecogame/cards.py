@@ -23,6 +23,7 @@ class Cards(BaseCards):
     VALUES_Y = mm_to_px(30)
     CENTER_ICON_Y = VALUES_Y + 8
     FLAVOUR_Y = mm_to_px(45)
+    TEXT_Y = mm_to_px(40)
 
     COLS, ROWS = 2, 4
     CONFIG_FILE = "./cards.yaml"
@@ -34,7 +35,7 @@ class Cards(BaseCards):
             for _ in range(count):
                 yield card
 
-    def _card(self, show_border: bool, show_count: bool, title: str, cost: str, image: str = "", text: str = "",
+    def _card(self, show_border: bool, show_count: bool, title: str, cost: str = "", image: str = "", text: str = "",
               left_value: str = "", center_icon: str = "", right_value: str = "", flavour: str = "",
               keywords: list = None, count: int = 1):
 
@@ -44,9 +45,7 @@ class Cards(BaseCards):
         if cost.endswith("$"):
             cost = cost[:-1]
             sized_image = self._images["prosperity"].resize(self.COST_ICON_SIZE, Image.Resampling.LANCZOS)
-            card.paste(sized_image, (self.MARGIN_LEFT + (32 if "/" in cost else 15), self.MARGIN_TOP), mask=sized_image)
-        else:
-            assert cost == "Starting"
+            card.paste(sized_image, (self.MARGIN_LEFT + 10 + (7 * len(cost)), self.MARGIN_TOP), mask=sized_image)
 
         self._font.text(draw, (self.MARGIN_LEFT, self.MARGIN_TOP), str(cost), color=self.INK_COLOR,
                         size=self.FONT_HEIGHT_COST)
@@ -63,12 +62,12 @@ class Cards(BaseCards):
                         size=self.FONT_HEIGHT_TITLE, anchor="ma")
 
         if text:
-            self._font.text(draw, (self.MARGIN_LEFT, self.VALUES_Y), text, color=self.INK_COLOR,
-                            size=self.FONT_HEIGHT_TEXT)
+            self._font.text(draw, (self.MARGIN_LEFT, self.TEXT_Y), text, color=self.INK_COLOR,
+                            size=self.FONT_HEIGHT_TEXT, anchor="lm")
 
         if left_value:
-            left_value = self.unit_icon(card, left_value, (self.MARGIN_LEFT + self.VALUE_MARGIN + 25,
-                                                           self.VALUES_Y))
+            pos = (self.MARGIN_LEFT + self.VALUE_MARGIN + (len(left_value) - 1) * 24, self.VALUES_Y)
+            left_value = self.unit_icon(card, left_value, pos)
             self._font.text(draw, (self.MARGIN_LEFT + self.VALUE_MARGIN, self.VALUES_Y), left_value,
                             color=self.INK_COLOR,
                             size=self.FONT_HEIGHT_VALUE)

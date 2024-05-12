@@ -34,7 +34,7 @@
 -
   title: Nuclear Power
   cost: 3$
-  keywords: [ENERGY, Clean]
+  keywords: [ENERGY, Clean, Kaiju Breeding]
   image: radiation
   right_value: +0P
   flavour: Nuclear energy is perfectly safe...most of the time.
@@ -42,7 +42,7 @@
 -
   title: Fracking
   cost: 2$
-  keywords: [ENERGY, Hydrocarbon]
+  keywords: [ENERGY, Hydrocarbon, Earthquakes]
   left_value: +$
   right_value: +2P
   count: 2
@@ -81,6 +81,62 @@
     Disaster-3 by 2$
   count: 2
 
+# Event cards
+-
+  title: Rising Sea Levels
+  keywords: [EVENT, Global]
+  center_icon: global
+  right_value: -X$
+  count: 3
+-
+  title: Disaster-2
+  keywords: [EVENT, Global]
+  center_icon: global
+  right_value: -X$
+  count: 3
+-
+  title: Disaster-3
+  keywords: [EVENT, Global]
+  center_icon: global
+  right_value: -X$
+  count: 3
+-
+  title: Kaiju Breeding
+  keywords: [EVENT, Global]
+  text: |
+    Nuclear
+    Power
+  center_icon: global
+  right_value: -X$
+  count: 1
+-
+  title: Surprise Earthquakes
+  keywords: [EVENT, Global]
+  text: |
+    Fracking
+  center_icon: global
+  right_value: -X$
+  count: 1
+-
+  title: Global Pandemic
+  keywords: [EVENT, Global]
+  center_icon: global
+  right_value: -2$
+  count: 1
+-
+  title: Colonial War
+  keywords: [EVENT]
+  right_value: +2P
+  count: 1
+-
+  title: Major Oil Spill
+  keywords: [EVENT]
+  right_value: +2P
+  count: 1
+-
+  title: Nothing Happens
+  keywords: [EVENT]
+  count: 1
 
 # General cards
 -
@@ -95,14 +151,14 @@
   count: 4
 -
   title: Development
-  cost: 3$
+  cost: 2$
   text: Other player
   center_icon: then
   right_value: +3$
   count: 2
 -
   title: Electric cars
-  cost: 4$
+  cost: 3$
   text: |
     Clean
     ENERGY
@@ -112,12 +168,12 @@
   count: 2
 -
   title: Public Transport
-  cost: 3$
+  cost: 4$
   right_value: -P
   count: 3
 -
   title: Large Scale Storage
-  cost: 4/2$
+  cost: 5/3$
   text: |
     Variable
     ENERGY
@@ -133,10 +189,19 @@
   count: 2
 -
   title: Cleanup
+  keywords: ["INSTANT"]
   cost: 4$
-  left_value: Instant
-  right_value: -3P
+  text: Instant
+  right_value: -4P
   count: 4
+-
+  title: Ocean Cleanup Crew
+  keywords: [Optional]
+  cost: 2$
+  left_value: -$
+  center_icon: question-sign
+  right_value: -P
+  count: 2
 -
   title: Recycling
   cost: 4$
@@ -151,7 +216,7 @@
 -
   title: Green-washing
   cost: 4$
-  right_value: -P
+  right_value: +$
   flavour: Sell more, at higher prices, by simply convincing the public that you are environmentally conscious.
   count: 2
 -
@@ -163,18 +228,33 @@
   title: Fusion Research
   keywords: [Risky]
   image: radiation
-  cost: 6$
+  cost: 5$
   text: |
     Round 10
     only
   center_icon: coin flip
-  right_value: -P
+  right_value: -9P
 -
   title: Built In Obsolescence
   cost: 0$
   left_value: +$
   right_value: -P
   flavour: Make things that break quickly and can’t be repaired, so we need to buy new ones.
+  count: 2
+-
+  title: Burning Rainforests
+  cost: -3$
+  keywords: ["INSTANT"]
+  text: Instant
+  right_value: +3P
+  flavour: Destroying habitats through deforestation for short-term agricultural productivity of, for example, palm oil.
+  count: 2
+-
+  title: Outsourcing Prod.
+  cost: 3$
+  left_value: +2$
+  right_value: +2P
+  flavour: Sending factories to developing countries reduces costs, but creates humanitarian abuses and unnecessary pollution.
   count: 2
 -
   title: Renewable Subsidies
