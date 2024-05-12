@@ -7,9 +7,12 @@ import glob
 from itertools import batched
 
 import img2pdf
-
+from ecogame.layout_page import layout_page
 from ecogame.cards import Cards
-from ecogame.layout_page import layout_page, COLS, ROWS
+from ecogame.player_cards import PlayerCards
+
+
+
 
 
 def create_parser():
@@ -26,17 +29,15 @@ def parse(parser):
     for folder in ("output", ):
         os.makedirs(folder, exist_ok=True)
 
-    with open(f"./cards.yaml") as f:
-        config = yaml.load(f, Loader=yaml.SafeLoader)
+    create_cards(show_border=args.show_border, show_count=args.show_count)
 
-    cards = list(Cards().generate(config, show_border=args.show_border, show_count=args.show_count))
-    for i, cards_on_page in enumerate(batched(cards, COLS * ROWS), 1):
-        layout_page(cards_on_page).save(f"./output/page_{i}.png")
 
-    with open(f"./output/cards.pdf", "wb") as f:
-        f.write(img2pdf.convert(sorted(glob.glob(f"./output/page_*.png"))))
+def create_cards(show_border, show_count):
+    for filename in glob.glob(f"./output/*.png"):
+        os.remove(filename)
 
-    print(f"Generated {len(cards)} cards.")
+    Cards.create_cards(show_border, show_count)
+    PlayerCards.create_cards(show_border, show_count)
 
 
 if __name__ == "__main__":

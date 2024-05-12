@@ -1,0 +1,61 @@
+---
+-
+  name: The Big Pear
+  image: pear
+  initial:
+    prosperity: 5
+    pollution: 10
+  income:
+    prosperity: 2
+    pollution: 2
+  products: Thinking machines
+  pollutions: Microplastics and heavy metals.
+  flavour: ""
+-
+  name: The Little Bean
+  image: question-sign
+  initial:
+    prosperity: 1
+    pollution: 0
+  income:
+    prosperity: 2
+    pollution: 2
+  products: Beans
+  pollutions: ???
+  flavour: ""
+-
+  name: Player-3
+  image: question-sign
+  initial:
+    prosperity: 3
+    pollution: 5
+  income:
+    prosperity: 2
+    pollution: 2
+  products: ???
+  pollutions: ???
+  flavour: ""
+-
+  name: Player-4
+  image: question-sign
+  initial:
+    prosperity: 3
+    pollution: 5
+  income:
+    prosperity: 2
+    pollution: 2
+  products: ???
+  pollutions: ???
+  flavour: ""
+-
+  name: Player-5
+  image: question-sign
+  initial:
+    prosperity: 3
+    pollution: 5
+  income:
+    prosperity: 2
+    pollution: 2
+  products: ???
+  pollutions: ???
+  flavour: ""
