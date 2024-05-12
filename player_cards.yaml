@@ -6,11 +6,9 @@
     prosperity: 5
     pollution: 10
   income:
-    prosperity: 2
-    pollution: 2
-  products: Thinking machines
-  pollutions: Microplastics and heavy metals.
-  flavour: ""
+    prosperity: +2
+    pollution: +2
+  flavour: Makes flashy thinking machines and spews out microplastics and heavy metals. Public perception of their luxury goods is more important than anything else.
 -
   name: The Little Bean
   image: question-sign
@@ -20,9 +18,7 @@
   income:
     prosperity: 2
     pollution: 2
-  products: Beans
-  pollutions: ???
-  flavour: ""
+  flavour: Barely has two beans to rub together.
 -
   name: Player-3
   image: question-sign
@@ -32,8 +28,6 @@
   income:
     prosperity: 2
     pollution: 2
-  products: ???
-  pollutions: ???
   flavour: ""
 -
   name: Player-4
@@ -44,8 +38,6 @@
   income:
     prosperity: 2
     pollution: 2
-  products: ???
-  pollutions: ???
   flavour: ""
 -
   name: Player-5
@@ -56,6 +48,4 @@
   income:
     prosperity: 2
     pollution: 2
-  products: ???
-  pollutions: ???
   flavour: ""
