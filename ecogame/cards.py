@@ -52,7 +52,7 @@ class Cards(BaseCards):
         if keywords:
             for i, keyword in enumerate(keywords):
                 self._font.text(draw, (self.CARD_WIDTH - self.MARGIN_RIGHT,
-                                       self.MARGIN_TOP + self.FONT_HEIGHT_KEYWORDS * i),
+                                       self.MARGIN_TOP + (self.FONT_HEIGHT_KEYWORDS + 2) * i),
                                 keyword, anchor="ra", color=self.INK_COLOR, size=self.FONT_HEIGHT_KEYWORDS)
 
         self._font.text(draw, (self.CARD_WIDTH // 2, self.TITLE_Y), title, color=self.INK_COLOR,
