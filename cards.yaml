@@ -10,7 +10,7 @@
   title: Coal
   cost: Starting
   keywords: [ENERGY, Hydrocarbon]
-  right_value: +P
+  right_value: +2P
   count: 5
 
 
@@ -41,14 +41,14 @@
   count: 3
 -
   title: Fracking
-  cost: 2$
+  cost: $
   keywords: [ENERGY, Hydrocarbon, Earthquakes]
   left_value: +$
   right_value: +2P
   count: 2
 -
   title: Biomass
-  cost: 2$
+  cost: 3$
   keywords: [ENERGY]
   left_value: +$
   right_value: +P
@@ -173,7 +173,7 @@
   count: 3
 -
   title: Large Scale Storage
-  cost: 5/3$
+  cost: 4/2$
   text: |
     Variable
     ENERGY
@@ -183,8 +183,10 @@
   count: 2
 -
   title: Reforestation
-  cost: 0$
+  keywords: [Optional]
+  cost: 1$
   left_value: -$
+  center_icon: question-sign
   right_value: -P
   count: 2
 -
@@ -195,9 +197,9 @@
   right_value: -4P
   count: 4
 -
-  title: Ocean Cleanup Crew
+  title: Ocean Cleaning Ship
   keywords: [Optional]
-  cost: 2$
+  cost: 1$
   left_value: -$
   center_icon: question-sign
   right_value: -P
@@ -215,7 +217,11 @@
   count: 2
 -
   title: Green-washing
-  cost: 4$
+  cost: 3$
+  text: |
+    Hydrocarbon
+    ENERGY
+  center_icon: then
   right_value: +$
   flavour: Sell more, at higher prices, by simply convincing the public that you are environmentally conscious.
   count: 2
@@ -242,7 +248,7 @@
   flavour: Make things that break quickly and can’t be repaired, so we need to buy new ones.
   count: 2
 -
-  title: Burning Rainforests
+  title: Razing Rainforests
   cost: -3$
   keywords: ["INSTANT"]
   text: Instant

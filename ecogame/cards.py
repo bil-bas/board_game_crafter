@@ -23,7 +23,7 @@ class Cards(BaseCards):
     VALUES_Y = mm_to_px(30)
     CENTER_ICON_Y = VALUES_Y + 8
     FLAVOUR_Y = mm_to_px(45)
-    TEXT_Y = mm_to_px(40)
+    TEXT_Y = mm_to_px(37)
 
     COLS, ROWS = 2, 4
     CONFIG_FILE = "./cards.yaml"
@@ -42,35 +42,31 @@ class Cards(BaseCards):
         card = Image.new("RGBA", (self.CARD_WIDTH, self.CARD_HEIGHT), self.BACKGROUND_COLOR)
         draw = ImageDraw.Draw(card)
 
-        if cost.endswith("$"):
-            cost = cost[:-1]
-            sized_image = self._images["prosperity"].resize(self.COST_ICON_SIZE, Image.Resampling.LANCZOS)
-            card.paste(sized_image, (self.MARGIN_LEFT + 10 + (7 * len(cost)), self.MARGIN_TOP), mask=sized_image)
-
-        self._font.text(draw, (self.MARGIN_LEFT, self.MARGIN_TOP), str(cost), color=self.INK_COLOR,
-                        size=self.FONT_HEIGHT_COST)
+        self._value(card, draw, (self.MARGIN_LEFT, self.MARGIN_TOP), cost,
+                    size=self.FONT_HEIGHT_COST)
 
         if image:
             sized_image = self._images[image].resize(self.IMAGE_SIZE, Image.Resampling.LANCZOS)
             card.paste(sized_image, ((self.CARD_WIDTH - self.IMAGE_SIZE[0]) // 2, self.MARGIN_TOP), mask=sized_image)
 
         if keywords:
-            self._font.text(draw, (self.CARD_WIDTH - self.MARGIN_RIGHT, self.MARGIN_TOP), "\n".join(keywords),
-                            anchor="ra", color=self.INK_COLOR, size=self.FONT_HEIGHT_KEYWORDS)
+            for i, keyword in enumerate(keywords):
+                self._font.text(draw, (self.CARD_WIDTH - self.MARGIN_RIGHT,
+                                       self.MARGIN_TOP + self.FONT_HEIGHT_KEYWORDS * i),
+                                keyword, anchor="ra", color=self.INK_COLOR, size=self.FONT_HEIGHT_KEYWORDS)
 
         self._font.text(draw, (self.CARD_WIDTH // 2, self.TITLE_Y), title, color=self.INK_COLOR,
                         size=self.FONT_HEIGHT_TITLE, anchor="ma")
 
         if text:
-            self._font.text(draw, (self.MARGIN_LEFT, self.TEXT_Y), text, color=self.INK_COLOR,
+            self._font.text(draw, (self.MARGIN_LEFT, self.TEXT_Y), text.strip(), color=self.INK_COLOR,
                             size=self.FONT_HEIGHT_TEXT, anchor="lm")
 
         if left_value:
-            pos = (self.MARGIN_LEFT + self.VALUE_MARGIN + (len(left_value) - 1) * 24, self.VALUES_Y)
-            left_value = self.unit_icon(card, left_value, pos)
-            self._font.text(draw, (self.MARGIN_LEFT + self.VALUE_MARGIN, self.VALUES_Y), left_value,
-                            color=self.INK_COLOR,
-                            size=self.FONT_HEIGHT_VALUE)
+            self._value(card, draw,
+                        (self.MARGIN_LEFT + self.VALUE_MARGIN, self.VALUES_Y),
+                        left_value,
+                        size=self.FONT_HEIGHT_VALUE)
 
         if center_icon:
             sized_image = self._images[center_icon].resize(self.CENTER_ICON_SIZE, Image.Resampling.LANCZOS)
@@ -78,11 +74,9 @@ class Cards(BaseCards):
                        mask=sized_image)
 
         if right_value:
-            x = self.CARD_WIDTH - self.MARGIN_RIGHT - self.VALUE_MARGIN - self.UNIT_SIZE[0]
-            right_value = self.unit_icon(card, right_value, (x, self.VALUES_Y))
-
-            self._font.text(draw, (self.CARD_WIDTH - self.MARGIN_RIGHT - self.VALUE_MARGIN, self.VALUES_Y),
-                            right_value, color=self.INK_COLOR, size=self.FONT_HEIGHT_VALUE, anchor="ra")
+            x = self.CARD_WIDTH - self.MARGIN_RIGHT - self.VALUE_MARGIN
+            self._value(card, draw, (x, self.VALUES_Y), right_value, size=self.FONT_HEIGHT_VALUE,
+                        right_justify=True)
 
         if flavour:
             self._font.text(draw, (self.MARGIN_LEFT, self.CARD_HEIGHT - self.MARGIN_BOTTOM), flavour,

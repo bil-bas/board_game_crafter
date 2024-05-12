@@ -29,6 +29,8 @@ class BaseCards:
     CONFIG_FILE = None
     COLS, ROWS = None, None
 
+    TEXT_ICON_SPACING = 2
+
     def __init__(self):
         self._font = Font("Arimo-Bold")
         self._images = {os.path.basename(im)[:-4]: Image.open(im) for im in glob.glob("./images/*.png")}
@@ -36,20 +38,31 @@ class BaseCards:
     def generate(self, config: hash, show_border: bool, show_count: bool) -> list:
         raise NotImplementedError
 
-    def unit_icon(self, card, value: str, position: tuple):
+    def _value(self, card, draw, position: tuple, value: str, size: int, right_justify: bool = False):
         if value.endswith("P"):
             icon = "pollution"
+            value = value[:-1]
         elif value.endswith("$"):
             icon = "prosperity"
+            value = value[:-1]
         else:
             icon = None
 
-        if icon:
-            value = value[:-1] + "    "
-            sized_image = self._images[icon].resize(self.UNIT_SIZE, Image.Resampling.LANCZOS)
-            card.paste(sized_image, position, mask=sized_image)
+        text_width = self._font.width(value, size)
 
-        return value
+        x, y = position
+        if right_justify:
+            text_x = x - text_width - size - self.TEXT_ICON_SPACING
+            icon_x = x - size
+        else:
+            text_x = x
+            icon_x = x + text_width + self.TEXT_ICON_SPACING
+
+        self._font.text(draw, (text_x, y), value, color=self.INK_COLOR, size=size)
+
+        if icon:
+            sized_image = self._images[icon].resize((size, size), Image.Resampling.LANCZOS)
+            card.paste(sized_image, (icon_x, y), mask=sized_image)
 
     @classmethod
     def create_cards(cls, show_border, show_count):
