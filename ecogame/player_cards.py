@@ -6,18 +6,18 @@ from ecogame.base_cards import BaseCards
 
 
 class PlayerCards(BaseCards):
-    CARD_WIDTH, CARD_HEIGHT = mm_to_px(88.9), mm_to_px(63.5 * 2)
+    CARD_WIDTH, CARD_HEIGHT = mm_to_px(63.5 ), mm_to_px(88.9)
     MARGIN_LEFT, MARGIN_RIGHT = mm_to_px(7), mm_to_px(7)
-    MARGIN_TOP, MARGIN_BOTTOM = mm_to_px(8), mm_to_px(8)
+    MARGIN_TOP, MARGIN_BOTTOM = mm_to_px(5), mm_to_px(5)
     INNER_WIDTH = CARD_WIDTH - MARGIN_LEFT - MARGIN_RIGHT
     INNER_HEIGHT = CARD_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
-    NAME_Y = mm_to_px(70)
-    VALUES_Y = mm_to_px(80)
-    IMAGE_SIZE = mm_to_px(57), mm_to_px(57)
+    NAME_Y = mm_to_px(40)
+    VALUES_Y = mm_to_px(50)
+    IMAGE_SIZE = mm_to_px(30), mm_to_px(30)
     COST_ICON_SIZE = 22, 22
-    VALUE_MARGIN = mm_to_px(12)
+    VALUE_MARGIN = mm_to_px(0)
 
-    COLS, ROWS = 2, 2
+    COLS, ROWS = 2, 3
     CONFIG_FILE = "./player_cards.yaml"
 
     def generate(self, config: hash, show_border: bool, show_count: bool) -> list:
@@ -66,7 +66,7 @@ class PlayerCards(BaseCards):
 
         if flavour:
             self._font.text(draw, (self.MARGIN_LEFT, self.CARD_HEIGHT - self.MARGIN_BOTTOM), flavour,
-                            color=self.INK_COLOR, size=self.FONT_HEIGHT_FLAVOUR, wrap_width=44, anchor="ld")
+                            color=self.INK_COLOR, size=self.FONT_HEIGHT_FLAVOUR, wrap_width=32, anchor="ld")
 
         if show_border:
             draw.rectangle((0, 0, self.CARD_WIDTH - 1, self.CARD_HEIGHT - 1), outline=(210, 210, 210, 255))

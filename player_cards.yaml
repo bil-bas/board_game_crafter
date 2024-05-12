@@ -3,49 +3,49 @@
   name: The Big Pear
   image: pear
   initial:
-    prosperity: 5
-    pollution: 10
+    prosperity: 6
+    pollution: 8
   income:
-    prosperity: +2
-    pollution: +2
+    prosperity: 3
+    pollution: 2
   flavour: Makes flashy thinking machines and spews out microplastics and heavy metals. Public perception of their luxury goods is more important than anything else.
 -
   name: The Little Bean
   image: question-sign
   initial:
-    prosperity: 1
+    prosperity: 2
     pollution: 0
   income:
-    prosperity: 2
+    prosperity: 3
     pollution: 2
   flavour: Barely has two beans to rub together.
 -
   name: Player-3
   image: question-sign
   initial:
-    prosperity: 3
-    pollution: 5
+    prosperity: 4
+    pollution: 4
   income:
-    prosperity: 2
+    prosperity: 3
     pollution: 2
   flavour: ""
 -
   name: Player-4
   image: question-sign
   initial:
-    prosperity: 3
-    pollution: 5
+    prosperity: 4
+    pollution: 4
   income:
-    prosperity: 2
+    prosperity: 3
     pollution: 2
   flavour: ""
 -
   name: Player-5
   image: question-sign
   initial:
-    prosperity: 3
-    pollution: 5
+    prosperity: 4
+    pollution: 4
   income:
-    prosperity: 2
+    prosperity: 3
     pollution: 2
   flavour: ""

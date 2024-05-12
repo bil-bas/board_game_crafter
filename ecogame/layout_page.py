@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw
 from ecogame.utils import A4_WIDTH, A4_HEIGHT, mm_to_px
 
 
-MARGIN_LEFT, MARGIN_TOP = mm_to_px(13), mm_to_px(13)
+MARGIN = mm_to_px(13)
 SPACING = mm_to_px(6)
 REG_MARGIN = mm_to_px(10)
 REG_LEFT, REG_TOP = REG_MARGIN, REG_MARGIN
@@ -15,14 +15,14 @@ def layout_page(cards):
     page = Image.new("RGBA", (A4_WIDTH, A4_HEIGHT), (255, 255, 255, 255))
     draw = ImageDraw.Draw(page)
 
-    cols, rows = A4_WIDTH // cards[0].width, A4_HEIGHT // cards[0].height
+    cols, rows = (A4_WIDTH - MARGIN * 2) // cards[0].width, (A4_HEIGHT - MARGIN * 2) // cards[0].height
     for row in range(rows):
         for col in range(cols):
             try:
                 index = row * cols + col
                 card = cards[index]
-                page.paste(card, (MARGIN_LEFT + col * (card.width + SPACING),
-                                  MARGIN_TOP + row * (card.height + SPACING)))
+                page.paste(card, (MARGIN + col * (card.width + SPACING),
+                                  MARGIN + row * (card.height + SPACING)))
             except IndexError:
                 break
 
