@@ -26,13 +26,6 @@ class DriveAPI:
         # Connect to the API service
         self.service = build('drive', 'v3', credentials=self.creds)
 
-        # request a list of first N files or
-        # folders with name and id from the API.
-        # resource = self.service.files()
-        # results = resource.list(pageSize=100, fields="files(id, name)").execute()
-        # items = results.get('files')
-        # print(*items, sep="\n", end="\n\n")
-
     def verify(self):
         # Check if file token.pickle exists
         if os.path.exists(self.PICKLE_FILE):
@@ -40,6 +33,7 @@ class DriveAPI:
             # store it in the variable self.creds
             with open(self.PICKLE_FILE, 'rb') as token:
                 self.creds = pickle.load(token)
+
         # If no valid credentials are available,
         # request the user to log in.
         if not self.creds or not self.creds.valid:
@@ -57,10 +51,7 @@ class DriveAPI:
                 pickle.dump(self.creds, token)
 
     def upload(self, filepath):
-        # Extract the file name out of the file path
         name = os.path.basename(filepath)
-
-        # Find the MimeType of the file
         mimetype = MimeTypes().guess_type(name)[0]
 
         # create file metadata
@@ -69,12 +60,38 @@ class DriveAPI:
             'mimetype': mimetype,
         }
 
+        media = MediaFileUpload(filepath)
+
         try:
-            media = MediaFileUpload(filepath, mimetype=mimetype)
             files = self.service.files()
-            results = files.list(fields='files(id)', q=f"name='{name}' and trashed=false").execute()
-            file_id = results.get("files")[0]["id"]
+            file_id = self._get_file_id(files, name)
             result = files.update(body=metadata, media_body=media, fields='version', fileId=file_id).execute()
-            print(f"File Uploaded: {os.path.basename(filepath)} (version {result['version']})")
         except Exception as ex:
             raise RuntimeError(f"Can't Upload File: {ex}")
+
+        print(f"File Uploaded: {name} (version {result['version']})")
+
+    def download_doc_as_pdf(self, filepath):
+        name = os.path.basename(filepath)
+        fh = io.FileIO(filepath, 'wb')
+
+        try:
+            files = self.service.files()
+            file_id = self._get_file_id(files, os.path.splitext(name)[0])
+            request = self.service.files().export(fileId=file_id, mimeType="application/pdf")
+
+            downloader = MediaIoBaseDownload(fh, request, chunksize=204800)
+            done = False
+            while not done:
+                status, done = downloader.next_chunk()
+        except Exception as ex:
+            raise RuntimeError(f"Can't Download File: {ex}")
+
+        print(f"File Downloaded: {name}")
+
+    def _get_file_id(self, files, name):
+        query = f"name='{name}' and trashed=false and '{self.FOLDER_ID}' in parents"
+        results = files.list(fields='files(id)', q=query).execute()
+        file_id = results.get("files")[0]["id"]
+        return file_id
+

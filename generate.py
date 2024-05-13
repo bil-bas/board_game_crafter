@@ -24,7 +24,7 @@ def create_parser():
 def parse(parser):
     args = parser.parse_args()
 
-    for folder in ("output", ):
+    for folder in ("output/print-and-play", ):
         os.makedirs(folder, exist_ok=True)
 
     for filename in glob.glob(f"./output/*.png"):
@@ -37,6 +37,8 @@ def parse(parser):
         google_api = DriveAPI()
         for name in glob.glob("./output/*.pdf"):
             google_api.upload(name)
+
+        google_api.download_doc_as_pdf("./output/print-and-play/Ecogame for E2M - Rules.pdf")
 
 
 if __name__ == "__main__":
