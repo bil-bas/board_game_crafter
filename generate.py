@@ -7,6 +7,7 @@ import glob
 from ecogame.cards import Cards
 from ecogame.player_cards import PlayerCards
 from ecogame.disaster_cards import DisasterCards
+from ecogame.disaster_dice import DisasterDice
 
 
 def create_parser():
@@ -27,7 +28,7 @@ def parse(parser):
     for filename in glob.glob(f"./output/*.png"):
         os.remove(filename)
 
-    for cards in [Cards, PlayerCards, DisasterCards]:
+    for cards in [Cards, PlayerCards, DisasterCards, DisasterDice]:
         cards.create_cards(args.show_border, args.show_count)
 
 
