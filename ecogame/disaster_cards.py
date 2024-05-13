@@ -8,7 +8,7 @@ class DisasterCards(PortraitCards, BaseCards):
     TABLE_Y = mm_to_px(35)
     TABLE_ROW_HEIGHT = mm_to_px(12)
     TABLE_COL_WIDTH = mm_to_px(25)
-    FONT_HEIGHT_TABLE = 20
+    FONT_HEIGHT_TABLE = 24
     FONT_HEIGHT_PLAYERS = 24
     PLAYERS_Y = mm_to_px(18)
 
@@ -43,7 +43,7 @@ class DisasterCards(PortraitCards, BaseCards):
             if add:
                 add_value = f" + {add}$"
             else:
-                add_value = "$"
+                add_value = " $"
             self._value(card, draw, (center + sized_image.width, y), add_value, size=self.FONT_HEIGHT_TABLE)
 
         # End of civilisation!
