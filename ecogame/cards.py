@@ -1,23 +1,13 @@
-import os
-import glob
-
 from PIL import Image, ImageDraw
 
-from ecogame.utils import mm_to_px, Font
-from ecogame.base_cards import BaseCards
+from ecogame.utils import mm_to_px
+from ecogame.base_cards import BaseCards, LandscapeCards
 
 
-class Cards(BaseCards):
-    CARD_WIDTH, CARD_HEIGHT = mm_to_px(88.9), mm_to_px(63.5)
-    MARGIN_LEFT, MARGIN_RIGHT = mm_to_px(7), mm_to_px(7)
-    MARGIN_TOP, MARGIN_BOTTOM = mm_to_px(5), mm_to_px(5)
-
+class Cards(LandscapeCards, BaseCards):
     CENTER_ICON_SIZE = 32, 32
     IMAGE_SIZE = 60, 60
     COST_ICON_SIZE = 22, 22
-
-    INNER_WIDTH = CARD_WIDTH - MARGIN_LEFT - MARGIN_RIGHT
-    INNER_HEIGHT = CARD_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
     VALUE_MARGIN = mm_to_px(8)
     TITLE_Y = mm_to_px(20)
     VALUES_Y = mm_to_px(30)
@@ -25,8 +15,7 @@ class Cards(BaseCards):
     FLAVOUR_Y = mm_to_px(45)
     TEXT_Y = mm_to_px(37)
 
-    COLS, ROWS = 2, 4
-    CONFIG_FILE = "./cards.yaml"
+    CONFIG_FILE = "./config/cards.yaml"
 
     def generate(self, config: hash, show_border: bool, show_count: bool) -> list:
         for card_config in config:
@@ -46,7 +35,7 @@ class Cards(BaseCards):
                     size=self.FONT_HEIGHT_COST)
 
         if image:
-            sized_image = self._images[image].resize(self.IMAGE_SIZE, Image.Resampling.LANCZOS)
+            sized_image = self._image(image, self.IMAGE_SIZE)
             card.paste(sized_image, ((self.CARD_WIDTH - self.IMAGE_SIZE[0]) // 2, self.MARGIN_TOP), mask=sized_image)
 
         if keywords:
@@ -69,7 +58,7 @@ class Cards(BaseCards):
                         size=self.FONT_HEIGHT_VALUE)
 
         if center_icon:
-            sized_image = self._images[center_icon].resize(self.CENTER_ICON_SIZE, Image.Resampling.LANCZOS)
+            sized_image = self._image(center_icon, self.CENTER_ICON_SIZE)
             card.paste(sized_image, box=((self.CARD_WIDTH - self.CENTER_ICON_SIZE[0]) // 2, self.CENTER_ICON_Y),
                        mask=sized_image)
 

@@ -2,14 +2,11 @@
 
 import argparse
 import os
-import yaml
 import glob
-from itertools import batched
 
-import img2pdf
-from ecogame.layout_page import layout_page
 from ecogame.cards import Cards
 from ecogame.player_cards import PlayerCards
+from ecogame.disaster_cards import DisasterCards
 
 
 def create_parser():
@@ -30,8 +27,8 @@ def parse(parser):
     for filename in glob.glob(f"./output/*.png"):
         os.remove(filename)
 
-    Cards.create_cards(args.show_border, args.show_count)
-    PlayerCards.create_cards(args.show_border, args.show_count)
+    for cards in [Cards, PlayerCards, DisasterCards]:
+        cards.create_cards(args.show_border, args.show_count)
 
 
 if __name__ == "__main__":

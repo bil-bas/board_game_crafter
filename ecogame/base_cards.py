@@ -7,7 +7,7 @@ from PIL import Image
 import img2pdf
 
 from ecogame.layout_page import layout_page
-from ecogame.utils import Font
+from ecogame.utils import Font, mm_to_px
 
 GAME_NAME = "Ecogame for E2M"
 
@@ -61,7 +61,8 @@ class BaseCards:
         self._font.text(draw, (text_x, y), value, color=self.INK_COLOR, size=size)
 
         if icon:
-            sized_image = self._images[icon].resize((size, size), Image.Resampling.LANCZOS)
+            sized_image = self._image(icon, (size, size))
+
             card.paste(sized_image, (icon_x, y), mask=sized_image)
 
     @classmethod
@@ -80,3 +81,27 @@ class BaseCards:
             f.write(img2pdf.convert(sorted(glob.glob(f"./output/{cls.__name__}_*.png"))))
 
         print(f"Generated {len(cards)} {cls.__name__}.")
+
+    def _image(self, name, size):
+        sized_image = self._images[name].resize(size, Image.Resampling.LANCZOS)
+        return sized_image
+
+
+class PortraitCards:
+    CARD_WIDTH, CARD_HEIGHT = mm_to_px(63.5), mm_to_px(88.9)
+    MARGIN_LEFT, MARGIN_RIGHT = mm_to_px(7), mm_to_px(7)
+    MARGIN_TOP, MARGIN_BOTTOM = mm_to_px(5), mm_to_px(5)
+    INNER_WIDTH = CARD_WIDTH - MARGIN_LEFT - MARGIN_RIGHT
+    INNER_HEIGHT = CARD_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
+
+    COLS, ROWS = 2, 3
+
+
+class LandscapeCards:
+    CARD_WIDTH, CARD_HEIGHT = mm_to_px(88.9), mm_to_px(63.5)
+    MARGIN_LEFT, MARGIN_RIGHT = mm_to_px(5), mm_to_px(5)
+    MARGIN_TOP, MARGIN_BOTTOM = mm_to_px(7), mm_to_px(7)
+    INNER_WIDTH = CARD_WIDTH - MARGIN_LEFT - MARGIN_RIGHT
+    INNER_HEIGHT = CARD_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
+
+    COLS, ROWS = 2, 4

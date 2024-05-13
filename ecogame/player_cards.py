@@ -1,23 +1,16 @@
-
 from PIL import Image, ImageDraw
 
 from ecogame.utils import mm_to_px
-from ecogame.base_cards import BaseCards
+from ecogame.base_cards import BaseCards, PortraitCards
 
 
-class PlayerCards(BaseCards):
-    CARD_WIDTH, CARD_HEIGHT = mm_to_px(63.5 ), mm_to_px(88.9)
-    MARGIN_LEFT, MARGIN_RIGHT = mm_to_px(7), mm_to_px(7)
-    MARGIN_TOP, MARGIN_BOTTOM = mm_to_px(5), mm_to_px(5)
-    INNER_WIDTH = CARD_WIDTH - MARGIN_LEFT - MARGIN_RIGHT
-    INNER_HEIGHT = CARD_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
+class PlayerCards(PortraitCards, BaseCards):
     NAME_Y = mm_to_px(40)
     VALUES_Y = mm_to_px(50)
     IMAGE_SIZE = mm_to_px(30), mm_to_px(30)
     VALUE_MARGIN = mm_to_px(0)
 
-    COLS, ROWS = 2, 3
-    CONFIG_FILE = "./player_cards.yaml"
+    CONFIG_FILE = "./config/player_cards.yaml"
 
     def generate(self, config: hash, show_border: bool, show_count: bool) -> list:
         for card_config in config:
@@ -28,19 +21,17 @@ class PlayerCards(BaseCards):
         draw = ImageDraw.Draw(card)
 
         # Image
-        sized_image = self._images[image].resize(self.IMAGE_SIZE, Image.Resampling.LANCZOS)
+        sized_image = self._image(image, self.IMAGE_SIZE)
         card.paste(sized_image, ((self.CARD_WIDTH - self.IMAGE_SIZE[0]) // 2, self.MARGIN_TOP), mask=sized_image)
 
         # Initial prosperity
         self._value(card, draw, (self.MARGIN_LEFT, self.MARGIN_TOP),
-                              f"{initial['prosperity']}$",
-                    size=self.FONT_HEIGHT_COST)
+                    f"{initial['prosperity']}$", size=self.FONT_HEIGHT_COST)
 
         # Initial pollution
         self._value(card, draw,
                     (self.CARD_WIDTH - self.MARGIN_RIGHT, self.MARGIN_TOP),
-                              f"{initial['pollution']}P",
-                    size=self.FONT_HEIGHT_COST, right_justify=True)
+                    f"{initial['pollution']}P", size=self.FONT_HEIGHT_COST, right_justify=True)
 
         # Name
         self._font.text(draw, (self.CARD_WIDTH // 2, self.NAME_Y), name, color=self.INK_COLOR,
