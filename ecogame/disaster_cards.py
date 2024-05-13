@@ -8,7 +8,7 @@ class DisasterCards(PortraitCards, BaseCards):
     TABLE_Y = mm_to_px(35)
     TABLE_ROW_HEIGHT = mm_to_px(12)
     TABLE_COL_WIDTH = mm_to_px(25)
-    FONT_HEIGHT_TABLE = 24
+    FONT_HEIGHT_TABLE = 20
     FONT_HEIGHT_PLAYERS = 24
     PLAYERS_Y = mm_to_px(18)
 
@@ -31,20 +31,22 @@ class DisasterCards(PortraitCards, BaseCards):
 
         # Effects table.
         center = self.MARGIN_LEFT + self.TABLE_COL_WIDTH
-        sized_image = self._image("dice", (self.FONT_HEIGHT_TABLE, self.FONT_HEIGHT_TABLE))
+        dice_image = self._image("dice", (self.FONT_HEIGHT_TABLE, self.FONT_HEIGHT_TABLE))
+        then_image = self._image("then", (self.FONT_HEIGHT_TABLE, self.FONT_HEIGHT_TABLE))
 
         for add, multiplier in enumerate(range(8, 20, 4)):
             y = self.TABLE_Y + self.TABLE_ROW_HEIGHT * add
-            self._font.text(draw, (center, y),
-                            f"{multiplier * number_of_players}-{(multiplier + 2) * number_of_players - 1}: ",
-                            color=self.INK_COLOR, size=self.FONT_HEIGHT_TABLE, anchor="ra")
+            label = f"{multiplier * number_of_players}-{(multiplier + 2) * number_of_players - 1}P"
+            self._value(card, draw, (center - then_image.width - 2, y), label, size=self.FONT_HEIGHT_TABLE,
+                        right_justify=True)
 
-            card.paste(sized_image, (center, y), mask=sized_image)
+            card.paste(then_image, (center - dice_image.width, y), mask=then_image)
+            card.paste(dice_image, (center + 4, y), mask=dice_image)
             if add:
                 add_value = f" + {add}$"
             else:
                 add_value = " $"
-            self._value(card, draw, (center + sized_image.width, y), add_value, size=self.FONT_HEIGHT_TABLE)
+            self._value(card, draw, (center + dice_image.width + 4, y), add_value, size=self.FONT_HEIGHT_TABLE)
 
         # End of civilisation!
         self._font.text(draw, (center, self.TABLE_Y + self.TABLE_ROW_HEIGHT * 3),
