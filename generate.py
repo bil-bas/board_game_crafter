@@ -3,12 +3,15 @@
 import argparse
 import os
 import glob
+import pathlib
+import zipfile
 
 from ecogame.cards import Cards
 from ecogame.player_cards import PlayerCards
 from ecogame.disaster_cards import DisasterCards
 from ecogame.disaster_dice import DisasterDice
 from ecogame.cloud_api import DriveAPI
+from ecogame.base_cards import GAME_NAME
 
 
 def create_parser():
@@ -24,7 +27,7 @@ def create_parser():
 def parse(parser):
     args = parser.parse_args()
 
-    for folder in ("output/print-and-play", ):
+    for folder in ("output/download", ):
         os.makedirs(folder, exist_ok=True)
 
     for filename in glob.glob(f"./output/*.png"):
@@ -38,7 +41,21 @@ def parse(parser):
         for name in glob.glob("./output/*.pdf"):
             google_api.upload(name)
 
-        google_api.download_doc_as_pdf("./output/print-and-play/Ecogame for E2M - Rules.pdf")
+        google_api.download_doc_as_pdf(f"./output/download/{GAME_NAME} - Rules.pdf")
+
+        p_and_p_file = f"./output/{GAME_NAME} - print-and-play.zip"
+        create_p_and_p(p_and_p_file)
+        google_api.upload(p_and_p_file)
+
+
+def create_p_and_p(p_and_p_file):
+    pathlib.Path(p_and_p_file).unlink(missing_ok=True)
+    with zipfile.ZipFile(p_and_p_file, "x", compresslevel=zipfile.ZIP_LZMA) as z_file:
+        for name in glob.glob("./output/download/*"):
+            z_file.write(name, os.path.basename(name))
+
+        for name in glob.glob("./output/*.pdf"):
+            z_file.write(name, os.path.basename(name))
 
 
 if __name__ == "__main__":
