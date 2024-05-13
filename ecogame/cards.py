@@ -6,10 +6,9 @@ from ecogame.base_cards import BaseCards, LandscapeCards
 
 class Cards(LandscapeCards, BaseCards):
     CENTER_ICON_SIZE = 32, 32
-    IMAGE_SIZE = 60, 60
-    COST_ICON_SIZE = 22, 22
+    IMAGE_SIZE = mm_to_px(14), mm_to_px(14)
     VALUE_MARGIN = mm_to_px(8)
-    TITLE_Y = mm_to_px(20)
+    TITLE_Y = mm_to_px(21)
     VALUES_Y = mm_to_px(30)
     CENTER_ICON_Y = VALUES_Y + 8
     FLAVOUR_Y = mm_to_px(45)
