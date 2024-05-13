@@ -8,6 +8,7 @@ from ecogame.cards import Cards
 from ecogame.player_cards import PlayerCards
 from ecogame.disaster_cards import DisasterCards
 from ecogame.disaster_dice import DisasterDice
+from ecogame.cloud_api import DriveAPI
 
 
 def create_parser():
@@ -15,6 +16,7 @@ def create_parser():
 
     parser.add_argument("--show-border", action='store_true')
     parser.add_argument("--show-count", action='store_true')
+    parser.add_argument("--upload", action='store_true')
 
     return parser
 
@@ -30,6 +32,11 @@ def parse(parser):
 
     for cards in [Cards, PlayerCards, DisasterCards, DisasterDice]:
         cards.create_cards(args.show_border, args.show_count)
+
+    if args.upload:
+        google_api = DriveAPI()
+        for name in glob.glob("./output/*.pdf"):
+            google_api.upload(name)
 
 
 if __name__ == "__main__":

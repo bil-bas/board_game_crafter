@@ -1,3 +1,5 @@
 Pillow
 pyyaml
 img2pdf
+pydrive
+google-auth-oauthlib
