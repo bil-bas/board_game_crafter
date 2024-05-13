@@ -4,7 +4,7 @@
   title: Gas
   cost: Starting
   keywords: [ENERGY, Hydrocarbon]
-  right_value: +P
+  right_value: +1P
   count: 5
 -
   title: Coal
@@ -41,17 +41,17 @@
   count: 3
 -
   title: Fracking
-  cost: $
+  cost: 1$
   keywords: [ENERGY, Hydrocarbon, Earthquakes]
-  left_value: +$
+  left_value: +1$
   right_value: +2P
   count: 2
 -
   title: Biomass
   cost: 3$
   keywords: [ENERGY]
-  left_value: +$
-  right_value: +P
+  left_value: +1$
+  right_value: +1P
   count: 2
 
 
@@ -146,7 +146,7 @@
     Coal
     ENERGY
   center_icon: then
-  right_value: -P
+  right_value: -1P
   flavour: Sulphur dioxide in the atmosphere creates acid rain, but also slows global warming!
   count: 4
 -
@@ -163,13 +163,13 @@
     Clean
     ENERGY
   center_icon: then
-  right_value: -P
+  right_value: -1P
   flavour: Electric cars don’t actually reduce overall pollution themselves! They only reduce emissions where they are driven and move them to where the electricity is generated.
   count: 2
 -
   title: Public Transport
   cost: 4$
-  right_value: -P
+  right_value: -1P
   count: 3
 -
   title: Large Scale Storage
@@ -178,7 +178,7 @@
     Variable
     ENERGY
   center_icon: then
-  right_value: -P
+  right_value: -1P
   flavour: Improve renewables that are not “always on” by storing energy, for example in electric batteries.
   count: 2
 -
@@ -187,7 +187,7 @@
   cost: 1$
   left_value: -$
   center_icon: question-sign
-  right_value: -P
+  right_value: -1P
   count: 2
 -
   title: Cleanup
@@ -202,18 +202,18 @@
   cost: 2$
   left_value: -$
   center_icon: question-sign
-  right_value: -P
+  right_value: -1P
   count: 2
 -
   title: Recycling
   cost: 4$
-  right_value: -P
+  right_value: -1P
   flavour: Recycling is for the super cool kids. No-one else need bother!
   count: 2
 -
   title: Sustainability
   cost: 4$
-  right_value: -P
+  right_value: -1P
   count: 2
 -
   title: Green-washing
@@ -222,13 +222,13 @@
     Hydrocarbon
     ENERGY
   center_icon: then
-  right_value: +$
+  right_value: +1$
   flavour: Sell more, at higher prices, by simply convincing the public that you are environmentally conscious.
   count: 2
 -
   title: Trash-digestion
   cost: 4$
-  right_value: -P
+  right_value: -1P
   flavour: Engineer genetically modified bacteria that like eating waste, such as plastics.
 -
   title: Fusion Research
@@ -243,8 +243,8 @@
 -
   title: Built In Obsolescence
   cost: 0$
-  left_value: +$
-  right_value: -P
+  left_value: +1$
+  right_value: -1P
   flavour: Make things that break quickly and can’t be repaired, so we need to buy new ones.
   count: 2
 -
@@ -270,7 +270,7 @@
   text: | 
     Renewable 
     ENERGY
-  right_value: +$
+  right_value: +1$
   count: 2
 -
   title: Aviation Subsidies
@@ -280,6 +280,6 @@
     Hydrocarbon
     ENERGY
   center_icon: global
-  right_value: +$
+  right_value: +1$
   count: 2
 
