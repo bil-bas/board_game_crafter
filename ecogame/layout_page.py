@@ -4,7 +4,7 @@ from ecogame.utils import A4_WIDTH, A4_HEIGHT, mm_to_px
 
 
 MARGIN = mm_to_px(13)
-SPACING = mm_to_px(6)
+SPACING = mm_to_px(3.5)
 REG_MARGIN = mm_to_px(10)
 REG_LEFT, REG_TOP = REG_MARGIN, REG_MARGIN
 REG_LEN, REG_WIDTH = mm_to_px(5), 4
