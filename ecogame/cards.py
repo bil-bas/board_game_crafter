@@ -77,4 +77,6 @@ class Cards(LandscapeCards, BaseCards):
         if show_border:
             draw.rectangle((0, 0, self.CARD_WIDTH - 1, self.CARD_HEIGHT - 1), outline=(210, 210, 210, 255))
 
+        card.cols, card.rows = self.COLS, self.ROWS
+
         return card

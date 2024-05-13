@@ -15,14 +15,16 @@ def layout_page(cards):
     page = Image.new("RGBA", (A4_WIDTH, A4_HEIGHT), (255, 255, 255, 255))
     draw = ImageDraw.Draw(page)
 
-    cols, rows = (A4_WIDTH - MARGIN * 2) // cards[0].width, (A4_HEIGHT - MARGIN * 2) // cards[0].height
+    width, height = cards[0].width, cards[0].height
+    cols, rows = cards[0].cols, cards[0].rows
+
     for row in range(rows):
         for col in range(cols):
             try:
                 index = row * cols + col
                 card = cards[index]
-                page.paste(card, (MARGIN + col * (card.width + SPACING),
-                                  MARGIN + row * (card.height + SPACING)))
+                page.paste(card, (MARGIN + col * (width + SPACING),
+                                  MARGIN + row * (height + SPACING)))
             except IndexError:
                 break
 

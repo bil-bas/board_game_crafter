@@ -1,30 +1,33 @@
 from PIL import Image, ImageDraw
 
 from ecogame.utils import mm_to_px
-from ecogame.base_cards import BaseCards, PortraitCards
+from ecogame.base_cards import BaseCards
 
 
 class DisasterDice(BaseCards):
-    CARD_WIDTH, CARD_HEIGHT = 30, 30
+    WIDTH, HEIGHT = mm_to_px(30), mm_to_px(30)
     ROWS, COLS = 6, 6
 
     CONFIG_FILE = "./config/disaster_dice.yaml"
 
     def generate(self, config: hash, show_border: bool, show_count: bool) -> list:
-        for dice_config in config:
-            count = dice_config.get("count", 1)
-            dice = self._card(show_border=show_border, **dice_config)
-            for _ in range(count):
-                yield dice
+        for size in [25, 19, 16, 12]:  # in mm.
+            for dice_config in config:
+                count = dice_config.get("count", 1)
+                dice = self._card(show_border=show_border, size=mm_to_px(size), **dice_config)
+                for _ in range(count):
+                    yield dice
 
-    def _card(self, show_border: bool, pips: int, count: int = 1):
-        card = Image.new("RGBA", (self.CARD_WIDTH, self.CARD_HEIGHT), self.BACKGROUND_COLOR)
-        draw = ImageDraw.Draw(card)
+    def _card(self, show_border: bool, pips: int, size: int, count: int = 1):
+        dice = Image.new("RGBA", (size, size), self.BACKGROUND_COLOR)
+        draw = ImageDraw.Draw(dice)
 
-        sized_image = self._image(f"dice-{pips}", (self.CARD_WIDTH, self.CARD_HEIGHT))
-        card.paste(sized_image, (0, 0), mask=sized_image)
+        sized_image = self._image(f"dice-{pips}", (size, size))
+        dice.paste(sized_image, (0, 0), mask=sized_image)
 
         if show_border:
-            draw.rectangle((0, 0, self.CARD_WIDTH - 1, self.CARD_HEIGHT - 1), outline=(210, 210, 210, 255))
+            draw.rectangle((0, 0, size - 1, size - 1), outline=(210, 210, 210, 255))
 
-        return card
+        dice.cols, dice.rows = self.COLS, self.ROWS
+
+        return dice
