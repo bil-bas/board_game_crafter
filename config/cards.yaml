@@ -186,7 +186,7 @@
   keywords: [Optional]
   cost: 1$
   left_value: -$
-  center_icon: question-sign
+  center_icon: then
   right_value: -P
   count: 2
 -
@@ -201,7 +201,7 @@
   keywords: [Optional]
   cost: 2$
   left_value: -$
-  center_icon: question-sign
+  center_icon: then
   right_value: -P
   count: 2
 -
