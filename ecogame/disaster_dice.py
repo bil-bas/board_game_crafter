@@ -5,7 +5,7 @@ from ecogame.base_cards import BaseCards, PortraitCards
 
 
 class DisasterDice(BaseCards):
-    CARD_WIDTH, CARD_HEIGHT = 20, 20
+    CARD_WIDTH, CARD_HEIGHT = 30, 30
     ROWS, COLS = 6, 6
 
     CONFIG_FILE = "./config/disaster_dice.yaml"
