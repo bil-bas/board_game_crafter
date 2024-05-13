@@ -41,10 +41,10 @@ class DisasterCards(PortraitCards, BaseCards):
 
             card.paste(sized_image, (center, y), mask=sized_image)
             if add:
-                add = f" + {add}$"
+                add_value = f" + {add}$"
             else:
-                add = "$"
-            self._value(card, draw, (center + sized_image.width, y), add, size=self.FONT_HEIGHT_TABLE)
+                add_value = "$"
+            self._value(card, draw, (center + sized_image.width, y), add_value, size=self.FONT_HEIGHT_TABLE)
 
         # End of civilisation!
         self._font.text(draw, (center, self.TABLE_Y + self.TABLE_ROW_HEIGHT * 3),
