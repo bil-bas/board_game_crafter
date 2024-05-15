@@ -18,7 +18,7 @@ class Card(LandscapeCard):
                 left_value: str = "", center_icon: str = "", right_value: str = "", flavour: str = "",
                 keywords: list = None, count: int = 1):
         # Cost
-        yield self._value(cost, self.FONT_HEIGHT_COST, self.MARGIN_LEFT, self.MARGIN_TOP)
+        yield from self._value(cost, self.FONT_HEIGHT_COST, self.MARGIN_LEFT, self.MARGIN_TOP)
 
         if image:
             yield self._image((self.CARD_WIDTH - self.IMAGE_SIZE[0]) // 2, self.MARGIN_TOP, self.IMAGE_SIZE[0], image)
@@ -36,7 +36,7 @@ class Card(LandscapeCard):
                              valign="middle")
 
         if left_value:
-            yield self._value(left_value, self.FONT_HEIGHT_VALUE, self.MARGIN_LEFT + self.VALUE_MARGIN, self.VALUES_Y)
+            yield from self._value(left_value, self.FONT_HEIGHT_VALUE, self.MARGIN_LEFT + self.VALUE_MARGIN, self.VALUES_Y)
 
         if center_icon:
             yield self._image((self.CARD_WIDTH - self.CENTER_ICON_SIZE[0]) // 2, self.CENTER_ICON_Y,
@@ -44,7 +44,7 @@ class Card(LandscapeCard):
 
         if right_value:
             x = self.CARD_WIDTH - self.MARGIN_RIGHT - self.VALUE_MARGIN
-            yield self._value(right_value, self.FONT_HEIGHT_VALUE, x, self.VALUES_Y, right_justify=True)
+            yield from self._value(right_value, self.FONT_HEIGHT_VALUE, x, self.VALUES_Y, right_justify=True)
 
         if flavour:
             yield self._wrap(flavour, self.FONT_HEIGHT_FLAVOUR,

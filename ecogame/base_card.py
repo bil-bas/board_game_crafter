@@ -13,7 +13,7 @@ class BaseCard:
     FONT_HEIGHT_TEXT = 20
     FONT_HEIGHT_KEYWORDS = 12
     FONT_HEIGHT_FLAVOUR = 12
-    FONT_HEIGHT_COST = 20
+    FONT_HEIGHT_COST = 18
     FONT_HEIGHT_COUNT = 12
 
     BACKGROUND_COLOR = (255, 255, 255, 255)
@@ -49,12 +49,10 @@ class BaseCard:
             text_x = x
             icon_x = x + len(value) * size * 0.7 + self.TEXT_ICON_SPACING
 
-        group.append(svg.Text(value, size, text_x, y + size, text_anchor=text_anchor, font_weight="bold"))
+        yield svg.Text(value, size, text_x, y + size, text_anchor=text_anchor, font_weight="bold")
 
         if icon:
-            group.append(self._image(icon_x, y + size * 0.2, size * 0.8, icon))
-
-        return group
+            yield self._image(icon_x, y + size * 0.2, size * 0.8, icon)
 
     def _wrap(self, text: str, size: int, x: int, y: int, width: int, valign: str = "top"):
         if width == 0:
