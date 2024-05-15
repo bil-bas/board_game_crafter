@@ -3,3 +3,6 @@ pyyaml
 img2pdf
 pydrive
 google-auth-oauthlib
+svglib
+ReportLab
+drawsvg[all]

@@ -33,7 +33,7 @@ def parse(parser):
     for filename in glob.glob(f"./output/*.png"):
         os.remove(filename)
 
-    for cards in [Cards, PlayerCards, DisasterCards, DisasterDice]:
+    for cards in [DisasterDice, DisasterCards, PlayerCards, Cards]:
         cards.create_cards(args.show_border, args.show_count)
 
     if args.upload:
