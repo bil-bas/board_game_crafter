@@ -15,7 +15,7 @@ class DisasterCard(PortraitCard):
         # Title and number of players
         yield svg.Text("Disasters", self.FONT_HEIGHT_TITLE, self.CARD_WIDTH // 2,
                        self.MARGIN_TOP + self.FONT_HEIGHT_TITLE,
-                       text_anchor="middle")
+                       font_weight="bold", text_anchor="middle")
 
         yield svg.Text(f"{number_of_players} players", self.FONT_HEIGHT_PLAYERS, self.CARD_WIDTH // 2,
                        self.PLAYERS_Y, text_anchor="middle")

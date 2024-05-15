@@ -9,7 +9,7 @@ GAME_NAME = "Ecogame for E2M"
 
 class BaseCard:
     FONT_HEIGHT_TITLE = 28
-    FONT_HEIGHT_VALUE = 40
+    FONT_HEIGHT_VALUE = 34
     FONT_HEIGHT_TEXT = 20
     FONT_HEIGHT_KEYWORDS = 12
     FONT_HEIGHT_FLAVOUR = 12
@@ -47,9 +47,9 @@ class BaseCard:
         else:
             text_anchor = "start"
             text_x = x
-            icon_x = x + len(value) * size * 0.65 + self.TEXT_ICON_SPACING
+            icon_x = x + len(value) * size * 0.7 + self.TEXT_ICON_SPACING
 
-        group.append(svg.Text(value, size, text_x, y + size, text_anchor=text_anchor))
+        group.append(svg.Text(value, size, text_x, y + size, text_anchor=text_anchor, font_weight="bold"))
 
         if icon:
             group.append(self._image(icon_x, y + size * 0.2, size * 0.8, icon))

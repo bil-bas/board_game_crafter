@@ -10,6 +10,7 @@ class PlayerCard(PortraitCard):
     VALUES_Y = mm_to_px(46)
     IMAGE_SIZE = mm_to_px(30), mm_to_px(30)
     VALUE_MARGIN = mm_to_px(0)
+    FONT_HEIGHT_TITLE = 22
 
     def _render(self, name: str, image: str, initial: hash, income: hash, flavour: str):
         # Image.
@@ -25,7 +26,8 @@ class PlayerCard(PortraitCard):
                           self.CARD_WIDTH - self.MARGIN_RIGHT, self.MARGIN_TOP, right_justify=True)
 
         # Name
-        yield svg.Text(name, self.FONT_HEIGHT_TITLE, self.CARD_WIDTH // 2, self.NAME_Y, text_anchor="middle")
+        yield svg.Text(name, self.FONT_HEIGHT_TITLE, self.CARD_WIDTH // 2, self.NAME_Y, font_weight="bold",
+                       text_anchor="middle")
 
         # Production: Productivity and Pollution
         yield self._value(f"+{income['prosperity']}$",

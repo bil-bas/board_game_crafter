@@ -200,7 +200,7 @@
   title: Ocean Cleaning Ship
   keywords: [Optional]
   cost: 2$
-  left_value: -$
+  left_value: -1$
   center_icon: then
   right_value: -1P
   count: 2

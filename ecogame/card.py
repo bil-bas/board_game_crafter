@@ -24,13 +24,12 @@ class Card(LandscapeCard):
             yield self._image((self.CARD_WIDTH - self.IMAGE_SIZE[0]) // 2, self.MARGIN_TOP, self.IMAGE_SIZE[0], image)
 
         if keywords:
-            for i, keyword in enumerate(keywords):
-                yield svg.Text(keyword, self.FONT_HEIGHT_KEYWORDS, self.CARD_WIDTH - self.MARGIN_RIGHT,
-                               self.MARGIN_TOP + self.FONT_HEIGHT_KEYWORDS + (self.FONT_HEIGHT_KEYWORDS + 2) * i,
-                               text_anchor="end")
+            yield svg.Text("\n".join(keywords), self.FONT_HEIGHT_KEYWORDS, self.CARD_WIDTH - self.MARGIN_RIGHT,
+                           self.MARGIN_TOP, text_anchor="end", dominant_baseline="hanging")
 
         # Title
-        yield svg.Text(title, self.FONT_HEIGHT_TITLE, self.CARD_WIDTH // 2, self.TITLE_Y, text_anchor="middle")
+        yield svg.Text(title, self.FONT_HEIGHT_TITLE, self.CARD_WIDTH // 2, self.TITLE_Y, font_weight="bold",
+                       text_anchor="middle")
 
         if text:
             yield self._wrap(text.strip(), self.FONT_HEIGHT_TEXT, self.MARGIN_LEFT, self.TEXT_Y, width=0,
@@ -41,7 +40,7 @@ class Card(LandscapeCard):
 
         if center_icon:
             yield self._image((self.CARD_WIDTH - self.CENTER_ICON_SIZE[0]) // 2, self.CENTER_ICON_Y,
-                              self.CENTER_ICON_SIZE, center_icon)
+                              self.CENTER_ICON_SIZE[0], center_icon)
 
         if right_value:
             x = self.CARD_WIDTH - self.MARGIN_RIGHT - self.VALUE_MARGIN
