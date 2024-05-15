@@ -40,11 +40,12 @@ class DisasterCard(PortraitCard):
             yield self._value(add_value, self.FONT_HEIGHT_TABLE, center + size + 12, y_offset)
 
         # End of civilisation!
-        yield svg.Text(f"{20 * number_of_players}+", self.FONT_HEIGHT_TABLE,
-                       center - 20, self.TABLE_Y + self.FONT_HEIGHT_TABLE + self.TABLE_ROW_HEIGHT * 3,
-                       text_anchor="end")
+        yield self._value(f"{20 * number_of_players}+P", self.FONT_HEIGHT_TABLE,
+                          center - 20, self.TABLE_Y + self.TABLE_ROW_HEIGHT * 3,
+                          right_justify=True)
 
         yield self._image(center - size, self.TABLE_Y + self.TABLE_ROW_HEIGHT * 3, size, "then")
 
         yield svg.Text("END", self.FONT_HEIGHT_TABLE,
-                       center + 10, self.TABLE_Y + self.FONT_HEIGHT_TABLE + self.TABLE_ROW_HEIGHT * 3)
+                       center + 10, self.TABLE_Y + self.FONT_HEIGHT_TABLE + self.TABLE_ROW_HEIGHT * 3,
+                       font_weight="bold")
