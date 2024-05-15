@@ -57,7 +57,7 @@ class BaseCard:
         return group
 
     def _wrap(self, text: str, size: int, x: int, y: int, width: int, valign: str = "top"):
-        if "\n" in text:
+        if width == 0:
             lines = text.split("\n")
         else:
             lines = textwrap.wrap(text, width)
@@ -101,7 +101,7 @@ class BaseCard:
 
 class PortraitCard(BaseCard):
     CARD_WIDTH, CARD_HEIGHT = mm_to_px(63.5), mm_to_px(88.9)
-    MARGIN_LEFT, MARGIN_RIGHT = mm_to_px(7), mm_to_px(7)
+    MARGIN_LEFT, MARGIN_RIGHT = mm_to_px(5), mm_to_px(5)
     MARGIN_TOP, MARGIN_BOTTOM = mm_to_px(5), mm_to_px(5)
     INNER_WIDTH = CARD_WIDTH - MARGIN_LEFT - MARGIN_RIGHT
     INNER_HEIGHT = CARD_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
@@ -112,7 +112,7 @@ class PortraitCard(BaseCard):
 class LandscapeCard(BaseCard):
     CARD_WIDTH, CARD_HEIGHT = mm_to_px(88.9), mm_to_px(63.5)
     MARGIN_LEFT, MARGIN_RIGHT = mm_to_px(5), mm_to_px(5)
-    MARGIN_TOP, MARGIN_BOTTOM = mm_to_px(7), mm_to_px(7)
+    MARGIN_TOP, MARGIN_BOTTOM = mm_to_px(5), mm_to_px(5)
     INNER_WIDTH = CARD_WIDTH - MARGIN_LEFT - MARGIN_RIGHT
     INNER_HEIGHT = CARD_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
 

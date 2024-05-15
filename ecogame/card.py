@@ -33,7 +33,7 @@ class Card(LandscapeCard):
         yield svg.Text(title, self.FONT_HEIGHT_TITLE, self.CARD_WIDTH // 2, self.TITLE_Y, text_anchor="middle")
 
         if text:
-            yield self._wrap(text.strip(), self.FONT_HEIGHT_TEXT, self.MARGIN_LEFT, self.TEXT_Y, width=20,
+            yield self._wrap(text.strip(), self.FONT_HEIGHT_TEXT, self.MARGIN_LEFT, self.TEXT_Y, width=0,
                              valign="middle")
 
         if left_value:

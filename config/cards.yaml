@@ -19,7 +19,6 @@
   title: Wind Power
   cost: 4/2$
   keywords: [ENERGY, Renewable, Variable, Clean]
-  image: wind-power
   right_value: +0P
   flavour: Tilting at windmills is fun.
   count: 5
@@ -34,7 +33,7 @@
 -
   title: Nuclear Power
   cost: 3$
-  keywords: [ENERGY, Clean, Kaiju Breeding]
+  keywords: [ENERGY, Clean]
   image: radiation
   right_value: +0P
   flavour: Nuclear energy is perfectly safe...most of the time.
@@ -136,6 +135,7 @@
 -
   title: Nothing Happens
   keywords: [EVENT]
+  flavour: Something incredibly unimportant happens to a Hollywood star. Everyone will have forgotten about it by tomorrow!
   count: 1
 
 # General cards
@@ -233,7 +233,6 @@
 -
   title: Fusion Research
   keywords: [Risky]
-  image: radiation
   cost: 5$
   text: |
     Round 10
