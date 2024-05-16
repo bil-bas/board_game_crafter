@@ -48,7 +48,7 @@ def parse(parser):
     create_cards([CardBacks], "cards - backs", show_border=args.show_border,
                  show_margin=args.show_margin)
     create_cards([DisasterDice], "disaster dice", show_border=args.show_border, show_margin=True)
-    create_cards([CutTemplates], "cut templates", show_border=args.show_border, show_margin=False,
+    create_cards([CutTemplates], "cut templates", show_border=False, show_margin=False,
                  save_as_svg=True)
     os.rename("./output/cut templates_01.svg", f"./output/{GAME_NAME} - cut templates.svg")
 

@@ -7,7 +7,7 @@ from ecogame.base_cards import BaseCards
 class DisasterCard(PortraitCard):
     TABLE_Y = mm_to_px(35)
     TABLE_ROW_HEIGHT = mm_to_px(12)
-    TABLE_COL_WIDTH = mm_to_px(25)
+    TABLE_COL_WIDTH = mm_to_px(28)
     FONT_HEIGHT_TABLE = 18
     FONT_HEIGHT_PLAYERS = 24
     PLAYERS_Y = mm_to_px(22)
@@ -36,9 +36,9 @@ class DisasterCard(PortraitCard):
             yield self._image(center + 8, y_offset, size, "dice")
 
             if add:
-                add_value = f" + {add}$"
+                add_value = f"+ {add}$"
             else:
-                add_value = " $"
+                add_value = "$"
 
             yield from self._value(add_value, self.FONT_HEIGHT_TABLE, center + size + 12, y_offset)
 
