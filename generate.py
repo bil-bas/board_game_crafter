@@ -19,6 +19,7 @@ from ecogame.disaster_card import DisasterCards
 from ecogame.disaster_die import DisasterDice
 from ecogame.card_backs import CardBacks
 from ecogame.cloud_api import DriveAPI
+from ecogame.cut_template import CutTemplates
 
 GAME_NAME = "Ecogame for E2M"
 
@@ -42,9 +43,14 @@ def parse(parser):
     for filename in glob.glob(f"./output/*.*"):
         os.remove(filename)
 
-    create_cards([PlayerCards, DisasterCards, EventCards, StartingCards, BuyCards], "cards - fronts", args)
-    create_cards([CardBacks], "cards - backs", args)
-    create_cards([DisasterDice], "disaster dice", args)
+    create_cards([PlayerCards, DisasterCards, EventCards, StartingCards, BuyCards], "cards - fronts",
+                 show_border=args.show_border, show_margin=args.show_margin)
+    create_cards([CardBacks], "cards - backs", show_border=args.show_border,
+                 show_margin=args.show_margin)
+    create_cards([DisasterDice], "disaster dice", show_border=args.show_border, show_margin=True)
+    create_cards([CutTemplates], "cut templates", show_border=args.show_border, show_margin=False,
+                 save_as_svg=True)
+    os.rename("./output/cut templates_01.svg", f"./output/{GAME_NAME} - cut templates.svg")
 
     merge_fronts_and_backs()
 
@@ -71,13 +77,16 @@ def upload():
     for name in glob.glob("output/*.pdf"):
         google_api.upload(name)
 
+    for name in glob.glob("output/*.svg"):
+        google_api.upload(name)
+
     google_api.download_doc_as_pdf(f"./output/download/{GAME_NAME} - Rules.pdf")
     p_and_p_file = f"./output/{GAME_NAME} - print-and-play.zip"
     create_p_and_p(p_and_p_file)
     google_api.upload(p_and_p_file)
 
 
-def create_cards(card_types: list, name, args):
+def create_cards(card_types: list, name, show_border: bool, show_margin: bool, save_as_svg: bool = False):
     num_cards_on_page = card_types[0].rows() * card_types[0].cols()
 
     cards = []
@@ -85,19 +94,26 @@ def create_cards(card_types: list, name, args):
         cards.extend(card_type.create_cards())
 
     for i, cards_on_page in enumerate(batched(cards, num_cards_on_page), 1):
-        doc = layout_page(cards_on_page, show_border=args.show_border, show_margin=args.show_margin)
-        doc.save_png(f"./output/{name}_{i:02}.png")
+        doc = layout_page(cards_on_page, show_border=show_border, show_margin=show_margin)
+        if save_as_svg:
+            doc.save_svg(f"./output/{name}_{i:02}.svg")
+        else:
+            doc.save_png(f"./output/{name}_{i:02}.png")
 
-    output_file = f"./output/{GAME_NAME} - {name}.pdf"
-    with open(output_file, "wb") as f:
-        f.write(img2pdf.convert(sorted(glob.glob(f"./output/{name}_*.png"))))
-    print(f"Written {len(cards)} cards to {output_file}")
+    if not save_as_svg:
+        output_file = f"./output/{GAME_NAME} - {name}.pdf"
+        with open(output_file, "wb") as f:
+            f.write(img2pdf.convert(sorted(glob.glob(f"./output/{name}_*.png"))))
+        print(f"Written {len(cards)} cards to {output_file}")
 
 
 def create_p_and_p(p_and_p_file):
     pathlib.Path(p_and_p_file).unlink(missing_ok=True)
     with zipfile.ZipFile(p_and_p_file, "x", compresslevel=zipfile.ZIP_LZMA) as z_file:
         for name in glob.glob("./output/download/*"):
+            z_file.write(name, os.path.basename(name))
+
+        for name in glob.glob("./output/*.svg"):
             z_file.write(name, os.path.basename(name))
 
         for name in glob.glob("./output/*.pdf"):
