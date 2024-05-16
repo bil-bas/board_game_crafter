@@ -22,12 +22,13 @@ class BaseCard:
     UNIT_SIZE = FONT_HEIGHT_VALUE, FONT_HEIGHT_VALUE
     TEXT_ICON_SPACING = 2
 
-    CARD_WIDTH, CARD_HEIGHT = None, None
+    WIDTH, HEIGHT = None, None
     COLS, ROWS = None, None
 
     ROTATE = False
 
     def __init__(self, **config: hash):
+        self._count = config.pop("count", 1)
         self._config = config
         self._is_blank = self._config.pop("is_blank", False)
 
@@ -80,7 +81,7 @@ class BaseCard:
 
     @property
     def count(self):
-        return self._config.get("count", 1)
+        return self._count
 
     def render(self):
         if self._is_blank:
@@ -91,31 +92,23 @@ class BaseCard:
     def _render(self, **config):
         raise NotImplementedError
 
-    @property
-    def width(self):
-        return self.CARD_WIDTH
-
-    @property
-    def height(self):
-        return self.CARD_HEIGHT
-
 
 class PortraitCard(BaseCard):
-    CARD_WIDTH, CARD_HEIGHT = mm_to_px(63.5), mm_to_px(88.9)
+    WIDTH, HEIGHT = mm_to_px(63.5), mm_to_px(88.9)
     MARGIN_LEFT, MARGIN_RIGHT = mm_to_px(5), mm_to_px(5)
     MARGIN_TOP, MARGIN_BOTTOM = mm_to_px(5), mm_to_px(5)
-    INNER_WIDTH = CARD_WIDTH - MARGIN_LEFT - MARGIN_RIGHT
-    INNER_HEIGHT = CARD_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
+    INNER_WIDTH = WIDTH - MARGIN_LEFT - MARGIN_RIGHT
+    INNER_HEIGHT = HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
 
     ROTATE = True
     ROWS, COLS = 4, 2
 
 
 class LandscapeCard(BaseCard):
-    CARD_WIDTH, CARD_HEIGHT = mm_to_px(88.9), mm_to_px(63.5)
+    WIDTH, HEIGHT = mm_to_px(88.9), mm_to_px(63.5)
     MARGIN_LEFT, MARGIN_RIGHT = mm_to_px(5), mm_to_px(5)
     MARGIN_TOP, MARGIN_BOTTOM = mm_to_px(5), mm_to_px(5)
-    INNER_WIDTH = CARD_WIDTH - MARGIN_LEFT - MARGIN_RIGHT
-    INNER_HEIGHT = CARD_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
+    INNER_WIDTH = WIDTH - MARGIN_LEFT - MARGIN_RIGHT
+    INNER_HEIGHT = HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
 
     ROWS, COLS = 4, 2

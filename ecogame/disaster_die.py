@@ -8,14 +8,14 @@ from ecogame.base_cards import BaseCards
 
 class DisasterDie(BaseCard):
     SIZES = [25, 19, 16, 12]  # in mm.
-    CARD_WIDTH, CARD_HEIGHT = mm_to_px(SIZES[0]), mm_to_px(SIZES[0])
+    WIDTH, HEIGHT = mm_to_px(SIZES[0]), mm_to_px(SIZES[0])
     MARGIN_LEFT, MARGIN_RIGHT = mm_to_px(0), mm_to_px(0)
     MARGIN_TOP, MARGIN_BOTTOM = mm_to_px(0), mm_to_px(0)
-    INNER_WIDTH = CARD_WIDTH - MARGIN_LEFT - MARGIN_RIGHT
-    INNER_HEIGHT = CARD_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
+    INNER_WIDTH = WIDTH - MARGIN_LEFT - MARGIN_RIGHT
+    INNER_HEIGHT = HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
     ROWS, COLS = 6, 6
 
-    def _render(self, pips: int, size: int, count: int = 1):
+    def _render(self, pips: int, size: int):
         yield svg.Image(0, 0, size, size, path=f"./images/dice-{pips}.png", embed=True)
 
     @property

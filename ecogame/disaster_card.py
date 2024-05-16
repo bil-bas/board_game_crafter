@@ -14,11 +14,11 @@ class DisasterCard(PortraitCard):
 
     def _render(self, number_of_players: int):
         # Title and number of players
-        yield svg.Text("Disasters", self.FONT_HEIGHT_TITLE, self.CARD_WIDTH // 2,
+        yield svg.Text("Disasters", self.FONT_HEIGHT_TITLE, self.WIDTH // 2,
                        self.MARGIN_TOP + self.FONT_HEIGHT_TITLE,
                        font_weight="bold", text_anchor="middle")
 
-        yield svg.Text(f"{number_of_players} players", self.FONT_HEIGHT_PLAYERS, self.CARD_WIDTH // 2,
+        yield svg.Text(f"{number_of_players} players", self.FONT_HEIGHT_PLAYERS, self.WIDTH // 2,
                        self.PLAYERS_Y, text_anchor="middle")
 
         yield from self.effects_table(number_of_players)

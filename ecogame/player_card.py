@@ -14,7 +14,7 @@ class PlayerCard(PortraitCard):
 
     def _render(self, name: str, image: str, initial: hash, income: hash, flavour: str):
         # Image.
-        yield self._image((self.CARD_WIDTH - self.IMAGE_SIZE[0]) // 2, self.MARGIN_TOP, self.IMAGE_SIZE[0],
+        yield self._image((self.WIDTH - self.IMAGE_SIZE[0]) // 2, self.MARGIN_TOP, self.IMAGE_SIZE[0],
                           image)
 
         # # Initial prosperity
@@ -23,10 +23,10 @@ class PlayerCard(PortraitCard):
 
         # Initial pollution
         yield from self._value(f"{initial['pollution']}P", self.FONT_HEIGHT_COST,
-                               self.CARD_WIDTH - self.MARGIN_RIGHT, self.MARGIN_TOP, right_justify=True)
+                               self.WIDTH - self.MARGIN_RIGHT, self.MARGIN_TOP, right_justify=True)
 
         # Name
-        yield svg.Text(name, self.FONT_HEIGHT_TITLE, self.CARD_WIDTH // 2, self.NAME_Y, font_weight="bold",
+        yield svg.Text(name, self.FONT_HEIGHT_TITLE, self.WIDTH // 2, self.NAME_Y, font_weight="bold",
                        text_anchor="middle")
 
         # Production: Productivity and Pollution
@@ -35,12 +35,12 @@ class PlayerCard(PortraitCard):
                                self.MARGIN_LEFT + self.VALUE_MARGIN, self.VALUES_Y)
 
         yield from self._value(f"+{income['pollution']}P", self.FONT_HEIGHT_VALUE,
-                               self.CARD_WIDTH - self.MARGIN_RIGHT - self.VALUE_MARGIN, self.VALUES_Y,
+                               self.WIDTH - self.MARGIN_RIGHT - self.VALUE_MARGIN, self.VALUES_Y,
                                right_justify=True)
 
         if flavour:
             yield self._wrap(flavour, self.FONT_HEIGHT_FLAVOUR,
-                             self.MARGIN_LEFT, self.CARD_HEIGHT - self.MARGIN_BOTTOM, 30, valign="bottom")
+                             self.MARGIN_LEFT, self.HEIGHT - self.MARGIN_BOTTOM, 30, valign="bottom")
 
 
 class PlayerCards(BaseCards):

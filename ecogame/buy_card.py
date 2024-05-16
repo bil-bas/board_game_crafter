@@ -16,19 +16,19 @@ class BuyCard(LandscapeCard):
 
     def _render(self, title: str, cost: str = "", image: str = "", text: str = "",
                 left_value: str = "", center_icon: str = "", right_value: str = "", flavour: str = "",
-                keywords: list = None, count: int = 1):
+                keywords: list = None):
         # Cost
         yield from self._value(cost, self.FONT_HEIGHT_COST, self.MARGIN_LEFT, self.MARGIN_TOP)
 
         if image:
-            yield self._image((self.CARD_WIDTH - self.IMAGE_SIZE[0]) // 2, self.MARGIN_TOP, self.IMAGE_SIZE[0], image)
+            yield self._image((self.WIDTH - self.IMAGE_SIZE[0]) // 2, self.MARGIN_TOP, self.IMAGE_SIZE[0], image)
 
         if keywords:
-            yield svg.Text("\n".join(keywords), self.FONT_HEIGHT_KEYWORDS, self.CARD_WIDTH - self.MARGIN_RIGHT,
+            yield svg.Text("\n".join(keywords), self.FONT_HEIGHT_KEYWORDS, self.WIDTH - self.MARGIN_RIGHT,
                            self.MARGIN_TOP, text_anchor="end", dominant_baseline="hanging")
 
         # Title
-        yield svg.Text(title, self.FONT_HEIGHT_TITLE, self.CARD_WIDTH // 2, self.TITLE_Y, font_weight="bold",
+        yield svg.Text(title, self.FONT_HEIGHT_TITLE, self.WIDTH // 2, self.TITLE_Y, font_weight="bold",
                        text_anchor="middle")
 
         if text:
@@ -39,16 +39,16 @@ class BuyCard(LandscapeCard):
             yield from self._value(left_value, self.FONT_HEIGHT_VALUE, self.MARGIN_LEFT + self.VALUE_MARGIN, self.VALUES_Y)
 
         if center_icon:
-            yield self._image((self.CARD_WIDTH - self.CENTER_ICON_SIZE[0]) // 2, self.CENTER_ICON_Y,
+            yield self._image((self.WIDTH - self.CENTER_ICON_SIZE[0]) // 2, self.CENTER_ICON_Y,
                               self.CENTER_ICON_SIZE[0], center_icon)
 
         if right_value:
-            x = self.CARD_WIDTH - self.MARGIN_RIGHT - self.VALUE_MARGIN
+            x = self.WIDTH - self.MARGIN_RIGHT - self.VALUE_MARGIN
             yield from self._value(right_value, self.FONT_HEIGHT_VALUE, x, self.VALUES_Y, right_justify=True)
 
         if flavour:
             yield self._wrap(flavour, self.FONT_HEIGHT_FLAVOUR,
-                             self.MARGIN_LEFT, self.CARD_HEIGHT - self.MARGIN_BOTTOM, 45, valign="bottom")
+                             self.MARGIN_LEFT, self.HEIGHT - self.MARGIN_BOTTOM, 45, valign="bottom")
 
 
 class BuyCards(BaseCards):

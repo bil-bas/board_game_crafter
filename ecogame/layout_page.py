@@ -18,10 +18,10 @@ def layout_page(cards, show_border, show_margin):
     draw = svg.Drawing(A4_WIDTH, A4_HEIGHT, origin="top-left")
 
     if cards[0].ROTATE:
-        width, height = cards[0].height, cards[0].width
+        width, height = cards[0].HEIGHT, cards[0].WIDTH
         rotation = f", translate(0, {height}) rotate({-90})"
     else:
-        width, height = cards[0].width, cards[0].height
+        width, height = cards[0].WIDTH, cards[0].HEIGHT
         rotation = ""
 
     cols, rows = cards[0].COLS, cards[0].ROWS
@@ -36,7 +36,7 @@ def layout_page(cards, show_border, show_margin):
 
                 group = svg.Group(transform=f"translate({left}, {top}) {rotation}")
                 if show_border:
-                    group.append(svg.Rectangle(0, 0, card.width, card.height, stroke=COLOR_BORDER, fill="none"))
+                    group.append(svg.Rectangle(0, 0, card.WIDTH, card.HEIGHT, stroke=COLOR_BORDER, fill="none"))
 
                 if show_margin:
                     group.append(svg.Rectangle(card.MARGIN_LEFT, card.MARGIN_TOP, card.INNER_WIDTH, card.INNER_HEIGHT,

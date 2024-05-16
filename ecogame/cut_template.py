@@ -10,8 +10,8 @@ class CutTemplate(PortraitCard):
     BORDER_WIDTH = 1
     RADIUS = mm_to_px(4)
 
-    def _render(self, count: int):
-        yield svg.Rectangle(0, 0, self.CARD_WIDTH, self.CARD_HEIGHT,
+    def _render(self):
+        yield svg.Rectangle(0, 0, self.WIDTH, self.HEIGHT,
                             rx=self.RADIUS, ry=self.RADIUS,
                             stroke=self.BORDER_COLOR, fill="none", stroke_width=self.BORDER_WIDTH)
 
