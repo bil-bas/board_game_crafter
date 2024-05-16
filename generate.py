@@ -5,20 +5,27 @@ import os
 import glob
 import pathlib
 import zipfile
+from itertools import batched
 
-from ecogame.cards import Cards
+import img2pdf
+
+from ecogame.layout_page import layout_page
+from ecogame.buy_card import BuyCards
 from ecogame.player_card import PlayerCards
+from ecogame.event_card import EventCards
+from ecogame.starting_card import StartingCards
 from ecogame.disaster_card import DisasterCards
 from ecogame.disaster_die import DisasterDice
+from ecogame.card_backs import CardBacks
 from ecogame.cloud_api import DriveAPI
-from ecogame.base_cards import GAME_NAME
+
+GAME_NAME = "Ecogame for E2M"
 
 
 def create_parser():
     parser = argparse.ArgumentParser(description="Layout generator for Ishara Press Regen-D game")
 
     parser.add_argument("--show-border", action='store_true')
-    parser.add_argument("--show-count", action='store_true')
     parser.add_argument("--show-margin", action='store_true')
     parser.add_argument("--upload", action='store_true')
 
@@ -34,8 +41,9 @@ def parse(parser):
     for filename in glob.glob(f"./output/*.png"):
         os.remove(filename)
 
-    for cards in [DisasterDice, DisasterCards, PlayerCards, Cards]:
-        cards.create_cards(args.show_border, args.show_count, args.show_margin)
+    create_cards([PlayerCards, DisasterCards, EventCards, StartingCards, BuyCards], "card fronts", args)
+    create_cards([CardBacks], "card backs", args)
+    create_cards([DisasterDice], "disaster dice", args)
 
     if args.upload:
         google_api = DriveAPI()
@@ -47,6 +55,23 @@ def parse(parser):
         p_and_p_file = f"./output/{GAME_NAME} - print-and-play.zip"
         create_p_and_p(p_and_p_file)
         google_api.upload(p_and_p_file)
+
+
+def create_cards(card_types: list, name, args):
+    num_cards_on_page = card_types[0].rows() * card_types[0].cols()
+
+    cards = []
+    for card_type in card_types:
+        cards.extend(card_type.create_cards())
+
+    for i, cards_on_page in enumerate(batched(cards, num_cards_on_page), 1):
+        doc = layout_page(cards_on_page, show_border=args.show_border, show_margin=args.show_margin)
+        doc.save_png(f"./output/{name}_{i:02}.png")
+
+    output_file = f"./output/{GAME_NAME} - {name}.pdf"
+    with open(output_file, "wb") as f:
+        f.write(img2pdf.convert(sorted(glob.glob(f"./output/{name}_*.png"))))
+    print(f"Written {len(cards)} cards to {output_file}")
 
 
 def create_p_and_p(p_and_p_file):

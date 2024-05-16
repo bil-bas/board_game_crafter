@@ -1,0 +1,16 @@
+---
+-
+  title: Gas
+  cost: Starting
+  keywords: [ENERGY, Hydrocarbon]
+  right_value: +1P
+  count: 5
+-
+  title: Coal
+  cost: Starting
+  keywords: [ENERGY, Hydrocarbon]
+  right_value: +2P
+  count: 5
+-
+  is_blank: True
+  count: 6

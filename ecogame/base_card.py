@@ -29,6 +29,7 @@ class BaseCard:
 
     def __init__(self, **config: hash):
         self._config = config
+        self._is_blank = self._config.pop("is_blank", False)
 
     def _value(self, value: str, size: int, x: int, y: int, right_justify: bool = False):
         if value.endswith("P"):
@@ -39,8 +40,6 @@ class BaseCard:
             value = value[:-1]
         else:
             icon = None
-
-        group = svg.Group()
 
         if right_justify:
             text_anchor = "end"
@@ -84,8 +83,10 @@ class BaseCard:
         return self._config.get("count", 1)
 
     def render(self):
-        for element in self._render(**self._config):
-            yield element
+        if self._is_blank:
+            return
+
+        yield from self._render(**self._config)
 
     def _render(self, **config):
         raise NotImplementedError
@@ -107,8 +108,7 @@ class PortraitCard(BaseCard):
     INNER_HEIGHT = CARD_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
 
     ROTATE = True
-
-    COLS, ROWS = 2, 4
+    ROWS, COLS = 4, 2
 
 
 class LandscapeCard(BaseCard):
@@ -118,4 +118,4 @@ class LandscapeCard(BaseCard):
     INNER_WIDTH = CARD_WIDTH - MARGIN_LEFT - MARGIN_RIGHT
     INNER_HEIGHT = CARD_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
 
-    COLS, ROWS = 2, 4
+    ROWS, COLS = 4, 2

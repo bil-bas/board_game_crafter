@@ -1,0 +1,62 @@
+---
+-
+  title: Rising Sea Levels
+  keywords: [EVENT, Global]
+  center_icon: global
+  right_value: -X$
+  count: 3
+-
+  title: Disaster-2
+  keywords: [EVENT, Global]
+  center_icon: global
+  right_value: -X$
+  count: 3
+-
+  title: Disaster-3
+  keywords: [EVENT, Global]
+  center_icon: global
+  right_value: -X$
+  count: 3
+-
+  title: Kaiju Breeding
+  keywords: [EVENT, Global]
+  text: |
+    Nuclear
+    Power
+  center_icon: global
+  right_value: -X$
+  count: 1
+-
+  title: Surprise Earthquakes
+  keywords: [EVENT, Global]
+  text: |
+    Fracking
+  center_icon: global
+  right_value: -X$
+  count: 1
+-
+  title: Global Pandemic
+  keywords: [EVENT, Global]
+  center_icon: global
+  right_value: -2$
+  count: 1
+-
+  title: Colonial War
+  keywords: [EVENT]
+  right_value: +2P
+  count: 1
+-
+  title: Major Oil Spill
+  keywords: [EVENT]
+  right_value: +2P
+  count: 1
+-
+  title: Nothing Happens
+  keywords: [EVENT]
+  flavour: Something incredibly unimportant happens to a Hollywood star. Everyone will have forgotten about it by tomorrow!
+  count: 1
+-
+  title: Nothing Happens
+  keywords: [EVENT]
+  flavour: A dog was lost and found at the bottom of a well. All was well!
+  count: 1

@@ -58,3 +58,5 @@ class DisasterCard(PortraitCard):
 class DisasterCards(BaseCards):
     CARD_CLASS = DisasterCard
     CONFIG_FILE = "./config/disaster_cards.yaml"
+
+    COLS, ROWS = 4, 2

@@ -2,9 +2,10 @@ import drawsvg as svg
 
 from .utils import mm_to_px
 from .base_card import LandscapeCard
+from .base_cards import BaseCards
 
 
-class Card(LandscapeCard):
+class BuyCard(LandscapeCard):
     CENTER_ICON_SIZE = 32, 32
     IMAGE_SIZE = mm_to_px(14), mm_to_px(14)
     VALUE_MARGIN = mm_to_px(8)
@@ -13,7 +14,6 @@ class Card(LandscapeCard):
     CENTER_ICON_Y = VALUES_Y + 8
     TEXT_Y = mm_to_px(39)
 
-    # show_count
     def _render(self, title: str, cost: str = "", image: str = "", text: str = "",
                 left_value: str = "", center_icon: str = "", right_value: str = "", flavour: str = "",
                 keywords: list = None, count: int = 1):
@@ -50,6 +50,9 @@ class Card(LandscapeCard):
             yield self._wrap(flavour, self.FONT_HEIGHT_FLAVOUR,
                              self.MARGIN_LEFT, self.CARD_HEIGHT - self.MARGIN_BOTTOM, 45, valign="bottom")
 
-        # if show_count and count != 1:
-        #     self._font.text(draw, (self.CARD_WIDTH - self.MARGIN_RIGHT, self.CARD_HEIGHT - self.MARGIN_BOTTOM),
-        #                     str(count), color=self.INK_COLOR, size=self.FONT_HEIGHT_COUNT, anchor="rd")
+
+class BuyCards(BaseCards):
+    CARD_CLASS = BuyCard
+    CONFIG_FILE = "./config/buy_cards.yaml"
+
+    COLS, ROWS = 4, 2

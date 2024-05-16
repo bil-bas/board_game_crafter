@@ -46,3 +46,4 @@ class PlayerCard(PortraitCard):
 class PlayerCards(BaseCards):
     CONFIG_FILE = "./config/player_cards.yaml"
     CARD_CLASS = PlayerCard
+    ROWS, COLS = 4, 2
