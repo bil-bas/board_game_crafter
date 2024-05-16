@@ -11,11 +11,19 @@ REG_RIGHT, REG_BOTTOM = A4_WIDTH - REG_MARGIN, A4_HEIGHT - REG_MARGIN
 
 COLOR_BORDER = "grey"
 COLOR_REG = "red"
+COLOR_MARGIN = "lightgrey"
 
 
-def layout_page(cards, show_border):
+def layout_page(cards, show_border, show_margin):
     draw = svg.Drawing(A4_WIDTH, A4_HEIGHT, origin="top-left")
-    width, height = cards[0].width, cards[0].height
+
+    if cards[0].ROTATE:
+        width, height = cards[0].height, cards[0].width
+        rotation = f", translate(0, {height}) rotate({-90})"
+    else:
+        width, height = cards[0].width, cards[0].height
+        rotation = ""
+
     cols, rows = cards[0].COLS, cards[0].ROWS
 
     for row in range(rows):
@@ -26,13 +34,13 @@ def layout_page(cards, show_border):
                 left = MARGIN + col * (width + SPACING)
                 top = MARGIN + row * (height + SPACING)
 
-                group = svg.Group(transform=f"translate({left}, {top})")
+                group = svg.Group(transform=f"translate({left}, {top}) {rotation}")
                 if show_border:
                     group.append(svg.Rectangle(0, 0, card.width, card.height, stroke=COLOR_BORDER, fill="none"))
 
-                    # Show margin.
-                    # group.append(svg.Rectangle(card.MARGIN_LEFT, card.MARGIN_TOP, card.INNER_WIDTH, card.INNER_HEIGHT,
-                    #                            stroke=COLOR_BORDER, fill="none"))
+                if show_margin:
+                    group.append(svg.Rectangle(card.MARGIN_LEFT, card.MARGIN_TOP, card.INNER_WIDTH, card.INNER_HEIGHT,
+                                               stroke=COLOR_MARGIN, fill="none"))
                 group.extend(card.render())
 
                 draw.append(group)

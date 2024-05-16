@@ -8,7 +8,7 @@ GAME_NAME = "Ecogame for E2M"
 
 
 class BaseCard:
-    FONT_HEIGHT_TITLE = 28
+    FONT_HEIGHT_TITLE = 24
     FONT_HEIGHT_VALUE = 34
     FONT_HEIGHT_TEXT = 20
     FONT_HEIGHT_KEYWORDS = 12
@@ -24,6 +24,8 @@ class BaseCard:
 
     CARD_WIDTH, CARD_HEIGHT = None, None
     COLS, ROWS = None, None
+
+    ROTATE = False
 
     def __init__(self, **config: hash):
         self._config = config
@@ -104,7 +106,9 @@ class PortraitCard(BaseCard):
     INNER_WIDTH = CARD_WIDTH - MARGIN_LEFT - MARGIN_RIGHT
     INNER_HEIGHT = CARD_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
 
-    COLS, ROWS = 2, 3
+    ROTATE = True
+
+    COLS, ROWS = 2, 4
 
 
 class LandscapeCard(BaseCard):

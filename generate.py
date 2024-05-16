@@ -19,6 +19,7 @@ def create_parser():
 
     parser.add_argument("--show-border", action='store_true')
     parser.add_argument("--show-count", action='store_true')
+    parser.add_argument("--show-margin", action='store_true')
     parser.add_argument("--upload", action='store_true')
 
     return parser
@@ -34,7 +35,7 @@ def parse(parser):
         os.remove(filename)
 
     for cards in [DisasterDice, DisasterCards, PlayerCards, Cards]:
-        cards.create_cards(args.show_border, args.show_count)
+        cards.create_cards(args.show_border, args.show_count, args.show_margin)
 
     if args.upload:
         google_api = DriveAPI()

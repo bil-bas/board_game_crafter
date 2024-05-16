@@ -26,7 +26,7 @@ class BaseCards:
             yield card
 
     @classmethod
-    def create_cards(cls, show_border, show_count):
+    def create_cards(cls, show_border: bool, show_count: bool, show_margin: bool):
         with open(cls.CONFIG_FILE) as f:
             config = yaml.load(f, Loader=yaml.SafeLoader)
 
@@ -38,7 +38,7 @@ class BaseCards:
                 c.append(card)
 
         for i, cards_on_page in enumerate(batched(c, cls.CARD_CLASS.COLS * cls.CARD_CLASS.ROWS), 1):
-            doc = layout_page(cards_on_page, show_border)
+            doc = layout_page(cards_on_page, show_border=show_border, show_margin=show_margin)
             doc.save_png(f"./output/{cls.__name__}_{i:02}.png")
 
         with open(f"./output/{GAME_NAME} - {cls.__name__}.pdf", "wb") as f:

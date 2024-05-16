@@ -4,7 +4,7 @@
   image: pear
   initial:
     prosperity: 4
-    pollution: 8
+    pollution: 6
   income:
     prosperity: 3
     pollution: 2
@@ -24,7 +24,7 @@
   image: pear
   initial:
     prosperity: 2
-    pollution: 4
+    pollution: 3
   income:
     prosperity: 3
     pollution: 2
@@ -34,7 +34,7 @@
   image: pear
   initial:
     prosperity: 2
-    pollution: 4
+    pollution: 3
   income:
     prosperity: 3
     pollution: 2
@@ -44,7 +44,7 @@
   image: pear
   initial:
     prosperity: 2
-    pollution: 4
+    pollution: 3
   income:
     prosperity: 3
     pollution: 2
