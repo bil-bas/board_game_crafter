@@ -6,6 +6,7 @@ import glob
 import pathlib
 import zipfile
 from itertools import batched
+import subprocess
 
 import img2pdf
 
@@ -38,23 +39,42 @@ def parse(parser):
     for folder in ("output/download", ):
         os.makedirs(folder, exist_ok=True)
 
-    for filename in glob.glob(f"./output/*.png"):
+    for filename in glob.glob(f"./output/*.*"):
         os.remove(filename)
 
-    create_cards([PlayerCards, DisasterCards, EventCards, StartingCards, BuyCards], "card fronts", args)
-    create_cards([CardBacks], "card backs", args)
+    create_cards([PlayerCards, DisasterCards, EventCards, StartingCards, BuyCards], "cards - fronts", args)
+    create_cards([CardBacks], "cards - backs", args)
     create_cards([DisasterDice], "disaster dice", args)
 
+    merge_fronts_and_backs()
+
     if args.upload:
-        google_api = DriveAPI()
-        for name in glob.glob("./output/*.pdf"):
-            google_api.upload(name)
+        upload()
 
-        google_api.download_doc_as_pdf(f"./output/download/{GAME_NAME} - Rules.pdf")
 
-        p_and_p_file = f"./output/{GAME_NAME} - print-and-play.zip"
-        create_p_and_p(p_and_p_file)
-        google_api.upload(p_and_p_file)
+def merge_fronts_and_backs():
+    subprocess.check_call([
+        f"pdftk",
+        f"A=./output/{GAME_NAME} - cards - fronts.pdf",
+        f"B=./output/{GAME_NAME} - cards - backs.pdf",
+        "shuffle",
+        "A",
+        "B",
+        "output",
+        f"./output/{GAME_NAME} - cards - double-sided.pdf"
+    ])
+
+
+def upload():
+    google_api = DriveAPI()
+
+    for name in glob.glob("output/*.pdf"):
+        google_api.upload(name)
+
+    google_api.download_doc_as_pdf(f"./output/download/{GAME_NAME} - Rules.pdf")
+    p_and_p_file = f"./output/{GAME_NAME} - print-and-play.zip"
+    create_p_and_p(p_and_p_file)
+    google_api.upload(p_and_p_file)
 
 
 def create_cards(card_types: list, name, args):

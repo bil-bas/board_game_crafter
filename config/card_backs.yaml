@@ -19,10 +19,8 @@
   count: 10  # 2 sheets
   card_type: Starting
 -
-  count: 6
-  is_blank: true
--
   count: 64  # 8 sheets
+  card_type: Improvement
 
 
 
