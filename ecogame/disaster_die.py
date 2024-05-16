@@ -2,6 +2,8 @@ import drawsvg as svg
 
 from ecogame.utils import mm_to_px
 from ecogame.base_card import BaseCard
+from ecogame.utils import mm_to_px
+from ecogame.base_cards import BaseCards
 
 
 class DisasterDie(BaseCard):
@@ -23,3 +25,13 @@ class DisasterDie(BaseCard):
     @property
     def height(self):
         return self._config["size"]
+
+
+class DisasterDice(BaseCards):
+    CONFIG_FILE = "./config/disaster_dice.yaml"
+    CARD_CLASS = DisasterDie
+
+    def _add_cards(self, config):
+        for size in self.CARD_CLASS.SIZES:
+            for dice_config in config:
+                self._cards.append(self.CARD_CLASS(size=mm_to_px(size), **dice_config))

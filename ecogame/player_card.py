@@ -1,8 +1,8 @@
 import drawsvg as svg
-from itertools import batched
 
 from ecogame.utils import mm_to_px
 from ecogame.base_card import PortraitCard
+from .base_cards import BaseCards
 
 
 class PlayerCard(PortraitCard):
@@ -42,3 +42,7 @@ class PlayerCard(PortraitCard):
             yield self._wrap(flavour, self.FONT_HEIGHT_FLAVOUR,
                              self.MARGIN_LEFT, self.CARD_HEIGHT - self.MARGIN_BOTTOM, 30, valign="bottom")
 
+
+class PlayerCards(BaseCards):
+    CONFIG_FILE = "./config/player_cards.yaml"
+    CARD_CLASS = PlayerCard

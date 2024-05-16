@@ -1,6 +1,7 @@
 import drawsvg as svg
 from ecogame.utils import mm_to_px
 from ecogame.base_card import PortraitCard
+from ecogame.base_cards import BaseCards
 
 
 class DisasterCard(PortraitCard):
@@ -52,3 +53,8 @@ class DisasterCard(PortraitCard):
         yield svg.Text("END", self.FONT_HEIGHT_TABLE,
                        center + 10, self.TABLE_Y + self.FONT_HEIGHT_TABLE + self.TABLE_ROW_HEIGHT * 3,
                        font_weight="bold")
+
+
+class DisasterCards(BaseCards):
+    CARD_CLASS = DisasterCard
+    CONFIG_FILE = "./config/disaster_cards.yaml"

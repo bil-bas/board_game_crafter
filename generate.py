@@ -7,9 +7,9 @@ import pathlib
 import zipfile
 
 from ecogame.cards import Cards
-from ecogame.player_cards import PlayerCards
-from ecogame.disaster_cards import DisasterCards
-from ecogame.disaster_dice import DisasterDice
+from ecogame.player_card import PlayerCards
+from ecogame.disaster_card import DisasterCards
+from ecogame.disaster_die import DisasterDice
 from ecogame.cloud_api import DriveAPI
 from ecogame.base_cards import GAME_NAME
 
