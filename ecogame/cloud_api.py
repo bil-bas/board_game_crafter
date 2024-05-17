@@ -70,6 +70,7 @@ class DriveAPI:
             except IndexError as ex:
                 result = files.create(body=metadata, media_body=media, fields='version').execute()
             else:
+                metadata.pop("parents")
                 result = files.update(body=metadata, media_body=media, fields='version', fileId=file_id).execute()
 
         except Exception as ex:

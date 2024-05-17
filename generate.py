@@ -53,7 +53,7 @@ def parse(parser) -> None:
 
     create_cards([DisasterDice], "disaster dice", show_border=args.show_border, show_margin=False,
                  keep_as_svg=True)
-    create_cards([DieCutTemplates], "die cut templates", show_border=False, show_margin=False,
+    create_cards([DieCutTemplates], "dice cut templates", show_border=False, show_margin=False,
                  keep_as_svg=True)
 
     merge_fronts_and_backs()
@@ -133,11 +133,11 @@ def create_p_and_p(p_and_p_file: str) -> None:
         for name in glob.glob("./output/download/*"):
             z_file.write(name, os.path.basename(name))
 
-        for name in glob.glob("./output/*.svg"):
-            z_file.write(name, f"templates/{os.path.basename(name)}")
+        for name in glob.glob("./output/*dice*.svg"):
+            z_file.write(name, f"dice/{os.path.basename(name)}")
 
-        for name in glob.glob("./output/*.pdf"):
-            z_file.write(name, f"print/{os.path.basename(name)}")
+        for name in glob.glob("./output/*card*.pdf"):
+            z_file.write(name, f"cards/{os.path.basename(name)}")
 
 
 if __name__ == "__main__":
