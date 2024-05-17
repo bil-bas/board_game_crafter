@@ -3,7 +3,7 @@ from .buy_card import BuyCard
 
 
 class StartingCard(BuyCard):
-    pass
+    BACK_LABEL = "Starting"
 
 
 class StartingCards(BaseCards):

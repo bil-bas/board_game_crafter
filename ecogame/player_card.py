@@ -11,8 +11,9 @@ class PlayerCard(PortraitCard):
     IMAGE_SIZE = mm_to_px(30), mm_to_px(30)
     VALUE_MARGIN = mm_to_px(0)
     FONT_HEIGHT_TITLE = 22
+    BACK_LABEL = "Player"
 
-    def _render(self, name: str, image: str, initial: hash, income: hash, flavour: str):
+    def _render_front(self, name: str, image: str, initial: hash, income: hash, flavour: str):
         # Image.
         yield self._image((self.WIDTH - self.IMAGE_SIZE[0]) // 2, self.MARGIN_TOP, self.IMAGE_SIZE[0],
                           image)

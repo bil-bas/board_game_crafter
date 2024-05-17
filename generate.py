@@ -17,12 +17,12 @@ from ecogame.event_card import EventCards
 from ecogame.starting_card import StartingCards
 from ecogame.disaster_card import DisasterCards
 from ecogame.disaster_die import DisasterDice
-from ecogame.card_backs import CardBacks
 from ecogame.cloud_api import DriveAPI
 from ecogame.card_cut_template import CardCutTemplates
 from ecogame.die_cut_template import DieCutTemplates
 
 GAME_NAME = "Ecogame for E2M"
+ALL_CARD_TYPES = [PlayerCards, DisasterCards, EventCards, StartingCards, BuyCards]
 
 
 def create_parser():
@@ -44,10 +44,9 @@ def parse(parser) -> None:
     for filename in glob.glob(f"./output/*.*"):
         os.remove(filename)
 
-    create_cards([PlayerCards, DisasterCards, EventCards, StartingCards, BuyCards], "cards - fronts",
-                 show_border=args.show_border, show_margin=args.show_margin)
-    create_cards([CardBacks], "cards - backs", show_border=args.show_border,
-                 show_margin=args.show_margin)
+    create_cards(ALL_CARD_TYPES, "cards - fronts",show_border=args.show_border, show_margin=args.show_margin)
+    create_cards(ALL_CARD_TYPES, "cards - backs", show_border=args.show_border, show_margin=args.show_margin,
+                 render_backs=True)
     create_cards([DisasterDice], "disaster dice", show_border=args.show_border, show_margin=False)
     create_cards([CardCutTemplates], "card cut templates", show_border=False, show_margin=False,
                  save_as_svg=True)
@@ -88,7 +87,8 @@ def upload() -> None:
     google_api.upload(p_and_p_file)
 
 
-def create_cards(card_types: list, name, show_border: bool, show_margin: bool, save_as_svg: bool = False) -> None:
+def create_cards(card_types: list, name, show_border: bool, show_margin: bool, save_as_svg: bool = False,
+                 render_backs: bool = False) -> None:
     num_cards_on_page = card_types[0].cols * card_types[0].rows
 
     cards = []
@@ -96,7 +96,7 @@ def create_cards(card_types: list, name, show_border: bool, show_margin: bool, s
         cards.extend(card_type.create_cards())
 
     for i, cards_on_page in enumerate(batched(cards, num_cards_on_page), 1):
-        doc = layout_page(cards_on_page, show_border=show_border, show_margin=show_margin)
+        doc = layout_page(cards_on_page, show_border=show_border, show_margin=show_margin, render_backs=render_backs)
         if save_as_svg:
             size_mm = getattr(cards_on_page[0], "size_mm", 0)
             doc.save_svg(f"./output/{GAME_NAME} - {name}{f' {size_mm}mm' if size_mm else ''}.svg")

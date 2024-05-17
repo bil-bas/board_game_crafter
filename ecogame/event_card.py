@@ -3,7 +3,7 @@ from .buy_card import BuyCard
 
 
 class EventCard(BuyCard):
-    pass
+    BACK_LABEL = "Event"
 
 
 class EventCards(BaseCards):

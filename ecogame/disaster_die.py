@@ -14,7 +14,7 @@ class DisasterDie(BaseCard):
     INNER_HEIGHT = HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
     COLS, ROWS = 6, 1
 
-    def _render(self, size_mm: float, pips: int) -> None:
+    def _render_front(self, size_mm: float, pips: int) -> None:
         yield svg.Image(0, 0, self.width, self.height, path=f"./images/dice-{pips}.png", embed=True)
 
     @property

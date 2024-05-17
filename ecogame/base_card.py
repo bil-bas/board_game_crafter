@@ -24,8 +24,18 @@ class BaseCard:
     COLS, ROWS = None, None
 
     BLEED_MARGIN = mm_to_px(1.5)
+    BLEED_WIDTH = BLEED_HEIGHT = None
+    MARGIN_LEFT = MARGIN_RIGHT = MARGIN_TOP = MARGIN_BOTTOM = None
+    INNER_WIDTH = INNER_HEIGHT = None
+    BACK_LABEL = "Improvement"
 
     ROTATE = False
+
+    BACK_BORDER_COLOR = "#555555"
+    BACK_BACKGROUND_COLOR = "white"
+    BACK_BORDER_WIDTH = mm_to_px(10)
+    BACK_FONT_HEIGHT_TITLE = 32
+    BACK_FONT_HEIGHT_TYPE = 20
 
     def __init__(self, **config: hash):
         self._count = config.pop("count", 1)
@@ -83,14 +93,33 @@ class BaseCard:
     def count(self) -> int:
         return self._count
 
-    def render(self):
+    def render_front(self):
         if self._is_blank:
             return
 
-        yield from self._render(**self._config)
+        yield from self._render_front(**self._config)
 
-    def _render(self, **config):
+    def render_back(self):
+        if self._is_blank:
+            return
+
+        yield from self._render_back(**self._config)
+
+    def _render_front(self, **config):
         raise NotImplementedError
+
+    def _render_back(self, **config):
+        yield svg.Rectangle(-self.BLEED_MARGIN, -self.BLEED_MARGIN, self.BLEED_WIDTH, self.BLEED_HEIGHT,
+                            fill=self.BACK_BORDER_COLOR, stroke="none")
+
+        yield svg.Rectangle(self.MARGIN_LEFT, self.MARGIN_TOP, self.INNER_WIDTH, self.INNER_HEIGHT,
+                            stroke="none", fill=self.BACK_BACKGROUND_COLOR)
+
+        yield svg.Text("ECOGAME", self.BACK_FONT_HEIGHT_TITLE, self.WIDTH / 2, self.HEIGHT / 2,
+                       center=True)
+
+        yield svg.Text(self.BACK_LABEL, self.BACK_FONT_HEIGHT_TYPE, self.WIDTH / 2, self.HEIGHT / 2 + 40,
+                       center=True)
 
     @property
     def width(self) -> float:

@@ -3,7 +3,7 @@ from ecogame.utils import A4_WIDTH, A4_HEIGHT, mm_to_px
 
 
 MARGIN = mm_to_px(13)
-SPACING = mm_to_px(3.5)
+SPACING = mm_to_px(4)
 REG_MARGIN = mm_to_px(10)
 REG_LEFT, REG_TOP = REG_MARGIN, REG_MARGIN
 REG_LEN, REG_WIDTH = mm_to_px(5), 4
@@ -14,7 +14,7 @@ COLOR_REG = "red"
 COLOR_MARGIN = "lightgrey"
 
 
-def layout_page(cards, show_border, show_margin):
+def layout_page(cards: list, show_border: bool, show_margin: bool, render_backs: bool):
     draw = svg.Drawing(A4_WIDTH, A4_HEIGHT, origin="top-left")
 
     if cards[0].ROTATE:
@@ -26,7 +26,8 @@ def layout_page(cards, show_border, show_margin):
 
     cols, rows = cards[0].COLS, cards[0].ROWS
 
-    base = render_cards(cards, cols, draw, height, rotation, rows, show_border, show_margin, width)
+    base = render_cards(cards=cards, cols=cols, draw=draw, height=height, rotation=rotation, rows=rows,
+                        show_border=show_border, show_margin=show_margin, width=width, render_backs=render_backs)
 
     draw.extend(reg_mark(REG_LEFT, REG_TOP, left=True, top=True))
     draw.extend(reg_mark(REG_RIGHT, REG_TOP, left=False, top=True))
@@ -36,14 +37,19 @@ def layout_page(cards, show_border, show_margin):
     return draw
 
 
-def render_cards(cards, cols: int, draw, height: int, rotation: str, rows: int, show_border: bool,
-                 show_margin: bool, width: int):
+def render_cards(cards: list, cols: int, draw, height: int, rotation: str, rows: int, show_border: bool,
+                 show_margin: bool, width: int, render_backs: bool):
     top = None
 
     for row in range(rows):
         for col in range(cols):
             index = row * cols + col
-            left = MARGIN + col * (width + SPACING)
+
+            if render_backs:
+                left = MARGIN + (cols - 1 - col) * (width + SPACING)
+            else:
+                left = MARGIN + col * (width + SPACING)
+
             top = MARGIN + row * (height + SPACING)
 
             try:
@@ -53,7 +59,7 @@ def render_cards(cards, cols: int, draw, height: int, rotation: str, rows: int, 
 
             group = svg.Group(transform=f"translate({left}, {top}) {rotation}")
 
-            group.extend(card.render())
+            group.extend(card.render_back() if render_backs else card.render_front())
 
             if show_border:
                 group.append(svg.Rectangle(0, 0, card.width, card.height, stroke=COLOR_BORDER, fill="none"))

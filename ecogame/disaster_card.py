@@ -11,8 +11,9 @@ class DisasterCard(PortraitCard):
     FONT_HEIGHT_TABLE = 18
     FONT_HEIGHT_PLAYERS = 24
     PLAYERS_Y = mm_to_px(22)
+    BACK_LABEL = "Disaster"
 
-    def _render(self, number_of_players: int):
+    def _render_front(self, number_of_players: int):
         # Title and number of players
         yield svg.Text("Disasters", self.FONT_HEIGHT_TITLE, self.WIDTH // 2,
                        self.MARGIN_TOP + self.FONT_HEIGHT_TITLE,

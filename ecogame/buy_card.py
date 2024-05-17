@@ -13,10 +13,11 @@ class BuyCard(LandscapeCard):
     VALUES_Y = mm_to_px(30)
     CENTER_ICON_Y = VALUES_Y + 8
     TEXT_Y = mm_to_px(39)
+    BACK_LABEL = "Improvement"
 
-    def _render(self, title: str, cost: str = "", image: str = "", text: str = "",
-                left_value: str = "", center_icon: str = "", right_value: str = "", flavour: str = "",
-                keywords: list = None):
+    def _render_front(self, title: str, cost: str = "", image: str = "", text: str = "",
+                      left_value: str = "", center_icon: str = "", right_value: str = "", flavour: str = "",
+                      keywords: list = None):
         # Cost
         yield from self._value(cost, self.FONT_HEIGHT_COST, self.MARGIN_LEFT, self.MARGIN_TOP)
 
@@ -49,7 +50,6 @@ class BuyCard(LandscapeCard):
         if flavour:
             yield self._wrap(flavour, self.FONT_HEIGHT_FLAVOUR,
                              self.MARGIN_LEFT, self.HEIGHT - self.MARGIN_BOTTOM, 45, valign="bottom")
-
 
 class BuyCards(BaseCards):
     CARD_CLASS = BuyCard

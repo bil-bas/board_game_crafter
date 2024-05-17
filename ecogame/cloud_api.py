@@ -61,13 +61,18 @@ class DriveAPI:
         }
 
         media = MediaFileUpload(filepath)
+        files = self.service.files()
 
         try:
-            files = self.service.files()
-            file_id = self._get_file_id(files, name)
-            result = files.update(body=metadata, media_body=media, fields='version', fileId=file_id).execute()
+            try:
+                file_id = self._get_file_id(files, name)
+            except IndexError as ex:
+                result = files.create(body=metadata, media_body=media, fields='version').execute()
+            else:
+                result = files.update(body=metadata, media_body=media, fields='version', fileId=file_id).execute()
+
         except Exception as ex:
-            raise RuntimeError(f"Can't Upload File: {ex}")
+            raise RuntimeError(f"Can't Upload File: {filepath}\n{ex}")
 
         print(f"File Uploaded: {name} (version {result['version']})")
 
@@ -85,10 +90,9 @@ class DriveAPI:
             while not done:
                 status, done = downloader.next_chunk()
         except Exception as ex:
-            raise RuntimeError(f"Can't Download File: {ex}")
+            raise RuntimeError(f"Can't Download File: {filepath}\n{ex}")
 
         print(f"File Downloaded: {name}")
-
     def _get_file_id(self, files, name: str):
         query = f"name='{name}' and trashed=false and '{self.FOLDER_ID}' in parents"
         results = files.list(fields='files(id)', q=query).execute()

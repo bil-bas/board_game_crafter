@@ -9,7 +9,7 @@ class DieCutTemplate(DisasterDie):
     BORDER_WIDTH = 1
     RADIUS = mm_to_px(2)
 
-    def _render(self, size_mm: int, pips: int = None):
+    def _render_front(self, size_mm: int, pips: int = None):
         yield svg.Rectangle(0, 0, self.width, self.height,
                             rx=self.RADIUS, ry=self.RADIUS,
                             stroke=self.BORDER_COLOR, fill="none", stroke_width=self.BORDER_WIDTH)
