@@ -1,6 +1,6 @@
 import drawsvg as svg
 
-from .utils import A4_WIDTH, A4_HEIGHT, mm_to_px, DEFAULT_DPI
+from .utils import A4_WIDTH, A4_HEIGHT, mm_to_px
 
 MARGIN = mm_to_px(10)
 SPACING = mm_to_px(5)
@@ -14,9 +14,8 @@ COLOR_REG = "red"
 COLOR_MARGIN = "lightgrey"
 
 
-def layout_page(cards: list, show_border: bool, show_margin: bool, render_backs: bool, dpi: int = DEFAULT_DPI):
-    scale = dpi / DEFAULT_DPI
-    draw = svg.Drawing(A4_WIDTH * scale, A4_HEIGHT * scale, origin="top-left")
+def layout_page(cards: list, show_border: bool, show_margin: bool, render_backs: bool):
+    draw = svg.Drawing(A4_WIDTH, A4_HEIGHT, origin="top-left")
 
     cols, rows = cards[0].COLS, cards[0].ROWS
 
@@ -29,11 +28,11 @@ def layout_page(cards: list, show_border: bool, show_margin: bool, render_backs:
 
     # Ensure we center any cards.
     render_width = cols * width + (cols - 1) * SPACING
-    render_offset = (A4_WIDTH - render_width) / 2
+    render_offset_y = (A4_WIDTH - render_width) / 2
 
-    page = svg.Group(transform=f"scale({scale})")
+    page = svg.Group()
 
-    render_area = svg.Group(transform=f"translate({render_offset}, {MARGIN})")
+    render_area = svg.Group(transform=f"translate({render_offset_y}, {MARGIN})")
     reg_bottom = render_cards(cards=cards, cols=cols, draw=render_area, height=height, rotation=rotation, rows=rows,
                               show_border=show_border, show_margin=show_margin, width=width, render_backs=render_backs)
     page.append(render_area)

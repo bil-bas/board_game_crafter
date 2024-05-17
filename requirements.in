@@ -6,3 +6,4 @@ google-auth-oauthlib
 svglib
 ReportLab
 drawsvg[all]
+PyPDF2
