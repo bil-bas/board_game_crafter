@@ -31,10 +31,11 @@ ALL_CARD_TYPES = [PlayerCards, DisasterCards, EventCards, StartingCards, BuyCard
 def create_parser():
     parser = argparse.ArgumentParser(description="Layout generator for Ishara Press Regen-D game")
 
-    parser.add_argument("--show-border", action='store_true')
-    parser.add_argument("--show-margin", action='store_true')
-    parser.add_argument("--dpi", type=int, default=DEFAULT_DPI)
-    parser.add_argument("--upload", action='store_true')
+    parser.add_argument("--show-border", action='store_true', help="Draw border around cards")
+    parser.add_argument("--show-margin", action='store_true', help="Draw margin inside cards")
+    parser.add_argument("--dpi", type=int, default=DEFAULT_DPI, choices=[DEFAULT_DPI, 150, 300],
+                        help=f"DPI of rendered images in PDFs")
+    parser.add_argument("--upload", action='store_true', help="Upload to Google Drive")
 
     return parser
 
