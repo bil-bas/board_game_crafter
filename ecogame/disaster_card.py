@@ -12,6 +12,7 @@ class DisasterCard(PortraitCard):
     FONT_HEIGHT_PLAYERS = 24
     PLAYERS_Y = mm_to_px(22)
     BACK_LABEL = "Disaster"
+    BACK_BACKGROUND_COLOR = "darkgrey"
 
     def _render_front(self, number_of_players: int):
         # Title and number of players

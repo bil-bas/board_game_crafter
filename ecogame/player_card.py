@@ -12,6 +12,7 @@ class PlayerCard(PortraitCard):
     VALUE_MARGIN = mm_to_px(0)
     FONT_HEIGHT_TITLE = 22
     BACK_LABEL = "Player"
+    BACK_BACKGROUND_COLOR = "pink"
 
     def _render_front(self, name: str, image: str, initial: hash, income: hash, flavour: str):
         # Image.

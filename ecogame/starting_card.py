@@ -4,6 +4,7 @@ from .buy_card import BuyCard
 
 class StartingCard(BuyCard):
     BACK_LABEL = "Starting"
+    BACK_BACKGROUND_COLOR = "yellow"
 
 
 class StartingCards(BaseCards):
