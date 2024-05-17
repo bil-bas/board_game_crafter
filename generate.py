@@ -111,6 +111,9 @@ def create_cards(card_types: list, name, show_border: bool, show_margin: bool, k
     if not keep_as_svg:
         merge_pdfs(cards, name)
 
+        for filename in glob.glob(f"./output/{name}_*.pdf"):
+            os.remove(filename)
+
 
 def merge_pdfs(cards, name):
     output_file = f"./output/{GAME_NAME} - {name}.pdf"
