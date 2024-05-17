@@ -25,6 +25,8 @@ class BaseCard:
     WIDTH, HEIGHT = None, None
     COLS, ROWS = None, None
 
+    BLEED_MARGIN = mm_to_px(1.5)
+
     ROTATE = False
 
     def __init__(self, **config: hash):
@@ -92,6 +94,14 @@ class BaseCard:
     def _render(self, **config):
         raise NotImplementedError
 
+    @property
+    def width(self):
+        return self.WIDTH
+
+    @property
+    def height(self):
+        return self.HEIGHT
+
 
 class PortraitCard(BaseCard):
     WIDTH, HEIGHT = mm_to_px(63.5), mm_to_px(88.9)
@@ -99,9 +109,10 @@ class PortraitCard(BaseCard):
     MARGIN_TOP, MARGIN_BOTTOM = mm_to_px(5), mm_to_px(5)
     INNER_WIDTH = WIDTH - MARGIN_LEFT - MARGIN_RIGHT
     INNER_HEIGHT = HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
-
+    BLEED_WIDTH = WIDTH + BaseCard.BLEED_MARGIN * 2
+    BLEED_HEIGHT = HEIGHT + BaseCard.BLEED_MARGIN * 2
     ROTATE = True
-    ROWS, COLS = 4, 2
+    COLS, ROWS = 2, 4
 
 
 class LandscapeCard(BaseCard):
@@ -110,5 +121,6 @@ class LandscapeCard(BaseCard):
     MARGIN_TOP, MARGIN_BOTTOM = mm_to_px(5), mm_to_px(5)
     INNER_WIDTH = WIDTH - MARGIN_LEFT - MARGIN_RIGHT
     INNER_HEIGHT = HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
-
-    ROWS, COLS = 4, 2
+    BLEED_WIDTH = WIDTH + BaseCard.BLEED_MARGIN * 2
+    BLEED_HEIGHT = HEIGHT + BaseCard.BLEED_MARGIN * 2
+    COLS, ROWS = 2, 4

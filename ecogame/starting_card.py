@@ -9,4 +9,3 @@ class StartingCard(BuyCard):
 class StartingCards(BaseCards):
     CONFIG_FILE = "./config/starting_cards.yaml"
     CARD_CLASS = StartingCard
-    ROWS, COLS = 4, 2

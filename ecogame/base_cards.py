@@ -1,7 +1,19 @@
 import yaml
 
 
-class BaseCards:
+class BaseCardsMeta(type):
+    CARD_CLASS = None
+
+    @property
+    def rows(cls) -> int:
+        return cls.CARD_CLASS.ROWS
+
+    @property
+    def cols(cls) -> int:
+        return cls.CARD_CLASS.COLS
+
+
+class BaseCards(metaclass=BaseCardsMeta):
     CONFIG_FILE = None
     CARD_CLASS = None
 
@@ -33,11 +45,3 @@ class BaseCards:
                 yield card
 
         print(f"Generated {cards.total} {cls.__name__}.")
-
-    @classmethod
-    def rows(cls) -> int:
-        return cls.CARD_CLASS.ROWS
-
-    @classmethod
-    def cols(cls) -> int:
-        return cls.CARD_CLASS.COLS

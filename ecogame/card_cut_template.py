@@ -5,7 +5,7 @@ from .base_card import PortraitCard
 from .utils import mm_to_px
 
 
-class CutTemplate(PortraitCard):
+class CardCutTemplate(PortraitCard):
     BORDER_COLOR = "black"
     BORDER_WIDTH = 1
     RADIUS = mm_to_px(4)
@@ -16,7 +16,6 @@ class CutTemplate(PortraitCard):
                             stroke=self.BORDER_COLOR, fill="none", stroke_width=self.BORDER_WIDTH)
 
 
-class CutTemplates(BaseCards):
-    CONFIG_FILE = "./config/cut_templates.yaml"
-    CARD_CLASS = CutTemplate
-    ROWS, COLS = 4, 2
+class CardCutTemplates(BaseCards):
+    CONFIG_FILE = "./config/card_cut_templates.yaml"
+    CARD_CLASS = CardCutTemplate

@@ -13,18 +13,18 @@ class DisasterDie(BaseCard):
     MARGIN_TOP, MARGIN_BOTTOM = mm_to_px(0), mm_to_px(0)
     INNER_WIDTH = WIDTH - MARGIN_LEFT - MARGIN_RIGHT
     INNER_HEIGHT = HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
-    ROWS, COLS = 6, 6
+    COLS, ROWS = 6, 1
 
-    def _render(self, pips: int, size: int):
-        yield svg.Image(0, 0, size, size, path=f"./images/dice-{pips}.png", embed=True)
+    def _render(self, size_mm: int, pips: int):
+        yield svg.Image(0, 0, self.width, self.height, path=f"./images/dice-{pips}.png", embed=True)
 
     @property
     def width(self):
-        return self._config["size"]
+        return mm_to_px(self._config["size_mm"])
 
     @property
     def height(self):
-        return self._config["size"]
+        return mm_to_px(self._config["size_mm"])
 
 
 class DisasterDice(BaseCards):
@@ -32,6 +32,6 @@ class DisasterDice(BaseCards):
     CARD_CLASS = DisasterDie
 
     def _add_cards(self, config):
-        for size in self.CARD_CLASS.SIZES:
+        for size_mm in self.CARD_CLASS.SIZES:
             for dice_config in config:
-                self._cards.append(self.CARD_CLASS(size=mm_to_px(size), **dice_config))
+                self._cards.append(self.CARD_CLASS(size_mm=size_mm, **dice_config))

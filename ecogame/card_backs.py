@@ -13,11 +13,11 @@ class CardBack(LandscapeCard):
     FONT_HEIGHT_TYPE = 24
 
     def _render(self, card_type: str = ""):
-        yield svg.Rectangle(0, 0, self.WIDTH, self.HEIGHT, fill=self.BORDER_COLOR, stroke="none")
-        yield svg.Ellipse(self.WIDTH // 2, self.HEIGHT // 2,
-                          rx=(self.WIDTH - self.BORDER_WIDTH) // 2,
-                          ry=(self.HEIGHT - self.BORDER_WIDTH) // 2,
-                          stroke="none", fill=self.BACKGROUND_COLOR)
+        yield svg.Rectangle(-self.BLEED_MARGIN, -self.BLEED_MARGIN, self.BLEED_WIDTH, self.BLEED_HEIGHT,
+                            fill=self.BORDER_COLOR, stroke="none")
+
+        yield svg.Rectangle(self.MARGIN_LEFT, self.MARGIN_TOP, self.INNER_WIDTH, self.INNER_HEIGHT,
+                           stroke="none", fill=self.BACKGROUND_COLOR)
 
         yield svg.Text("ECOGAME", self.FONT_HEIGHT_TITLE, self.WIDTH / 2, self.HEIGHT / 2,
                        center=True)

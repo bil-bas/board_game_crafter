@@ -9,4 +9,3 @@ class EventCard(BuyCard):
 class EventCards(BaseCards):
     CONFIG_FILE = "./config/event_cards.yaml"
     CARD_CLASS = EventCard
-    ROWS, COLS = 4, 2

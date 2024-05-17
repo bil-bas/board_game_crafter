@@ -19,7 +19,8 @@ from ecogame.disaster_card import DisasterCards
 from ecogame.disaster_die import DisasterDice
 from ecogame.card_backs import CardBacks
 from ecogame.cloud_api import DriveAPI
-from ecogame.cut_template import CutTemplates
+from ecogame.card_cut_template import CardCutTemplates
+from ecogame.die_cut_template import DieCutTemplates
 
 GAME_NAME = "Ecogame for E2M"
 
@@ -47,10 +48,11 @@ def parse(parser):
                  show_border=args.show_border, show_margin=args.show_margin)
     create_cards([CardBacks], "cards - backs", show_border=args.show_border,
                  show_margin=args.show_margin)
-    create_cards([DisasterDice], "disaster dice", show_border=args.show_border, show_margin=True)
-    create_cards([CutTemplates], "cut templates", show_border=False, show_margin=False,
+    create_cards([DisasterDice], "disaster dice", show_border=args.show_border, show_margin=False)
+    create_cards([CardCutTemplates], "card cut templates", show_border=False, show_margin=False,
                  save_as_svg=True)
-    os.rename("./output/cut templates_01.svg", f"./output/{GAME_NAME} - cut templates.svg")
+    create_cards([DieCutTemplates], "die cut templates", show_border=False, show_margin=False,
+                 save_as_svg=True)
 
     merge_fronts_and_backs()
 
@@ -87,7 +89,7 @@ def upload():
 
 
 def create_cards(card_types: list, name, show_border: bool, show_margin: bool, save_as_svg: bool = False):
-    num_cards_on_page = card_types[0].rows() * card_types[0].cols()
+    num_cards_on_page = card_types[0].cols * card_types[0].rows
 
     cards = []
     for card_type in card_types:
@@ -96,7 +98,8 @@ def create_cards(card_types: list, name, show_border: bool, show_margin: bool, s
     for i, cards_on_page in enumerate(batched(cards, num_cards_on_page), 1):
         doc = layout_page(cards_on_page, show_border=show_border, show_margin=show_margin)
         if save_as_svg:
-            doc.save_svg(f"./output/{name}_{i:02}.svg")
+            size_mm = getattr(cards_on_page[0], "size_mm", 0)
+            doc.save_svg(f"./output/{GAME_NAME} - {name}{f' {size_mm}mm' if size_mm else ''}.svg")
         else:
             doc.save_png(f"./output/{name}_{i:02}.png")
 
@@ -114,10 +117,10 @@ def create_p_and_p(p_and_p_file):
             z_file.write(name, os.path.basename(name))
 
         for name in glob.glob("./output/*.svg"):
-            z_file.write(name, os.path.basename(name))
+            z_file.write(name, f"templates/{os.path.basename(name)}")
 
         for name in glob.glob("./output/*.pdf"):
-            z_file.write(name, os.path.basename(name))
+            z_file.write(name, f"print/{os.path.basename(name)}")
 
 
 if __name__ == "__main__":
