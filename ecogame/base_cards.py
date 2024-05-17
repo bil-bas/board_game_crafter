@@ -30,11 +30,11 @@ class BaseCards(metaclass=BaseCardsMeta):
             yield card
 
     @property
-    def total(self):
+    def total(self) -> int:
         return sum(c.count for c in self)
 
     @classmethod
-    def create_cards(cls):
+    def create_cards(cls) -> None:
         with open(cls.CONFIG_FILE) as f:
             config = yaml.load(f, Loader=yaml.SafeLoader)
 

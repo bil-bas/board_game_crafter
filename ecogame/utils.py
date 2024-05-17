@@ -4,7 +4,7 @@ import math
 MM_TO_PX = 3.7795275591
 
 
-def mm_to_px(mm: float) -> int:
+def mm_to_px(mm: float) -> float:
     return round(mm * MM_TO_PX)
 
 

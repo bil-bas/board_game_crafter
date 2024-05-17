@@ -35,7 +35,7 @@ def create_parser():
     return parser
 
 
-def parse(parser):
+def parse(parser) -> None:
     args = parser.parse_args()
 
     for folder in ("output/download", ):
@@ -60,7 +60,7 @@ def parse(parser):
         upload()
 
 
-def merge_fronts_and_backs():
+def merge_fronts_and_backs() -> None:
     subprocess.check_call([
         f"pdftk",
         f"A=./output/{GAME_NAME} - cards - fronts.pdf",
@@ -73,7 +73,7 @@ def merge_fronts_and_backs():
     ])
 
 
-def upload():
+def upload() -> None:
     google_api = DriveAPI()
 
     for name in glob.glob("output/*.pdf"):
@@ -88,7 +88,7 @@ def upload():
     google_api.upload(p_and_p_file)
 
 
-def create_cards(card_types: list, name, show_border: bool, show_margin: bool, save_as_svg: bool = False):
+def create_cards(card_types: list, name, show_border: bool, show_margin: bool, save_as_svg: bool = False) -> None:
     num_cards_on_page = card_types[0].cols * card_types[0].rows
 
     cards = []
@@ -110,7 +110,7 @@ def create_cards(card_types: list, name, show_border: bool, show_margin: bool, s
         print(f"Written {len(cards)} cards to {output_file}")
 
 
-def create_p_and_p(p_and_p_file):
+def create_p_and_p(p_and_p_file: str) -> None:
     pathlib.Path(p_and_p_file).unlink(missing_ok=True)
     with zipfile.ZipFile(p_and_p_file, "x", compresslevel=zipfile.ZIP_LZMA) as z_file:
         for name in glob.glob("./output/download/*"):

@@ -26,7 +26,7 @@ class DriveAPI:
         # Connect to the API service
         self.service = build('drive', 'v3', credentials=self.creds)
 
-    def verify(self):
+    def verify(self) -> None:
         # Check if file token.pickle exists
         if os.path.exists(self.PICKLE_FILE):
             # Read the token from the file and
@@ -50,7 +50,7 @@ class DriveAPI:
             with open(self.PICKLE_FILE, 'wb') as token:
                 pickle.dump(self.creds, token)
 
-    def upload(self, filepath):
+    def upload(self, filepath: str) -> None:
         name = os.path.basename(filepath)
         mimetype = MimeTypes().guess_type(name)[0]
 
@@ -71,7 +71,7 @@ class DriveAPI:
 
         print(f"File Uploaded: {name} (version {result['version']})")
 
-    def download_doc_as_pdf(self, filepath):
+    def download_doc_as_pdf(self, filepath: str) -> None:
         name = os.path.basename(filepath)
         fh = io.FileIO(filepath, 'wb')
 
@@ -89,7 +89,7 @@ class DriveAPI:
 
         print(f"File Downloaded: {name}")
 
-    def _get_file_id(self, files, name):
+    def _get_file_id(self, files, name: str):
         query = f"name='{name}' and trashed=false and '{self.FOLDER_ID}' in parents"
         results = files.list(fields='files(id)', q=query).execute()
         file_id = results.get("files")[0]["id"]

@@ -58,7 +58,7 @@ class BaseCard:
         if icon:
             yield self._image(icon_x, y + size * 0.2, size * 0.8, icon)
 
-    def _wrap(self, text: str, size: int, x: int, y: int, width: int, valign: str = "top"):
+    def _wrap(self, text: str, size: int, x: int, y: int, width: int, valign: str = "top") -> svg.Text:
         if width == 0:
             lines = text.split("\n")
         else:
@@ -78,11 +78,11 @@ class BaseCard:
         return svg.Text("\n".join(lines), size, x, y + offset)
 
     @staticmethod
-    def _image(x, y, size, name):
+    def _image(x: int, y: int, size: int, name: str) -> svg.Image:
         return svg.Image(x, y, size, size, path=f"./images/{name}.png", embed=True)
 
     @property
-    def count(self):
+    def count(self) -> int:
         return self._count
 
     def render(self):
@@ -95,11 +95,11 @@ class BaseCard:
         raise NotImplementedError
 
     @property
-    def width(self):
+    def width(self) -> float:
         return self.WIDTH
 
     @property
-    def height(self):
+    def height(self) -> float:
         return self.HEIGHT
 
 

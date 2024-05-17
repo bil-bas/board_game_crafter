@@ -17,7 +17,7 @@ class CardBack(LandscapeCard):
                             fill=self.BORDER_COLOR, stroke="none")
 
         yield svg.Rectangle(self.MARGIN_LEFT, self.MARGIN_TOP, self.INNER_WIDTH, self.INNER_HEIGHT,
-                           stroke="none", fill=self.BACKGROUND_COLOR)
+                            stroke="none", fill=self.BACKGROUND_COLOR)
 
         yield svg.Text("ECOGAME", self.FONT_HEIGHT_TITLE, self.WIDTH / 2, self.HEIGHT / 2,
                        center=True)

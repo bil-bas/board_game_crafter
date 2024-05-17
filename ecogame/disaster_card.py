@@ -23,7 +23,7 @@ class DisasterCard(PortraitCard):
 
         yield from self.effects_table(number_of_players)
 
-    def effects_table(self, number_of_players):
+    def effects_table(self, number_of_players: int):
         # Effects table.
         center = self.MARGIN_LEFT + self.TABLE_COL_WIDTH
         size = self.FONT_HEIGHT_TABLE
@@ -44,7 +44,7 @@ class DisasterCard(PortraitCard):
 
             yield from self._end_of_civilisation(center, number_of_players, size)
 
-    def _end_of_civilisation(self, center, number_of_players, size):
+    def _end_of_civilisation(self, center: int, number_of_players: int, size: int):
         # End of civilisation!
         yield from self._value(f"{20 * number_of_players}+P", self.FONT_HEIGHT_TABLE,
                                center - 20, self.TABLE_Y + self.TABLE_ROW_HEIGHT * 3,

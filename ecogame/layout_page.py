@@ -36,7 +36,8 @@ def layout_page(cards, show_border, show_margin):
     return draw
 
 
-def render_cards(cards, cols, draw, height, rotation, rows, show_border, show_margin, width):
+def render_cards(cards, cols: int, draw, height: int, rotation: bool, rows: int, show_border: bool,
+                 show_margin: bool, width: int):
     top = None
 
     for row in range(rows):
@@ -66,6 +67,6 @@ def render_cards(cards, cols, draw, height, rotation, rows, show_border, show_ma
     return top + height + SPACING
 
 
-def reg_mark(x, y):
+def reg_mark(x: float, y: float):
     yield svg.Line(x - REG_LEN, y, x + REG_LEN, y, stroke=COLOR_REG)
     yield svg.Line(x, y - REG_LEN, x, y + REG_LEN, stroke=COLOR_REG)
