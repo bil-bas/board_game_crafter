@@ -17,8 +17,8 @@
   count: 5
 -
   title: Nuclear Power
-  cost: 3$
-  keywords: [ENERGY, Clean, (Tsunami)]
+  cost: 2$
+  keywords: [ENERGY, Clean]
   image: radiation
   right_value: +0P
   flavour: Nuclear energy is perfectly safe...most of the time.
@@ -26,7 +26,7 @@
 -
   title: Fracking
   cost: 1$
-  keywords: [ENERGY, Hydrocarbon, (Earthquakes)]
+  keywords: [ENERGY, Hydrocarbon]
   left_value: +1$
   right_value: +2P
   count: 2
