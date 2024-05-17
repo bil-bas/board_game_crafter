@@ -1,5 +1,4 @@
 ---
-# Needs to be an even number of events, total, so the backs line up.
 -
   title: Rising Sea Levels
   keywords: [EVENT, Global]
@@ -42,7 +41,7 @@
   right_value: -2$
   count: 1
 -
-  title: Colonial War
+  title: Imperialist War
   keywords: [EVENT]
   right_value: +2P
   count: 1
