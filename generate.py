@@ -7,8 +7,10 @@ import pathlib
 import zipfile
 from itertools import batched
 import subprocess
+from io import BytesIO
 
 import img2pdf
+from PIL import Image
 
 from ecogame.layout_page import layout_page
 from ecogame.buy_card import BuyCards
@@ -20,6 +22,7 @@ from ecogame.disaster_die import DisasterDice
 from ecogame.cloud_api import DriveAPI
 from ecogame.card_cut_template import CardCutTemplates
 from ecogame.die_cut_template import DieCutTemplates
+from ecogame.utils import DEFAULT_DPI
 
 GAME_NAME = "Ecogame for E2M"
 ALL_CARD_TYPES = [PlayerCards, DisasterCards, EventCards, StartingCards, BuyCards]
@@ -30,6 +33,7 @@ def create_parser():
 
     parser.add_argument("--show-border", action='store_true')
     parser.add_argument("--show-margin", action='store_true')
+    parser.add_argument("--dpi", type=int, default=DEFAULT_DPI)
     parser.add_argument("--upload", action='store_true')
 
     return parser
@@ -44,10 +48,13 @@ def parse(parser) -> None:
     for filename in glob.glob(f"./output/*.*"):
         os.remove(filename)
 
-    create_cards(ALL_CARD_TYPES, "cards - fronts",show_border=args.show_border, show_margin=args.show_margin)
+    create_cards(ALL_CARD_TYPES, "cards - fronts", show_border=args.show_border, show_margin=args.show_margin,
+                 dpi=args.dpi)
     create_cards(ALL_CARD_TYPES, "cards - backs", show_border=args.show_border, show_margin=args.show_margin,
-                 render_backs=True)
-    create_cards([DisasterDice], "disaster dice", show_border=args.show_border, show_margin=False)
+                 render_backs=True,
+                 dpi=args.dpi)
+    create_cards([DisasterDice], "disaster dice", show_border=args.show_border, show_margin=False,
+                 dpi=args.dpi)
     create_cards([CardCutTemplates], "card cut templates", show_border=False, show_margin=False,
                  save_as_svg=True)
     create_cards([DieCutTemplates], "die cut templates", show_border=False, show_margin=False,
@@ -88,7 +95,7 @@ def upload() -> None:
 
 
 def create_cards(card_types: list, name, show_border: bool, show_margin: bool, save_as_svg: bool = False,
-                 render_backs: bool = False) -> None:
+                 render_backs: bool = False, dpi: int = DEFAULT_DPI) -> None:
     num_cards_on_page = card_types[0].cols * card_types[0].rows
 
     cards = []
@@ -96,12 +103,16 @@ def create_cards(card_types: list, name, show_border: bool, show_margin: bool, s
         cards.extend(card_type.create_cards())
 
     for i, cards_on_page in enumerate(batched(cards, num_cards_on_page), 1):
-        doc = layout_page(cards_on_page, show_border=show_border, show_margin=show_margin, render_backs=render_backs)
+        doc = layout_page(cards_on_page, show_border=show_border, show_margin=show_margin, render_backs=render_backs,
+                          dpi=dpi)
         if save_as_svg:
             size_mm = getattr(cards_on_page[0], "size_mm", 0)
             doc.save_svg(f"./output/{GAME_NAME} - {name}{f' {size_mm}mm' if size_mm else ''}.svg")
         else:
-            doc.save_png(f"./output/{name}_{i:02}.png")
+            data = BytesIO()
+            doc.save_png(data)
+            image = Image.open(data)
+            image.save(f"./output/{name}_{i:02}.png", dpi=(dpi, dpi))
 
     if not save_as_svg:
         output_file = f"./output/{GAME_NAME} - {name}.pdf"

@@ -1,6 +1,6 @@
 import drawsvg as svg
-from ecogame.utils import A4_WIDTH, A4_HEIGHT, mm_to_px
 
+from .utils import A4_WIDTH, A4_HEIGHT, mm_to_px, DEFAULT_DPI
 
 MARGIN = mm_to_px(13)
 SPACING = mm_to_px(4)
@@ -14,8 +14,9 @@ COLOR_REG = "red"
 COLOR_MARGIN = "lightgrey"
 
 
-def layout_page(cards: list, show_border: bool, show_margin: bool, render_backs: bool):
-    draw = svg.Drawing(A4_WIDTH, A4_HEIGHT, origin="top-left")
+def layout_page(cards: list, show_border: bool, show_margin: bool, render_backs: bool, dpi: int = DEFAULT_DPI):
+    scale = dpi / DEFAULT_DPI
+    draw = svg.Drawing(A4_WIDTH * scale, A4_HEIGHT * scale, origin="top-left")
 
     if cards[0].ROTATE:
         width, height = cards[0].height, cards[0].width
@@ -26,13 +27,17 @@ def layout_page(cards: list, show_border: bool, show_margin: bool, render_backs:
 
     cols, rows = cards[0].COLS, cards[0].ROWS
 
-    base = render_cards(cards=cards, cols=cols, draw=draw, height=height, rotation=rotation, rows=rows,
+    page = svg.Group(transform=f"scale({scale})")
+
+    base = render_cards(cards=cards, cols=cols, draw=page, height=height, rotation=rotation, rows=rows,
                         show_border=show_border, show_margin=show_margin, width=width, render_backs=render_backs)
 
-    draw.extend(reg_mark(REG_LEFT, REG_TOP, left=True, top=True))
-    draw.extend(reg_mark(REG_RIGHT, REG_TOP, left=False, top=True))
-    draw.extend(reg_mark(REG_LEFT, base, left=True, top=False))
-    draw.extend(reg_mark(REG_RIGHT, base, left=False, top=False))
+    page.extend(reg_mark(REG_LEFT, REG_TOP, left=True, top=True))
+    page.extend(reg_mark(REG_RIGHT, REG_TOP, left=False, top=True))
+    page.extend(reg_mark(REG_LEFT, base, left=True, top=False))
+    page.extend(reg_mark(REG_RIGHT, base, left=False, top=False))
+
+    draw.append(page)
 
     return draw
 

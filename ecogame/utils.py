@@ -1,8 +1,10 @@
-MM_TO_PX = 3.7795275591
+DEFAULT_DPI = 96
+
+MM_TO_PX_96DPI = 3.7795275591
 
 
 def mm_to_px(mm: float) -> float:
-    return round(mm * MM_TO_PX)
+    return round(mm * MM_TO_PX_96DPI)
 
 
 A4_WIDTH, A4_HEIGHT = mm_to_px(210), mm_to_px(297)
