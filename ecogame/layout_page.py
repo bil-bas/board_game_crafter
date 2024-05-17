@@ -28,15 +28,15 @@ def layout_page(cards, show_border, show_margin):
 
     base = render_cards(cards, cols, draw, height, rotation, rows, show_border, show_margin, width)
 
-    draw.extend(reg_mark(REG_LEFT, REG_TOP))
-    draw.extend(reg_mark(REG_RIGHT, REG_TOP))
-    draw.extend(reg_mark(REG_LEFT, base))
-    draw.extend(reg_mark(REG_RIGHT, base))
+    draw.extend(reg_mark(REG_LEFT, REG_TOP, left=True, top=True))
+    draw.extend(reg_mark(REG_RIGHT, REG_TOP, left=False, top=True))
+    draw.extend(reg_mark(REG_LEFT, base, left=True, top=False))
+    draw.extend(reg_mark(REG_RIGHT, base, left=False, top=False))
 
     return draw
 
 
-def render_cards(cards, cols: int, draw, height: int, rotation: bool, rows: int, show_border: bool,
+def render_cards(cards, cols: int, draw, height: int, rotation: str, rows: int, show_border: bool,
                  show_margin: bool, width: int):
     top = None
 
@@ -67,6 +67,6 @@ def render_cards(cards, cols: int, draw, height: int, rotation: bool, rows: int,
     return top + height + SPACING
 
 
-def reg_mark(x: float, y: float):
-    yield svg.Line(x - REG_LEN, y, x + REG_LEN, y, stroke=COLOR_REG)
-    yield svg.Line(x, y - REG_LEN, x, y + REG_LEN, stroke=COLOR_REG)
+def reg_mark(x: float, y: float, left: bool, top: bool):
+    yield svg.Line(x, y, x + REG_LEN * (1 if left else -1), y, stroke=COLOR_REG)
+    yield svg.Line(x, y, x, y + REG_LEN * (1 if top else -1), stroke=COLOR_REG)
