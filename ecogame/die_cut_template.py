@@ -14,10 +14,6 @@ class DieCutTemplate(DisasterDie):
                             rx=self.RADIUS, ry=self.RADIUS,
                             stroke=self.BORDER_COLOR, fill="none", stroke_width=self.BORDER_WIDTH)
 
-    @property
-    def size_mm(self):
-        return self._config["size_mm"]
-
 
 class DieCutTemplates(DisasterDice):
     CONFIG_FILE = "./config/die_cut_templates.yaml"

@@ -25,6 +25,10 @@ class DisasterDie(BaseCard):
     def height(self) -> float:
         return mm_to_px(self._config["size_mm"])
 
+    @property
+    def size_mm(self):
+        return self._config["size_mm"]
+
 
 class DisasterDice(BaseCards):
     CONFIG_FILE = "./config/disaster_dice.yaml"

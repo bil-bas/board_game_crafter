@@ -48,9 +48,13 @@ def parse(parser) -> None:
     create_cards(ALL_CARD_TYPES, "cards - fronts", show_border=args.show_border, show_margin=args.show_margin)
     create_cards(ALL_CARD_TYPES, "cards - backs", show_border=args.show_border, show_margin=args.show_margin,
                  render_backs=True)
-    create_cards([DisasterDice], "disaster dice", show_border=args.show_border, show_margin=False)
-    create_cards([CardCutTemplates], "card cut templates", show_border=False, show_margin=False)
-    create_cards([DieCutTemplates], "die cut templates", show_border=False, show_margin=False)
+    create_cards([CardCutTemplates], "card cut templates", show_border=False, show_margin=False,
+                 keep_as_svg=True)
+
+    create_cards([DisasterDice], "disaster dice", show_border=args.show_border, show_margin=False,
+                 keep_as_svg=True)
+    create_cards([DieCutTemplates], "die cut templates", show_border=False, show_margin=False,
+                 keep_as_svg=True)
 
     merge_fronts_and_backs()
 
