@@ -58,6 +58,7 @@ class DriveAPI:
         metadata = {
             'name': name,
             'mimetype': mimetype,
+            'parents': [self.FOLDER_ID],
         }
 
         media = MediaFileUpload(filepath)
@@ -93,6 +94,7 @@ class DriveAPI:
             raise RuntimeError(f"Can't Download File: {filepath}\n{ex}")
 
         print(f"File Downloaded: {name}")
+
     def _get_file_id(self, files, name: str):
         query = f"name='{name}' and trashed=false and '{self.FOLDER_ID}' in parents"
         results = files.list(fields='files(id)', q=query).execute()
