@@ -1,6 +1,3 @@
-import textwrap
-import math
-
 MM_TO_PX = 3.7795275591
 
 

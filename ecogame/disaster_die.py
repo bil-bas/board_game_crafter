@@ -2,7 +2,6 @@ import drawsvg as svg
 
 from ecogame.utils import mm_to_px
 from ecogame.base_card import BaseCard
-from ecogame.utils import mm_to_px
 from ecogame.base_cards import BaseCards
 
 

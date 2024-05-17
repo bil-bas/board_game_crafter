@@ -4,8 +4,6 @@ import drawsvg as svg
 
 from .utils import mm_to_px
 
-GAME_NAME = "Ecogame for E2M"
-
 
 class BaseCard:
     FONT_HEIGHT_TITLE = 24
@@ -78,7 +76,7 @@ class BaseCard:
         return svg.Text("\n".join(lines), size, x, y + offset)
 
     @staticmethod
-    def _image(x: int, y: int, size: int, name: str) -> svg.Image:
+    def _image(x: float, y: float, size: float, name: str) -> svg.Image:
         return svg.Image(x, y, size, size, path=f"./images/{name}.png", embed=True)
 
     @property
