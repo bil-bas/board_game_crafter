@@ -27,19 +27,19 @@ def build(show_border: bool, show_margin: bool):
 
 def make_dice(show_border: bool):
     for size_mm in DisasterDice.SIZES:
-        create_components(GAME_NAME, [DisasterDice], f"dice - {size_mm}mm",
+        create_components([DisasterDice], f"{GAME_NAME} - dice - {size_mm}mm",
                           show_border=show_border,show_margin=False, keep_as_svg=True,
                           extra_config=dict(size_mm=size_mm))
-        create_components(GAME_NAME, [DisasterDice], f"dice - templates - {size_mm}mm",
+        create_components([DisasterDice], f"{GAME_NAME} - dice - templates - {size_mm}mm",
                           keep_as_svg=True, face=Face.TEMPLATE, extra_config=dict(size_mm=size_mm))
 
 
 def make_cards(show_border: bool, show_margin: bool):
-    create_components(GAME_NAME, ALL_CARD_TYPES, "cards - fronts", show_border=show_border,
+    create_components(ALL_CARD_TYPES, f"{GAME_NAME} - cards - fronts", show_border=show_border,
                       show_margin=show_margin)
-    create_components(GAME_NAME, ALL_CARD_TYPES, "cards - backs", show_border=show_border,
+    create_components(ALL_CARD_TYPES, f"{GAME_NAME} - cards - backs", show_border=show_border,
                       show_margin=show_margin, face=Face.BACK)
-    create_components(GAME_NAME, [BuyCards], "cards - templates", keep_as_svg=True,
+    create_components([BuyCards], f"{GAME_NAME} - cards - templates", keep_as_svg=True,
                       face=Face.TEMPLATE)
 
     merge_pdf_fronts_and_backs(fronts=f'{GAME_NAME} - cards - fronts.pdf',
