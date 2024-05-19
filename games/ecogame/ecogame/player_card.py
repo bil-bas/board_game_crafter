@@ -1,8 +1,8 @@
 import drawsvg as svg
 
-from ecogame.utils import mm_to_px
-from ecogame.base_card import PortraitCard
-from .base_cards import BaseCards
+from board_game_crafter.utils import mm_to_px
+from board_game_crafter.base_card import PortraitCard
+from board_game_crafter.base_cards import BaseCards
 
 
 class PlayerCard(PortraitCard):
@@ -46,5 +46,5 @@ class PlayerCard(PortraitCard):
 
 
 class PlayerCards(BaseCards):
-    CONFIG_FILE = "./config/player_cards.yaml"
+    CONFIG_FILE = "player_cards.yaml"
     CARD_CLASS = PlayerCard

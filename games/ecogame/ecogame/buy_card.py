@@ -1,8 +1,8 @@
 import drawsvg as svg
 
-from .utils import mm_to_px
-from .base_card import LandscapeCard
-from .base_cards import BaseCards
+from board_game_crafter.utils import mm_to_px
+from board_game_crafter.base_card import LandscapeCard
+from board_game_crafter.base_cards import BaseCards
 
 
 class BuyCard(LandscapeCard):
@@ -51,8 +51,9 @@ class BuyCard(LandscapeCard):
             yield self._wrap(flavour, self.FONT_HEIGHT_FLAVOUR,
                              self.MARGIN_LEFT, self.HEIGHT - self.MARGIN_BOTTOM, 45, valign="bottom")
 
+
 class BuyCards(BaseCards):
     CARD_CLASS = BuyCard
-    CONFIG_FILE = "./config/buy_cards.yaml"
+    CONFIG_FILE = "buy_cards.yaml"
 
     COLS, ROWS = 4, 2

@@ -1,5 +1,7 @@
 import yaml
 
+from .utils import config_path
+
 
 class BaseCardsMeta(type):
     CARD_CLASS = None
@@ -34,8 +36,8 @@ class BaseCards(metaclass=BaseCardsMeta):
         return sum(c.count for c in self)
 
     @classmethod
-    def create_cards(cls) -> None:
-        with open(cls.CONFIG_FILE) as f:
+    def create_cards(cls, game: str) -> None:
+        with open(config_path(cls.CONFIG_FILE)) as f:
             config = yaml.load(f, Loader=yaml.SafeLoader)
 
         cards = cls(config)

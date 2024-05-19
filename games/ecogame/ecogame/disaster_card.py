@@ -1,7 +1,8 @@
 import drawsvg as svg
-from ecogame.utils import mm_to_px
-from ecogame.base_card import PortraitCard
-from ecogame.base_cards import BaseCards
+
+from board_game_crafter.utils import mm_to_px
+from board_game_crafter.base_card import PortraitCard
+from board_game_crafter.base_cards import BaseCards
 
 
 class DisasterCard(PortraitCard):
@@ -59,6 +60,6 @@ class DisasterCard(PortraitCard):
 
 class DisasterCards(BaseCards):
     CARD_CLASS = DisasterCard
-    CONFIG_FILE = "./config/disaster_cards.yaml"
+    CONFIG_FILE = "disaster_cards.yaml"
 
     COLS, ROWS = 4, 2

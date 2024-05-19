@@ -2,7 +2,7 @@ import textwrap
 
 import drawsvg as svg
 
-from .utils import mm_to_px
+from .utils import mm_to_px, image_path
 
 
 class Face:
@@ -96,7 +96,7 @@ class BaseCard:
 
     @staticmethod
     def _image(x: float, y: float, size: float, name: str) -> svg.Image:
-        return svg.Image(x, y, size, size, path=f"./images/{name}.png", embed=True)
+        return svg.Image(x, y, size, size, path=image_path(f"{name}.png"), embed=True)
 
     @property
     def count(self) -> int:

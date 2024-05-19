@@ -12,15 +12,16 @@ import time
 from PyPDF2 import PdfMerger
 import cairosvg
 
-from ecogame.layout_page import layout_page
-from ecogame.buy_card import BuyCards
-from ecogame.player_card import PlayerCards
-from ecogame.event_card import EventCards
-from ecogame.starting_card import StartingCards
-from ecogame.disaster_card import DisasterCards
-from ecogame.disaster_die import DisasterDice
-from ecogame.cloud_api import DriveAPI
-from ecogame.base_card import Face
+from board_game_crafter.layout_page import layout_page
+from board_game_crafter.cloud_api import DriveAPI
+from board_game_crafter.base_card import Face
+
+from games.ecogame.ecogame.buy_card import BuyCards
+from games.ecogame.ecogame.player_card import PlayerCards
+from games.ecogame.ecogame.event_card import EventCards
+from games.ecogame.ecogame.starting_card import StartingCards
+from games.ecogame.ecogame.disaster_card import DisasterCards
+from games.ecogame.ecogame.disaster_die import DisasterDice
 
 GAME_NAME = "Ecogame for E2M"
 ALL_CARD_TYPES = [PlayerCards, DisasterCards, EventCards, StartingCards, BuyCards]
@@ -103,7 +104,7 @@ def create_cards(card_types: list, name, show_border: bool = False, show_margin:
 
     cards = []
     for card_type in card_types:
-        cards.extend(card_type.create_cards())
+        cards.extend(card_type.create_cards("ecogame"))
 
     if face == "template":
         cards = cards[:num_cards_on_page]
