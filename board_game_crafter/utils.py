@@ -1,6 +1,5 @@
 import os
-
-DEFAULT_DPI = 96
+import subprocess
 
 MM_TO_PX_96DPI = 3.7795275591
 
@@ -30,3 +29,16 @@ def output_path(name):
 def set_game_name(name: str):
     global _game_name
     _game_name = name
+
+
+def merge_pdf_fronts_and_backs(fronts: str, backs: str, output: str) -> None:
+    subprocess.check_call([
+        f"pdftk",
+        f"A={output_path(fronts)}",
+        f"B={output_path(backs)}",
+        "shuffle",
+        "A",
+        "B",
+        "output",
+        output_path(output),
+    ])

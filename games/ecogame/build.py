@@ -1,12 +1,10 @@
-import subprocess
 import os
 import glob
 import pathlib
 import zipfile
 
 from board_game_crafter.cloud_api import DriveAPI
-from board_game_crafter.utils import output_path
-
+from board_game_crafter.utils import output_path, merge_pdf_fronts_and_backs
 from board_game_crafter.base_component import Face
 from board_game_crafter.create_components import create_components
 from games.ecogame.ecogame.buy_card import BuyCards
@@ -17,6 +15,7 @@ from games.ecogame.ecogame.disaster_card import DisasterCards
 from games.ecogame.ecogame.disaster_die import DisasterDice
 
 GAME_NAME = "Ecogame for E2M"
+GDRIVE_FOLDER_ID = '1zP7Kwvm6AoIVuCKzXB7zGUuNZbkMDOl6'
 
 ALL_CARD_TYPES = [PlayerCards, DisasterCards, EventCards, StartingCards, BuyCards]
 
@@ -43,35 +42,24 @@ def make_cards(show_border: bool, show_margin: bool):
     create_components(GAME_NAME, [BuyCards], "cards - templates", keep_as_svg=True,
                       face=Face.TEMPLATE)
 
-    _merge_fronts_and_backs()
-
-
-def _merge_fronts_and_backs() -> None:
-    subprocess.check_call([
-        f"pdftk",
-        f"A={output_path(f'{GAME_NAME} - cards - fronts.pdf')}",
-        f"B={output_path(f'{GAME_NAME} - cards - backs.pdf')}",
-        "shuffle",
-        "A",
-        "B",
-        "output",
-        output_path(f'{GAME_NAME} - cards - double-sided.pdf'),
-    ])
+    merge_pdf_fronts_and_backs(fronts=f'{GAME_NAME} - cards - fronts.pdf',
+                               backs=f'{GAME_NAME} - cards - backs.pdf',
+                               output=f'{GAME_NAME} - cards - double-sided.pdf')
 
 
 def upload() -> None:
     google_api = DriveAPI()
 
-    for name in glob.glob(output_path("*.pdf")):
-        google_api.upload(name)
+    for name in sorted(glob.glob(output_path("*.pdf"))):
+        google_api.upload(name, GDRIVE_FOLDER_ID)
 
-    for name in glob.glob(output_path("*.svg")):
-        google_api.upload(name)
+    for name in sorted(glob.glob(output_path("*.svg"))):
+        google_api.upload(name, GDRIVE_FOLDER_ID)
 
-    google_api.download_doc_as_pdf(output_path(f"download/{GAME_NAME} - Rules.pdf"))
+    google_api.download_doc_as_pdf(output_path(f"download/{GAME_NAME} - Rules.pdf"), GDRIVE_FOLDER_ID)
     p_and_p_file = output_path(f"{GAME_NAME} - print-and-play.zip")
     _create_p_and_p(p_and_p_file)
-    google_api.upload(p_and_p_file)
+    google_api.upload(p_and_p_file, GDRIVE_FOLDER_ID)
 
 
 def _create_p_and_p(p_and_p_file: str) -> None:

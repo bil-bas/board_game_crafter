@@ -16,7 +16,6 @@ class DriveAPI:
     SCOPES = ['https://www.googleapis.com/auth/drive']
     PICKLE_FILE = '/home/bil/.google-drive-token.pickle'
     CREDENTIALS_FILE = '/home/bil/.google-drive-credentials.json'
-    FOLDER_ID = '1zP7Kwvm6AoIVuCKzXB7zGUuNZbkMDOl6'
 
     def __init__(self):
         self.creds = None
@@ -50,7 +49,7 @@ class DriveAPI:
             with open(self.PICKLE_FILE, 'wb') as token:
                 pickle.dump(self.creds, token)
 
-    def upload(self, filepath: str) -> None:
+    def upload(self, filepath: str, folder_id: str) -> None:
         name = os.path.basename(filepath)
         mimetype = MimeTypes().guess_type(name)[0]
 
@@ -58,7 +57,7 @@ class DriveAPI:
         metadata = {
             'name': name,
             'mimetype': mimetype,
-            'parents': [self.FOLDER_ID],
+            'parents': [folder_id],
         }
 
         media = MediaFileUpload(filepath)
@@ -66,7 +65,7 @@ class DriveAPI:
 
         try:
             try:
-                file_id = self._get_file_id(files, name)
+                file_id = self._get_file_id(files, name, folder_id)
             except IndexError as ex:
                 result = files.create(body=metadata, media_body=media, fields='version').execute()
             else:
@@ -78,13 +77,13 @@ class DriveAPI:
 
         print(f"File Uploaded: {name} (version {result['version']})")
 
-    def download_doc_as_pdf(self, filepath: str) -> None:
+    def download_doc_as_pdf(self, filepath: str, folder_id: str) -> None:
         name = os.path.basename(filepath)
         fh = io.FileIO(filepath, 'wb')
 
         try:
             files = self.service.files()
-            file_id = self._get_file_id(files, os.path.splitext(name)[0])
+            file_id = self._get_file_id(files, os.path.splitext(name)[0], folder_id)
             request = self.service.files().export(fileId=file_id, mimeType="application/pdf")
 
             downloader = MediaIoBaseDownload(fh, request, chunksize=204800)
@@ -96,8 +95,8 @@ class DriveAPI:
 
         print(f"File Downloaded: {name}")
 
-    def _get_file_id(self, files, name: str):
-        query = f"name='{name}' and trashed=false and '{self.FOLDER_ID}' in parents"
+    def _get_file_id(self, files, name: str, folder_id: str):
+        query = f"name='{name}' and trashed=false and '{folder_id}' in parents"
         results = files.list(fields='files(id)', q=query).execute()
         file_id = results.get("files")[0]["id"]
         return file_id
