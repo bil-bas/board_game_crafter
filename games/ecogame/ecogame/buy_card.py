@@ -27,11 +27,12 @@ class BuyCard(LandscapeCardMixin, GameCard):
 
         if keywords:
             yield svg.Text("\n".join(keywords), self.FONT_HEIGHT_KEYWORDS, self.width - self.margin_right,
-                           self.margin_top, text_anchor="end", dominant_baseline="hanging")
+                           self.margin_top, font_family=self.FONT_FAMILY, text_anchor="end",
+                           dominant_baseline="hanging")
 
         # Title
         yield svg.Text(title, self.FONT_HEIGHT_TITLE, self.WIDTH // 2, self.TITLE_Y, font_weight="bold",
-                       text_anchor="middle")
+                       text_anchor="middle", font_family=self.FONT_FAMILY)
 
         if text:
             yield self._wrap(text.strip(), self.FONT_HEIGHT_TEXT, self.margin_left, self.TEXT_Y, width=0,
