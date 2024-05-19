@@ -51,6 +51,24 @@
   right_value: +2P
   count: 1
 -
+  title: Renewable Subsidies
+  keywords: [EVENT, Global]
+  center_icon: global
+  text: | 
+    Renewable 
+    ENERGY
+  right_value: +1$
+  count: 2
+-
+  title: Aviation Subsidies
+  keywords: [EVENT, Global]
+  text: |
+    Hydrocarbon
+    ENERGY
+  center_icon: global
+  right_value: +1$
+  count: 2
+-
   title: Nothing Happens
   keywords: [EVENT]
   flavour: Something incredibly unimportant happens to a Hollywood star. Everyone will have forgotten about it by tomorrow!

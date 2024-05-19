@@ -188,24 +188,5 @@
   right_value: +2P
   flavour: Sending factories to developing countries reduces costs, but creates humanitarian abuses and unnecessary pollution.
   count: 2
--
-  title: Renewable Subsidies
-  keywords: [INSTANT, Global]
-  cost: 2$
-  center_icon: global
-  text: | 
-    Renewable 
-    ENERGY
-  right_value: +1$
-  count: 2
--
-  title: Aviation Subsidies
-  keywords: [INSTANT, Global]
-  cost: 2$
-  text: |
-    Hydrocarbon
-    ENERGY
-  center_icon: global
-  right_value: +1$
-  count: 2
+
 

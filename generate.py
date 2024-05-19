@@ -104,7 +104,7 @@ def create_cards(card_types: list, name, show_border: bool, show_margin: bool, k
             size_mm = getattr(cards_on_page[0], "size_mm", 0)
             output_file = f"./output/{GAME_NAME} - {name}{f' {size_mm}mm' if size_mm else ''}.svg"
             doc.save_svg(output_file)
-            print(f"Written {len(cards)} cards to {output_file}")
+            print(f"Written {len(cards)} components to {output_file}")
         else:
             cairosvg.svg2pdf(doc.as_svg(), write_to=f"./output/{name}_{i:02}.pdf")
 
@@ -124,7 +124,7 @@ def merge_pdfs(cards, name):
 
         merger.write(output_file)
 
-    print(f"Written {len(cards)} cards to {output_file}")
+    print(f"Written {len(cards)} components to {output_file}")
 
 
 def create_p_and_p(p_and_p_file: str) -> None:
