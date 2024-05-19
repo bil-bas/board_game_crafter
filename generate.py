@@ -19,8 +19,7 @@ from ecogame.starting_card import StartingCards
 from ecogame.disaster_card import DisasterCards
 from ecogame.disaster_die import DisasterDice
 from ecogame.cloud_api import DriveAPI
-from ecogame.card_cut_template import CardCutTemplates
-from ecogame.die_cut_template import DieCutTemplates
+from ecogame.base_card import Face
 
 GAME_NAME = "Ecogame for E2M"
 ALL_CARD_TYPES = [PlayerCards, DisasterCards, EventCards, StartingCards, BuyCards]
@@ -47,14 +46,12 @@ def parse(parser) -> None:
 
     create_cards(ALL_CARD_TYPES, "cards - fronts", show_border=args.show_border, show_margin=args.show_margin)
     create_cards(ALL_CARD_TYPES, "cards - backs", show_border=args.show_border, show_margin=args.show_margin,
-                 render_backs=True)
-    create_cards([CardCutTemplates], "card cut templates", show_border=False, show_margin=False,
-                 keep_as_svg=True)
+                 face=Face.BACK)
+    create_cards(ALL_CARD_TYPES, "cards - templates", keep_as_svg=True, face=Face.TEMPLATE)
 
-    create_cards([DisasterDice], "disaster dice", show_border=args.show_border, show_margin=False,
+    create_cards([DisasterDice], "dice - fronts", show_border=args.show_border, show_margin=False,
                  keep_as_svg=True)
-    create_cards([DieCutTemplates], "dice cut templates", show_border=False, show_margin=False,
-                 keep_as_svg=True)
+    create_cards([DisasterDice], "dice - templates", keep_as_svg=True, face=Face.TEMPLATE)
 
     merge_fronts_and_backs()
 
@@ -90,16 +87,19 @@ def upload() -> None:
     google_api.upload(p_and_p_file)
 
 
-def create_cards(card_types: list, name, show_border: bool, show_margin: bool, keep_as_svg: bool = False,
-                 render_backs: bool = False) -> None:
+def create_cards(card_types: list, name, show_border: bool = False, show_margin: bool = False, keep_as_svg: bool = False,
+                 face: str = Face.FRONT) -> None:
     num_cards_on_page = card_types[0].cols * card_types[0].rows
 
     cards = []
     for card_type in card_types:
         cards.extend(card_type.create_cards())
 
+    if face == "template":
+        cards = cards[:num_cards_on_page]
+
     for i, cards_on_page in enumerate(batched(cards, num_cards_on_page), 1):
-        doc = layout_page(cards_on_page, show_border=show_border, show_margin=show_margin, render_backs=render_backs)
+        doc = layout_page(cards_on_page, show_border=show_border, show_margin=show_margin, face=face)
         if keep_as_svg:
             size_mm = getattr(cards_on_page[0], "size_mm", 0)
             output_file = f"./output/{GAME_NAME} - {name}{f' {size_mm}mm' if size_mm else ''}.svg"

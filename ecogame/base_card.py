@@ -5,6 +5,14 @@ import drawsvg as svg
 from .utils import mm_to_px
 
 
+class Face:
+    FRONT = "front"
+    BACK = "Back"
+    TEMPLATE = "template"
+
+    ALL = [FRONT, BACK, TEMPLATE]
+
+
 class BaseCard:
     FONT_HEIGHT_TITLE = 24
     FONT_HEIGHT_VALUE = 34
@@ -33,6 +41,10 @@ class BaseCard:
     BACK_BORDER_WIDTH = mm_to_px(10)
     BACK_FONT_HEIGHT_TITLE = 32
     BACK_FONT_HEIGHT_TYPE = 20
+
+    TEMPLATE_RADIUS = mm_to_px(4)
+    TEMPLATE_COLOR = "black"
+    TEMPLATE_THICKNESS = 1
 
     def __init__(self, **config: hash):
         self._count = config.pop("count", 1)
@@ -90,17 +102,18 @@ class BaseCard:
     def count(self) -> int:
         return self._count
 
-    def render_front(self):
+    def render(self, face: str):
         if self._is_blank:
             return
 
-        yield from self._render_front(**self._config)
-
-    def render_back(self):
-        if self._is_blank:
-            return
-
-        yield from self._render_back(**self._config)
+        if face == Face.FRONT:
+            yield from self._render_front(**self._config)
+        elif face == Face.BACK:
+            yield from self._render_back(**self._config)
+        elif face == Face.TEMPLATE:
+            yield from self._render_template(**self._config)
+        else:
+            raise RuntimeError(f"Unknown face: {face}")
 
     def _render_front(self, **config):
         raise NotImplementedError
@@ -117,6 +130,11 @@ class BaseCard:
 
         yield svg.Text(self.BACK_LABEL, self.BACK_FONT_HEIGHT_TYPE, self.WIDTH / 2, self.HEIGHT / 2 + 40,
                        center=True)
+
+    def _render_template(self, **config) -> None:
+        yield svg.Rectangle(0, 0, self.WIDTH, self.HEIGHT,
+                            rx=self.TEMPLATE_RADIUS, ry=self.TEMPLATE_RADIUS,
+                            stroke=self.TEMPLATE_COLOR, fill="none", stroke_width=self.TEMPLATE_THICKNESS)
 
     @property
     def width(self) -> float:

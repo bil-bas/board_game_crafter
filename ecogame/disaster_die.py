@@ -13,6 +13,7 @@ class DisasterDie(BaseCard):
     INNER_WIDTH = WIDTH - MARGIN_LEFT - MARGIN_RIGHT
     INNER_HEIGHT = HEIGHT - MARGIN_TOP - MARGIN_BOTTOM
     COLS, ROWS = 6, 1
+    TEMPLATE_RADIUS = mm_to_px(6)
 
     def _render_front(self, size_mm: float, pips: int) -> None:
         yield svg.Image(0, 0, self.width, self.height, path=f"./images/dice-{pips}.png", embed=True)
