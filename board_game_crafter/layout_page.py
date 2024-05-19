@@ -84,7 +84,7 @@ def render_components(components: list, cols: int, draw, height: int, rotation: 
                                            fill="none"))
 
             if show_margin:
-                group.append(svg.Rectangle(component.MARGIN_LEFT, component.MARGIN_TOP,
+                group.append(svg.Rectangle(component.margin_left, component.margin_top,
                                            component.inner_width, component.inner_height,
                                            stroke=COLOR_MARGIN, fill="none"))
 

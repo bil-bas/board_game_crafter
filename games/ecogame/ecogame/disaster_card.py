@@ -1,11 +1,12 @@
 import drawsvg as svg
 
 from board_game_crafter.utils import mm_to_px
-from board_game_crafter.base_card import PortraitCardMixin, BaseCard
+from board_game_crafter.base_card import PortraitCardMixin
 from board_game_crafter.base_components import BaseComponents
+from .game_card import GameCard
 
 
-class DisasterCard(PortraitCardMixin, BaseCard):
+class DisasterCard(PortraitCardMixin, GameCard):
     TABLE_Y = mm_to_px(35)
     TABLE_ROW_HEIGHT = mm_to_px(12)
     TABLE_COL_WIDTH = mm_to_px(28)
@@ -17,18 +18,18 @@ class DisasterCard(PortraitCardMixin, BaseCard):
 
     def _render_front(self, number_of_players: int):
         # Title and number of players
-        yield svg.Text("Disasters", self.FONT_HEIGHT_TITLE, self.WIDTH // 2,
-                       self.MARGIN_TOP + self.FONT_HEIGHT_TITLE,
+        yield svg.Text("Disasters", self.FONT_HEIGHT_TITLE, self.width // 2,
+                       self.margin_top + self.FONT_HEIGHT_TITLE,
                        font_weight="bold", text_anchor="middle")
 
-        yield svg.Text(f"{number_of_players} players", self.FONT_HEIGHT_PLAYERS, self.WIDTH // 2,
+        yield svg.Text(f"{number_of_players} players", self.FONT_HEIGHT_PLAYERS, self.width // 2,
                        self.PLAYERS_Y, text_anchor="middle")
 
         yield from self.effects_table(number_of_players)
 
     def effects_table(self, number_of_players: int):
         # Effects table.
-        center = self.MARGIN_LEFT + self.TABLE_COL_WIDTH
+        center = self.margin_left + self.TABLE_COL_WIDTH
         size = self.FONT_HEIGHT_TABLE
         for add, multiplier in enumerate(range(8, 20, 4)):
             y_offset = self.TABLE_Y + self.TABLE_ROW_HEIGHT * add
@@ -47,7 +48,7 @@ class DisasterCard(PortraitCardMixin, BaseCard):
 
             yield from self._end_of_civilisation(center, number_of_players, size)
 
-    def _end_of_civilisation(self, center: int, number_of_players: int, size: int):
+    def _end_of_civilisation(self, center: float, number_of_players: int, size: int):
         # End of civilisation!
         yield from self._value(f"{20 * number_of_players}+P", self.FONT_HEIGHT_TABLE,
                                center - 20, self.TABLE_Y + self.TABLE_ROW_HEIGHT * 3,

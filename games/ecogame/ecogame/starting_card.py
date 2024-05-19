@@ -1,4 +1,5 @@
 from board_game_crafter.base_components import BaseComponents
+from board_game_crafter.base_card import BaseCard, PortraitCardMixin
 from .buy_card import BuyCard
 
 
