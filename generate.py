@@ -7,6 +7,7 @@ import pathlib
 import zipfile
 from itertools import batched
 import subprocess
+import time
 
 from PyPDF2 import PdfMerger
 import cairosvg
@@ -26,10 +27,10 @@ ALL_CARD_TYPES = [PlayerCards, DisasterCards, EventCards, StartingCards, BuyCard
 
 
 def create_parser():
-    parser = argparse.ArgumentParser(description="Layout generator for Ishara Press Regen-D game")
+    parser = argparse.ArgumentParser(description="Component layout generator for board, card and dice games")
 
-    parser.add_argument("--show-border", action='store_true', help="Draw border around cards")
-    parser.add_argument("--show-margin", action='store_true', help="Draw margin inside cards")
+    parser.add_argument("--show-border", action='store_true', help="Draw border around components")
+    parser.add_argument("--show-margin", action='store_true', help="Draw margin inside components")
     parser.add_argument("--upload", action='store_true', help="Upload to Google Drive")
 
     return parser
@@ -44,19 +45,28 @@ def parse(parser) -> None:
     for filename in glob.glob(f"./output/*.*"):
         os.remove(filename)
 
-    create_cards(ALL_CARD_TYPES, "cards - fronts", show_border=args.show_border, show_margin=args.show_margin)
-    create_cards(ALL_CARD_TYPES, "cards - backs", show_border=args.show_border, show_margin=args.show_margin,
-                 face=Face.BACK)
-    create_cards(ALL_CARD_TYPES, "cards - templates", keep_as_svg=True, face=Face.TEMPLATE)
+    start = time.perf_counter()
+    make_cards(args)
+    make_dice(args)
 
+    if args.upload:
+        upload()
+
+    print(f"Completed in {time.perf_counter() - start:.1f}s")
+
+
+def make_dice(args):
     create_cards([DisasterDice], "dice - fronts", show_border=args.show_border, show_margin=False,
                  keep_as_svg=True)
     create_cards([DisasterDice], "dice - templates", keep_as_svg=True, face=Face.TEMPLATE)
 
-    merge_fronts_and_backs()
 
-    if args.upload:
-        upload()
+def make_cards(args):
+    create_cards(ALL_CARD_TYPES, "cards - fronts", show_border=args.show_border, show_margin=args.show_margin)
+    create_cards(ALL_CARD_TYPES, "cards - backs", show_border=args.show_border, show_margin=args.show_margin,
+                 face=Face.BACK)
+    create_cards(ALL_CARD_TYPES, "cards - templates", keep_as_svg=True, face=Face.TEMPLATE)
+    merge_fronts_and_backs()
 
 
 def merge_fronts_and_backs() -> None:
