@@ -1,7 +1,7 @@
 import drawsvg as svg
 
 from .utils import A4_WIDTH, A4_HEIGHT, mm_to_px
-from .base_card import Face
+from .base_component import Face
 
 MARGIN = mm_to_px(10)
 SPACING = mm_to_px(5)

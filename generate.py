@@ -14,7 +14,7 @@ import cairosvg
 
 from board_game_crafter.layout_page import layout_page
 from board_game_crafter.cloud_api import DriveAPI
-from board_game_crafter.base_card import Face
+from board_game_crafter.base_component import Face
 
 from games.ecogame.ecogame.buy_card import BuyCards
 from games.ecogame.ecogame.player_card import PlayerCards
@@ -57,9 +57,11 @@ def parse(parser) -> None:
 
 
 def make_dice(args):
-    create_cards([DisasterDice], "dice - fronts", show_border=args.show_border, show_margin=False,
-                 keep_as_svg=True)
-    create_cards([DisasterDice], "dice - templates", keep_as_svg=True, face=Face.TEMPLATE)
+    for size_mm in DisasterDice.SIZES:
+        create_cards([DisasterDice], f"dice - fronts - {size_mm}mm", show_border=args.show_border,
+                     show_margin=False, keep_as_svg=True, extra_config=dict(size_mm=size_mm))
+        create_cards([DisasterDice], f"dice - templates - {size_mm}mm", keep_as_svg=True,
+                     face=Face.TEMPLATE, extra_config=dict(size_mm=size_mm))
 
 
 def make_cards(args):
@@ -98,13 +100,13 @@ def upload() -> None:
     google_api.upload(p_and_p_file)
 
 
-def create_cards(card_types: list, name, show_border: bool = False, show_margin: bool = False, keep_as_svg: bool = False,
-                 face: str = Face.FRONT) -> None:
+def create_cards(card_types: list, name, show_border: bool = False, show_margin: bool = False,
+                 keep_as_svg: bool = False, face: str = Face.FRONT, extra_config: dict = None) -> None:
     num_cards_on_page = card_types[0].cols * card_types[0].rows
 
     cards = []
     for card_type in card_types:
-        cards.extend(card_type.create_cards("ecogame"))
+        cards.extend(card_type.create_cards(extra_config))
 
     if face == "template":
         cards = cards[:num_cards_on_page]
@@ -112,8 +114,7 @@ def create_cards(card_types: list, name, show_border: bool = False, show_margin:
     for i, cards_on_page in enumerate(batched(cards, num_cards_on_page), 1):
         doc = layout_page(cards_on_page, show_border=show_border, show_margin=show_margin, face=face)
         if keep_as_svg:
-            size_mm = getattr(cards_on_page[0], "size_mm", 0)
-            output_file = f"./output/{GAME_NAME} - {name}{f' {size_mm}mm' if size_mm else ''}.svg"
+            output_file = f"./output/{GAME_NAME} - {name}.svg"
             doc.save_svg(output_file)
             print(f"Written {len(cards)} components to {output_file}")
         else:

@@ -1,11 +1,11 @@
 import drawsvg as svg
 
 from board_game_crafter.utils import mm_to_px
-from board_game_crafter.base_card import PortraitCard
-from board_game_crafter.base_cards import BaseCards
+from board_game_crafter.base_card import PortraitCardMixin, BaseCard
+from board_game_crafter.base_components import BaseComponents
 
 
-class DisasterCard(PortraitCard):
+class DisasterCard(PortraitCardMixin, BaseCard):
     TABLE_Y = mm_to_px(35)
     TABLE_ROW_HEIGHT = mm_to_px(12)
     TABLE_COL_WIDTH = mm_to_px(28)
@@ -58,7 +58,7 @@ class DisasterCard(PortraitCard):
                        font_weight="bold")
 
 
-class DisasterCards(BaseCards):
+class DisasterCards(BaseComponents):
     CARD_CLASS = DisasterCard
     CONFIG_FILE = "disaster_cards.yaml"
 

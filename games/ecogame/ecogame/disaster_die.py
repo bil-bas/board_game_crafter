@@ -1,13 +1,12 @@
 import drawsvg as svg
 
-from board_game_crafter.utils import mm_to_px
-from board_game_crafter.base_card import BaseCard
-from board_game_crafter.base_cards import BaseCards
+from board_game_crafter.utils import mm_to_px, image_path
+from board_game_crafter.base_component import BaseComponent
+from board_game_crafter.base_components import BaseComponents
 
 
-class DisasterDie(BaseCard):
-    SIZES = [25, 19, 16, 12]  # in mm.
-    WIDTH, HEIGHT = mm_to_px(SIZES[0]), mm_to_px(SIZES[0])
+class DisasterDie(BaseComponent):
+    WIDTH, HEIGHT = mm_to_px(50), mm_to_px(50)
     MARGIN_LEFT, MARGIN_RIGHT = mm_to_px(0), mm_to_px(0)
     MARGIN_TOP, MARGIN_BOTTOM = mm_to_px(0), mm_to_px(0)
     INNER_WIDTH = WIDTH - MARGIN_LEFT - MARGIN_RIGHT
@@ -16,7 +15,7 @@ class DisasterDie(BaseCard):
     TEMPLATE_RADIUS = mm_to_px(6)
 
     def _render_front(self, size_mm: float, pips: int) -> None:
-        yield svg.Image(0, 0, self.width, self.height, path=f"./games/ecogame/images/dice-{pips}.png", embed=True)
+        yield svg.Image(0, 0, self.width, self.height, path=image_path(f"dice-{pips}.png"), embed=True)
 
     @property
     def width(self) -> float:
@@ -31,11 +30,7 @@ class DisasterDie(BaseCard):
         return self._config["size_mm"]
 
 
-class DisasterDice(BaseCards):
+class DisasterDice(BaseComponents):
     CONFIG_FILE = "disaster_dice.yaml"
     CARD_CLASS = DisasterDie
-
-    def _add_cards(self, config: hash):
-        for size_mm in self.CARD_CLASS.SIZES:
-            for dice_config in config:
-                self._cards.append(self.CARD_CLASS(size_mm=size_mm, **dice_config))
+    SIZES = [25, 19, 16, 12]  # in mm.

@@ -1,11 +1,11 @@
 import drawsvg as svg
 
 from board_game_crafter.utils import mm_to_px
-from board_game_crafter.base_card import PortraitCard
-from board_game_crafter.base_cards import BaseCards
+from board_game_crafter.base_card import PortraitCardMixin, BaseCard
+from board_game_crafter.base_components import BaseComponents
 
 
-class PlayerCard(PortraitCard):
+class PlayerCard(PortraitCardMixin, BaseCard):
     NAME_Y = mm_to_px(45)
     VALUES_Y = mm_to_px(46)
     IMAGE_SIZE = mm_to_px(30), mm_to_px(30)
@@ -45,6 +45,6 @@ class PlayerCard(PortraitCard):
                              self.MARGIN_LEFT, self.HEIGHT - self.MARGIN_BOTTOM, 30, valign="bottom")
 
 
-class PlayerCards(BaseCards):
+class PlayerCards(BaseComponents):
     CONFIG_FILE = "player_cards.yaml"
     CARD_CLASS = PlayerCard

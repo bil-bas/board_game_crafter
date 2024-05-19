@@ -1,11 +1,11 @@
 import drawsvg as svg
 
 from board_game_crafter.utils import mm_to_px
-from board_game_crafter.base_card import LandscapeCard
-from board_game_crafter.base_cards import BaseCards
+from board_game_crafter.base_card import LandscapeCardMixin, BaseCard
+from board_game_crafter.base_components import BaseComponents
 
 
-class BuyCard(LandscapeCard):
+class BuyCard(LandscapeCardMixin, BaseCard):
     CENTER_ICON_SIZE = 32, 32
     IMAGE_SIZE = mm_to_px(14), mm_to_px(14)
     VALUE_MARGIN = mm_to_px(8)
@@ -52,7 +52,7 @@ class BuyCard(LandscapeCard):
                              self.MARGIN_LEFT, self.HEIGHT - self.MARGIN_BOTTOM, 45, valign="bottom")
 
 
-class BuyCards(BaseCards):
+class BuyCards(BaseComponents):
     CARD_CLASS = BuyCard
     CONFIG_FILE = "buy_cards.yaml"
 
