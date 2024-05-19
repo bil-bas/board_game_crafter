@@ -42,3 +42,7 @@ def merge_pdf_fronts_and_backs(fronts: str, backs: str, output: str) -> None:
         "output",
         output_path(output),
     ])
+
+
+def inkscape_path() -> str:
+    return "/usr/bin/inkscape"

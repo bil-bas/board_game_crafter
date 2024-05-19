@@ -24,7 +24,7 @@ def layout_page(components: list, show_border: bool, show_margin: bool, face: st
 
     if components[0].ROTATE:
         width, height = components[0].height, components[0].width
-        rotation = f", translate(0, {height}) rotate({-90})"
+        rotation = f"translate(0, {height}) rotate({-90})"
     else:
         width, height = components[0].width, components[0].height
         rotation = ""

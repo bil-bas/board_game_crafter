@@ -1,13 +1,14 @@
 import os
 from itertools import batched
 import glob
+import subprocess
+from tempfile import NamedTemporaryFile
 
 from PyPDF2 import PdfMerger
-import cairosvg
 
 from .layout_page import layout_page
 from .base_component import Face
-from .utils import output_path
+from .utils import output_path, inkscape_path
 
 
 def create_components(component_types: list, name, show_border: bool = False, show_margin: bool = False,
@@ -28,16 +29,19 @@ def create_components(component_types: list, name, show_border: bool = False, sh
             doc.save_svg(output_file)
             print(f"Written {len(components)} components to {output_file}")
         else:
-            cairosvg.svg2pdf(doc.as_svg(), write_to=output_path(f"{name}_{i:02}.pdf"))
+            with NamedTemporaryFile(suffix=".svg") as f:
+                doc.save_svg(f.name)
+                subprocess.check_call([
+                    inkscape_path(),
+                    f"--file={f.name}",
+                    f"--export-pdf={output_path(f'{name}_{i:03}.pdf')}",
+                ])
 
     if not keep_as_svg:
         merge_pdfs(len(components), name)
 
-        for filename in glob.glob(output_path(f"{name}_*.pdf")):
-            os.remove(filename)
 
-
-def merge_pdfs(num_components, name):
+def merge_pdfs(num_components: int, name: str):
     output_file = output_path(f"{name}.pdf")
 
     with PdfMerger() as merger:
@@ -45,5 +49,8 @@ def merge_pdfs(num_components, name):
             merger.append(pdf)
 
         merger.write(output_file)
+
+    for filename in glob.glob(output_path(f"{name}_*.pdf")):
+        os.remove(filename)
 
     print(f"Written {num_components} components to {output_file}")
