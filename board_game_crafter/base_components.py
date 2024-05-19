@@ -20,32 +20,32 @@ class BaseComponents(metaclass=BaseComponentsMeta):
     CARD_CLASS = None
 
     def __init__(self, config: dict, extra_config: dict):
-        self._cards = []
-        self._add_cards(config, extra_config)
+        self._components = []
+        self._add_components(config, extra_config)
 
-    def _add_cards(self, config: dict, extra_config: dict) -> None:
+    def _add_components(self, config: dict, extra_config: dict) -> None:
         for conf in config:
             if extra_config is not None:
                 conf.update(extra_config)
-            self._cards.append(self.CARD_CLASS(**conf))
+            self._components.append(self.CARD_CLASS(**conf))
 
     def __iter__(self):
-        for card in self._cards:
-            yield card
+        for component in self._components:
+            yield component
 
     @property
     def total(self) -> int:
         return sum(c.count for c in self)
 
     @classmethod
-    def create_cards(cls, extra_config: dict) -> None:
+    def create_components(cls, extra_config: dict) -> None:
         with open(config_path(cls.CONFIG_FILE)) as f:
             config = yaml.load(f, Loader=yaml.SafeLoader)
 
-        cards = cls(config, extra_config)
+        components = cls(config, extra_config)
 
-        for card in cards:
-            for _ in range(card.count):
-                yield card
+        for component in components:
+            for _ in range(component.count):
+                yield component
 
-        print(f"Generated {cards.total} {cls.__name__}.")
+        print(f"Generated {components.total} {cls.__name__}.")

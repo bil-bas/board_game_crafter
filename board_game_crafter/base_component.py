@@ -28,10 +28,8 @@ class BaseComponent:
     WIDTH, HEIGHT = None, None
     COLS, ROWS = None, None
 
-    BLEED_MARGIN = mm_to_px(1.5)
-    BLEED_WIDTH = BLEED_HEIGHT = None
+    BLEED_MARGIN = mm_to_px(2)
     MARGIN_LEFT = MARGIN_RIGHT = MARGIN_TOP = MARGIN_BOTTOM = None
-    INNER_WIDTH = INNER_HEIGHT = None
     BACK_LABEL = "Improvement"
 
     ROTATE = False
@@ -119,10 +117,10 @@ class BaseComponent:
         raise NotImplementedError
 
     def _render_back(self, **config):
-        yield svg.Rectangle(-self.BLEED_MARGIN, -self.BLEED_MARGIN, self.BLEED_WIDTH, self.BLEED_HEIGHT,
+        yield svg.Rectangle(-self.BLEED_MARGIN, -self.BLEED_MARGIN, self.bleed_width, self.bleed_height,
                             fill=self.BACK_BORDER_COLOR, stroke="none")
 
-        yield svg.Rectangle(self.MARGIN_LEFT, self.MARGIN_TOP, self.INNER_WIDTH, self.INNER_HEIGHT,
+        yield svg.Rectangle(self.MARGIN_LEFT, self.MARGIN_TOP, self.inner_width, self.inner_height,
                             stroke="none", fill=self.BACK_BACKGROUND_COLOR)
 
         yield svg.Text("ECOGAME", self.BACK_FONT_HEIGHT_TITLE, self.width / 2, self.height / 2,
@@ -143,3 +141,19 @@ class BaseComponent:
     @property
     def height(self) -> float:
         return self.HEIGHT
+
+    @property
+    def inner_width(self):
+        return self.width - self.MARGIN_LEFT - self.MARGIN_RIGHT
+
+    @property
+    def inner_height(self) -> float:
+        return self.height - self.MARGIN_TOP - self.MARGIN_BOTTOM
+
+    @property
+    def bleed_width(self) -> float:
+        return self.width + self.BLEED_MARGIN * 2
+
+    @property
+    def bleed_height(self) -> float:
+        return self.height + self.BLEED_MARGIN * 2

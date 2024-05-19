@@ -15,29 +15,29 @@ COLOR_REG = "red"
 COLOR_MARGIN = "lightgrey"
 
 
-def layout_page(cards: list, show_border: bool, show_margin: bool, face: str):
+def layout_page(components: list, show_border: bool, show_margin: bool, face: str):
     assert face in Face.ALL
 
     draw = svg.Drawing(A4_WIDTH, A4_HEIGHT, origin="top-left")
 
-    cols, rows = cards[0].COLS, cards[0].ROWS
+    cols, rows = components[0].COLS, components[0].ROWS
 
-    if cards[0].ROTATE:
-        width, height = cards[0].height, cards[0].width
+    if components[0].ROTATE:
+        width, height = components[0].height, components[0].width
         rotation = f", translate(0, {height}) rotate({-90})"
     else:
-        width, height = cards[0].width, cards[0].height
+        width, height = components[0].width, components[0].height
         rotation = ""
 
-    # Ensure we center any cards.
+    # Ensure we center any components.
     render_width = cols * width + (cols - 1) * SPACING
     render_offset_y = (A4_WIDTH - render_width) / 2
 
     page = svg.Group()
 
     render_area = svg.Group(transform=f"translate({render_offset_y}, {MARGIN})")
-    reg_bottom = render_cards(cards=cards, cols=cols, draw=render_area, height=height, rotation=rotation, rows=rows,
-                              show_border=show_border, show_margin=show_margin, width=width, face=face)
+    reg_bottom = render_components(components=components, cols=cols, draw=render_area, height=height, rotation=rotation,
+                                   rows=rows, show_border=show_border, show_margin=show_margin, width=width, face=face)
     page.append(render_area)
 
     reg_bottom += MARGIN * 2 - REG_MARGIN
@@ -52,8 +52,8 @@ def layout_page(cards: list, show_border: bool, show_margin: bool, face: str):
     return draw
 
 
-def render_cards(cards: list, cols: int, draw, height: int, rotation: str, rows: int, show_border: bool,
-                 show_margin: bool, width: int, face: str):
+def render_components(components: list, cols: int, draw, height: int, rotation: str, rows: int, show_border: bool,
+                      show_margin: bool, width: int, face: str):
     assert face in Face.ALL
 
     top = None
@@ -71,19 +71,21 @@ def render_cards(cards: list, cols: int, draw, height: int, rotation: str, rows:
             top = row * (height + SPACING)
 
             try:
-                card = cards[index]
+                component = components[index]
             except IndexError:
                 return top - SPACING
 
             group = svg.Group(transform=f"translate({left}, {top}) {rotation}")
 
-            group.extend(card.render(face))
+            group.extend(component.render(face))
 
             if show_border:
-                group.append(svg.Rectangle(0, 0, card.width, card.height, stroke=COLOR_BORDER, fill="none"))
+                group.append(svg.Rectangle(0, 0, component.width, component.height, stroke=COLOR_BORDER,
+                                           fill="none"))
 
             if show_margin:
-                group.append(svg.Rectangle(card.MARGIN_LEFT, card.MARGIN_TOP, card.INNER_WIDTH, card.INNER_HEIGHT,
+                group.append(svg.Rectangle(component.MARGIN_LEFT, component.MARGIN_TOP,
+                                           component.inner_width, component.inner_height,
                                            stroke=COLOR_MARGIN, fill="none"))
 
             draw.append(group)
