@@ -62,7 +62,7 @@ def render_components(components: list, cols: int, draw, height: int, rotation: 
         for col in range(cols):
             index = row * cols + col
 
-            # Flip backs the other way around so they line up with the fronts when printed double-sided.
+            # Flip backs the other way around, so they line up with the fronts when printed double-sided.
             if face == "back":
                 left = (cols - 1 - col) * (width + SPACING)
             else:
