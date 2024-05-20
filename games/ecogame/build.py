@@ -18,6 +18,10 @@ from games.ecogame.ecogame.prosperity_card import ProsperityCards
 
 GAME_NAME = "Ecogame for E2M"
 GDRIVE_FOLDER_ID = '1zP7Kwvm6AoIVuCKzXB7zGUuNZbkMDOl6'
+GDRIVE_CARDS_FOLDER_ID = '1CMF69VXc3hC_LD_1_ZUsNGXKrlR1ceKS'
+GDRIVE_TOKENS_FOLDER_ID = '1o1yQ5lOg1pjg3dvWttKIrMNRkM-b2vOl'
+GDRIVE_DICE_FOLDER_ID = '1PueSwam9cZbsIjQpFRgUVulD803AzHZA'
+
 
 ALL_CARD_TYPES = [PlayerCards, DisasterCards, ProsperityCards, EventCards, StartingCards, BuyCards]
 
@@ -65,11 +69,14 @@ def make_cards(show_border: bool, show_margin: bool):
 def upload() -> None:
     google_api = DriveAPI()
 
-    for name in sorted(glob.glob(output_path("*.pdf"))):
-        google_api.upload(name, GDRIVE_FOLDER_ID)
+    for name in sorted(glob.glob(output_path("*cards*.*"))):
+        google_api.upload(name, GDRIVE_CARDS_FOLDER_ID)
 
-    for name in sorted(glob.glob(output_path("*.svg"))):
-        google_api.upload(name, GDRIVE_FOLDER_ID)
+    for name in sorted(glob.glob(output_path("*dice*.*"))):
+        google_api.upload(name, GDRIVE_DICE_FOLDER_ID)
+
+    for name in sorted(glob.glob(output_path("*tokens*.*"))):
+        google_api.upload(name, GDRIVE_TOKENS_FOLDER_ID)
 
     google_api.download_doc_as_pdf(output_path(f"download/{GAME_NAME} - Rules.pdf"), GDRIVE_FOLDER_ID)
     p_and_p_file = output_path(f"{GAME_NAME} - print-and-play.zip")
