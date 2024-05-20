@@ -2,7 +2,7 @@ import os
 from itertools import batched
 import glob
 import subprocess
-from tempfile import NamedTemporaryFile
+from tempfile import TemporaryDirectory
 
 from PyPDF2 import PdfMerger
 
@@ -22,35 +22,33 @@ def create_components(component_types: list, name, show_border: bool = False, sh
     if face == Face.TEMPLATE:
         components = components[:num_components_on_page]
 
-    for i, components_on_page in enumerate(batched(components, num_components_on_page), 1):
-        doc = layout_page(components_on_page, show_border=show_border, show_margin=show_margin, face=face)
-        if keep_as_svg:
-            output_file = output_path(f"{name}.svg")
-            doc.save_svg(output_file)
-            print(f"Written {len(components)} components to {output_file}")
-        else:
-            with NamedTemporaryFile(suffix=".svg") as f:
-                doc.save_svg(f.name)
+    with TemporaryDirectory() as folder:
+        for i, components_on_page in enumerate(batched(components, num_components_on_page), 1):
+            doc = layout_page(components_on_page, show_border=show_border, show_margin=show_margin, face=face)
+            if keep_as_svg:
+                output_file = output_path(f"{name}.svg")
+                doc.save_svg(output_file)
+                print(f"Written {len(components)} components to {output_file}")
+            else:
+                drawing = os.path.join(folder, f"drawing_{i:03}.svg")
+                doc.save_svg(drawing)
                 subprocess.check_call([
                     inkscape_path(),
-                    f"--file={f.name}",
-                    f"--export-pdf={output_path(f'{name}_{i:03}.pdf')}",
+                    f"--export-pdf={os.path.join(folder, f"drawing_{i:03}.pdf")}",
+                    drawing,
                 ])
 
-    if not keep_as_svg:
-        merge_pdfs(len(components), name)
+        if not keep_as_svg:
+            merge_pdfs(len(components), name, folder)
 
 
-def merge_pdfs(num_components: int, name: str):
+def merge_pdfs(num_components: int, name, folder: str):
     output_file = output_path(f"{name}.pdf")
 
     with PdfMerger() as merger:
-        for pdf in sorted(glob.glob(output_path(f"{name}_*.pdf"))):
+        for pdf in sorted(glob.glob(os.path.join(folder, "*.pdf"))):
             merger.append(pdf)
 
         merger.write(output_file)
-
-    for filename in glob.glob(output_path(f"{name}_*.pdf")):
-        os.remove(filename)
 
     print(f"Written {num_components} components to {output_file}")
