@@ -30,15 +30,15 @@ def create_components(component_types: list, name, show_border: bool = False, sh
                 doc.save_svg(output_file)
                 print(f"Written {len(components)} components to {output_file}")
             else:
-                drawing = os.path.join(folder, f"drawing_{i:03}.svg")
-                doc.save_svg(drawing)
-                subprocess.check_call([
-                    inkscape_path(),
-                    f"--export-pdf={os.path.join(folder, f"drawing_{i:03}.pdf")}",
-                    drawing,
-                ])
+                doc.save_svg(os.path.join(folder, f"drawing_{i:03}.svg"))
 
         if not keep_as_svg:
+            subprocess.check_call([
+                inkscape_path(),
+                f"--export-type=pdf",
+                *sorted(glob.glob(os.path.join(folder, "*.svg"))),
+            ])
+
             merge_pdfs(len(components), name, folder)
 
 
