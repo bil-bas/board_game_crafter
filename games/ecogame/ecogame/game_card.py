@@ -21,7 +21,7 @@ class GameCard(BaseCard):
     BACK_FONT_HEIGHT_TITLE = 32
     BACK_FONT_HEIGHT_TYPE = 20
 
-    FONT_FAMILY = "times"
+    BACK_LABEL = "Card"
 
     def _render_back(self, **config):
         yield svg.Rectangle(-self.BLEED_MARGIN, -self.BLEED_MARGIN, self.bleed_width, self.bleed_height,
@@ -31,15 +31,15 @@ class GameCard(BaseCard):
                             stroke="none", fill=self.BACK_BACKGROUND_COLOR)
 
         yield svg.Text("ECOGAME", self.BACK_FONT_HEIGHT_TITLE, self.width / 2, self.height / 2,
-                       center=True)
+                       center=True, font_family=self.FONT_FAMILY_TITLE)
 
         yield svg.Text(self.BACK_LABEL, self.BACK_FONT_HEIGHT_TYPE, self.width / 2, self.height / 2 + 40,
-                       center=True)
+                       center=True, font_family=self.FONT_FAMILY_BODY)
 
     def _value(self, value: str, size: int, x: float, y: float, right_justify: bool = False,
                font_family: str = None):
         if font_family is None:
-            font_family = self.FONT_FAMILY
+            font_family = self.FONT_FAMILY_BODY
 
         if value.endswith("P"):
             icon = "pollution"

@@ -16,11 +16,10 @@ class Face:
 class BaseComponent:
     WIDTH, HEIGHT = None, None
     COLS, ROWS = None, None
-    FONT_FAMILY = None
+    FONT_FAMILY_BODY, FONT_FAMILY_TITLE = "serif", "sans"
 
     BLEED_MARGIN = mm_to_px(2)
     MARGIN_LEFT = MARGIN_RIGHT = MARGIN_TOP = MARGIN_BOTTOM = MARGIN = None
-    BACK_LABEL = "Improvement"
 
     ROTATE = False
 
@@ -36,7 +35,7 @@ class BaseComponent:
     def _wrap(self, text: str, size: int, x: float, y: float, width: int, valign: str = "top",
               font_family: str = None) -> svg.Text:
         if font_family is None:
-            font_family = self.FONT_FAMILY
+            font_family = self.FONT_FAMILY_BODY
 
         if width == 0:
             lines = text.split("\n")
