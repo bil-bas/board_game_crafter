@@ -22,7 +22,7 @@ How to Use
 * Download the git repository.
 * Put your game in ./games/ with:
     * /games/<game>/build.py file, which contains build() and, optionally, upload() methods.
-    * /games/<game>/<game/ folder containing your Python classes.
+    * /games/<game>/<game>/ folder containing your Python classes.
     * /games/<game>/images/ containing images.
     * /games/<game>/config/ containing config files (<name>.yaml)
 * Build with ./board_game_crafter <game> (output in ./output/<game>/)
@@ -30,4 +30,4 @@ How to Use
 TODO
 ----
 
-* Convert to a python package that can be installed on your system.
+* Convert to a python package that can be installed on your system and a globally accessible command.
