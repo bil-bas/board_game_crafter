@@ -7,14 +7,14 @@ from board_game_crafter.cloud_api import DriveAPI
 from board_game_crafter.utils import output_path, merge_pdf_fronts_and_backs
 from board_game_crafter.base_component import Face
 from board_game_crafter.create_components import create_components
-from games.ecogame.ecogame.buy_card import BuyCards
-from games.ecogame.ecogame.player_card import PlayerCards
-from games.ecogame.ecogame.event_card import EventCards
-from games.ecogame.ecogame.starting_card import StartingCards
-from games.ecogame.ecogame.disaster_card import DisasterCards
-from games.ecogame.ecogame.disaster_die import DisasterDice
-from games.ecogame.ecogame.token import Tokens
-from games.ecogame.ecogame.prosperity_card import ProsperityCards
+from .ecogame.buy_card import BuyCards
+from .ecogame.player_card import PlayerCards
+from .ecogame.event_card import EventCards
+from .ecogame.starting_card import StartingCards
+from .ecogame.disaster_card import DisasterCards
+from .ecogame.disaster_die import DisasterDice
+from .ecogame.token import Tokens
+from .ecogame.prosperity_card import ProsperityCards
 
 GAME_NAME = "Ecogame for E2M"
 GDRIVE_FOLDER_ID = '1zP7Kwvm6AoIVuCKzXB7zGUuNZbkMDOl6'
