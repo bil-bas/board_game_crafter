@@ -2,7 +2,6 @@
 import pickle
 import os.path
 import io
-import shutil
 from mimetypes import MimeTypes
 
 from googleapiclient.discovery import build
@@ -66,7 +65,7 @@ class DriveAPI:
         try:
             try:
                 file_id = self._get_file_id(files, name, folder_id)
-            except IndexError as ex:
+            except IndexError:
                 result = files.create(body=metadata, media_body=media, fields='version').execute()
             else:
                 metadata.pop("parents")
@@ -95,9 +94,9 @@ class DriveAPI:
 
         print(f"File Downloaded: {name}")
 
-    def _get_file_id(self, files, name: str, folder_id: str):
+    @staticmethod
+    def _get_file_id(files, name: str, folder_id: str):
         query = f"name='{name}' and trashed=false and '{folder_id}' in parents"
         results = files.list(fields='files(id)', q=query).execute()
         file_id = results.get("files")[0]["id"]
         return file_id
-

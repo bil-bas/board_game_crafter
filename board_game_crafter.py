@@ -13,7 +13,8 @@ from board_game_crafter.utils import output_path, set_game_name
 def create_parser():
     parser = argparse.ArgumentParser(description="Component layout generator for board, card and dice games")
 
-    parser.add_argument("game", help="Mame of the game", choices=["ecogame"])
+    games = [os.path.basename(g) for g in sorted(glob.glob("./games/*"))]
+    parser.add_argument("game", help="Name of the game", choices=games)
     parser.add_argument("--show-border", action='store_true', help="Draw border around components")
     parser.add_argument("--show-margin", action='store_true', help="Draw margin inside components")
     parser.add_argument("--upload", action='store_true', help="Upload to Google Drive")
