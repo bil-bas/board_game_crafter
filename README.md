@@ -1,14 +1,16 @@
 BoardGameCrafter
 ================
 
-A helper for designing game cards, dice and tokens (and probably other things)
+A helper for designing game cards, dice and tokens (and probably other things).
+Layout is arranged on A4 PDF (or left in separate SVG files) for printing, with additional cutting templates created
+(for vinyl cutters or laser cutters).
 
 Dependencies
 ------------
 
 ### Inkscape
 
-This package relies on Inkscape 1.3+ (inkscape.org) being installed on your system (in specifically /usr/bin/inkscape).
+This package relies on [Inkscape 1.3+](https://inkscape.org) being installed on your system (in specifically /usr/bin/inkscape).
 This is only used to batch convert SVG files to PDF files, so if you are only generating SVGs there is no need for Inkscape.
 Python packages that export to PDF or do this conversion seem to work well with drawing elements, but seem to ignore fonts entirely.
 
