@@ -21,6 +21,7 @@ class GameCard(BaseCard):
     BACK_FONT_HEIGHT_TITLE = 32
     BACK_FONT_HEIGHT_TYPE = 20
 
+    BACK_TITLE = "ECOGAME"
     BACK_LABEL = "Card"
 
     def _render_back(self, **config):
@@ -30,7 +31,7 @@ class GameCard(BaseCard):
         yield svg.Rectangle(self.margin_left, self.margin_top, self.inner_width, self.inner_height,
                             stroke="none", fill=self.BACK_BACKGROUND_COLOR)
 
-        yield svg.Text("ECOGAME", self.BACK_FONT_HEIGHT_TITLE, self.width / 2, self.height / 2,
+        yield svg.Text(self.BACK_TITLE, self.BACK_FONT_HEIGHT_TITLE, self.width / 2, self.height / 2,
                        center=True, font_family=self.FONT_FAMILY_TITLE)
 
         yield svg.Text(self.BACK_LABEL, self.BACK_FONT_HEIGHT_TYPE, self.width / 2, self.height / 2 + 40,
