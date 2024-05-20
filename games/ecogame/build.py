@@ -13,16 +13,31 @@ from games.ecogame.ecogame.event_card import EventCards
 from games.ecogame.ecogame.starting_card import StartingCards
 from games.ecogame.ecogame.disaster_card import DisasterCards
 from games.ecogame.ecogame.disaster_die import DisasterDice
+from games.ecogame.ecogame.token import Tokens
+from games.ecogame.ecogame.prosperity_card import ProsperityCards
 
 GAME_NAME = "Ecogame for E2M"
 GDRIVE_FOLDER_ID = '1zP7Kwvm6AoIVuCKzXB7zGUuNZbkMDOl6'
 
-ALL_CARD_TYPES = [PlayerCards, DisasterCards, EventCards, StartingCards, BuyCards]
+ALL_CARD_TYPES = [PlayerCards, DisasterCards, ProsperityCards, EventCards, StartingCards, BuyCards]
 
 
 def build(show_border: bool, show_margin: bool):
+    make_tokens(show_border)
     make_cards(show_border, show_margin)
     make_dice(show_border)
+
+
+def make_tokens(show_border: bool):
+    create_components([Tokens], f"{GAME_NAME} - tokens - fronts", show_border=show_border)
+    create_components([Tokens], f"{GAME_NAME} - tokens - backs", show_border=show_border,
+                      face=Face.BACK)
+    create_components([Tokens], f"{GAME_NAME} - tokens - templates", show_border=False,
+                      face=Face.TEMPLATE)
+
+    merge_pdf_fronts_and_backs(fronts=f'{GAME_NAME} - tokens - fronts.pdf',
+                               backs=f'{GAME_NAME} - tokens - backs.pdf',
+                               output=f'{GAME_NAME} - tokens - double-sided.pdf')
 
 
 def make_dice(show_border: bool):

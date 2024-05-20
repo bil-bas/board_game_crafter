@@ -73,15 +73,14 @@ def render_components(components: list, cols: int, draw, height: int, rotation: 
             try:
                 component = components[index]
             except IndexError:
-                return top - SPACING
+                return top - SPACING if col == 0 else top + height
 
             group = svg.Group(transform=f"translate({left}, {top}) {rotation}")
 
             group.extend(component.render(face))
 
             if show_border:
-                group.append(svg.Rectangle(0, 0, component.width, component.height, stroke=COLOR_BORDER,
-                                           fill="none"))
+                group.extend(component.render(Face.TEMPLATE))
 
             if show_margin:
                 group.append(svg.Rectangle(component.margin_left, component.margin_top,

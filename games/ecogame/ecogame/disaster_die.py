@@ -6,8 +6,6 @@ from board_game_crafter.base_components import BaseComponents
 
 
 class DisasterDie(BaseComponent):
-    WIDTH, HEIGHT = mm_to_px(50), mm_to_px(50)
-    MARGIN = mm_to_px(0)
     COLS, ROWS = 6, 1
     TEMPLATE_RADIUS = mm_to_px(6)
 

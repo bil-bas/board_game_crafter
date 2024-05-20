@@ -19,7 +19,8 @@ class BaseComponent:
     FONT_FAMILY_BODY, FONT_FAMILY_TITLE = "serif", "sans"
 
     BLEED_MARGIN = mm_to_px(2)
-    MARGIN_LEFT = MARGIN_RIGHT = MARGIN_TOP = MARGIN_BOTTOM = MARGIN = None
+    MARGIN_LEFT = MARGIN_RIGHT = MARGIN_TOP = MARGIN_BOTTOM = None
+    MARGIN = 0
 
     ROTATE = False
 
@@ -122,3 +123,4 @@ class BaseComponent:
     @property
     def bleed_height(self) -> float:
         return self.height + self.BLEED_MARGIN * 2
+

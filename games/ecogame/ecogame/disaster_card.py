@@ -11,7 +11,7 @@ class DisasterCard(PortraitCardMixin, GameCard):
     TABLE_ROW_HEIGHT = mm_to_px(12)
     TABLE_COL_WIDTH = mm_to_px(28)
     FONT_HEIGHT_TABLE = 18
-    FONT_HEIGHT_PLAYERS = 24
+    FONT_HEIGHT_PLAYERS = 20
     PLAYERS_Y = mm_to_px(22)
     BACK_LABEL = "Disaster"
     BACK_BACKGROUND_COLOR = "darkgrey"
@@ -19,11 +19,11 @@ class DisasterCard(PortraitCardMixin, GameCard):
     def _render_front(self, number_of_players: int):
         # Title and number of players
         yield svg.Text("Disasters", self.FONT_HEIGHT_TITLE, self.width // 2,
-                       self.margin_top + self.FONT_HEIGHT_TITLE,
+                       self.margin_top + self.FONT_HEIGHT_TITLE, font_family=self.FONT_FAMILY_TITLE,
                        font_weight="bold", text_anchor="middle")
 
         yield svg.Text(f"{number_of_players} players", self.FONT_HEIGHT_PLAYERS, self.width // 2,
-                       self.PLAYERS_Y, text_anchor="middle")
+                       self.PLAYERS_Y, text_anchor="middle", font_family=self.FONT_FAMILY_BODY)
 
         yield from self.effects_table(number_of_players)
 
@@ -56,7 +56,7 @@ class DisasterCard(PortraitCardMixin, GameCard):
         yield self._image(center - size, self.TABLE_Y + self.TABLE_ROW_HEIGHT * 3, size, "then")
         yield svg.Text("END", self.FONT_HEIGHT_TABLE,
                        center + 10, self.TABLE_Y + self.FONT_HEIGHT_TABLE + self.TABLE_ROW_HEIGHT * 3,
-                       font_weight="bold")
+                       font_weight="bold", font_family=self.FONT_FAMILY_BODY)
 
 
 class DisasterCards(BaseComponents):
