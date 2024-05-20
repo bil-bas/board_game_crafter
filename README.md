@@ -1,4 +1,9 @@
-Ecogame for Escape2Make
-=======================
+BoardGameCrafter
+================
 
-Card and dice-face generator for the game.
+A helper for designing game cards, dice and tokens (and probably other things)
+
+Example games
+-------------
+
+* Ecogame for Escape2Make
