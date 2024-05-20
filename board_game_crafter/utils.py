@@ -33,7 +33,7 @@ def set_game_name(name: str):
 
 def merge_pdf_fronts_and_backs(fronts: str, backs: str, output: str) -> None:
     subprocess.check_call([
-        f"pdftk",
+        pdftk_path(),
         f"A={output_path(fronts)}",
         f"B={output_path(backs)}",
         "shuffle",
@@ -46,3 +46,7 @@ def merge_pdf_fronts_and_backs(fronts: str, backs: str, output: str) -> None:
 
 def inkscape_path() -> str:
     return "/usr/bin/inkscape"
+
+
+def pdftk_path() -> str:
+    return "/usr/bin/pdftk"
