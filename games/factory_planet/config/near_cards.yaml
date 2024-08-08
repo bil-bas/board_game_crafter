@@ -38,19 +38,19 @@
   image: ore2
   cost: 7
   text: Steal 1 tree or 1 green energy source from a player.
-  discard: true
+  instant: true
   count: 1
 -
   image: ore2
   cost: 7
   text: Choose 1 player to skip a turn.
-  discard: true
+  instant: true
   count: 1
 -
   image: ore2
   cost: 8
   text: Steal 2 trees or 2 green energy source from a player.
-  discard: true
+  instant: true
   count: 1
 
 

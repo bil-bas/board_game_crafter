@@ -13,13 +13,13 @@ class BuyCard(GameCard):
     VALUE_WIDTH = mm_to_px(18)
 
     def _render_front(self, cost: str = "Start", value: str = "", title: str = "", text: str = "", image: str = "",
-                      discard: bool = False):
+                      instant: bool = False):
         # Cost
         yield svg.Text(str(cost), self.FONT_HEIGHT_COST, self.margin_left, self.margin_top,
                        font_family=self.FONT_FAMILY_TITLE, dominant_baseline="hanging", font_weight="bold")
 
-        if discard:
-            yield svg.Text("Discard", self.FONT_HEIGHT_COST, self.width - self.margin_right, self.margin_top,
+        if instant:
+            yield svg.Text("Instant", self.FONT_HEIGHT_COST, self.width - self.margin_right, self.margin_top,
                            text_anchor="end",
                            font_family=self.FONT_FAMILY_TITLE, dominant_baseline="hanging", font_weight="bold")
 
