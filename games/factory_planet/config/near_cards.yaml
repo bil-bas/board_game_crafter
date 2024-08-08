@@ -1,0 +1,57 @@
+---
+-
+  image: ore2
+  cost: 4
+  value: x2E
+  count: 1
+-
+  image: ore2
+  cost: 4
+  value: x2$
+  count: 1
+-
+  image: ore2
+  cost: 5
+  value: x2E x1T
+  count: 1
+-
+  image: ore2
+  cost: 5
+  value: x2T x1E
+  count: 1
+-
+  image: ore2
+  cost: 5
+  value: x2E x1T
+  count: 1
+-
+  image: ore2
+  cost: 6
+  value: x2T x1$
+  count: 1
+-
+  image: ore2
+  cost: 6
+  value: x2T x2$
+  count: 1
+-
+  image: ore2
+  cost: 7
+  text: Steal 1 tree or 1 green energy source from a player.
+  discard: true
+  count: 1
+-
+  image: ore2
+  cost: 7
+  text: Choose 1 player to skip a turn.
+  discard: true
+  count: 1
+-
+  image: ore2
+  cost: 8
+  text: Steal 2 trees or 2 green energy source from a player.
+  discard: true
+  count: 1
+
+
+

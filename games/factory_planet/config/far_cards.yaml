@@ -1,0 +1,39 @@
+---
+-
+  image: ore3
+  cost: 7
+  value: x2E x2$ x1T
+  count: 1
+-
+  image: ore3
+  cost: 7
+  value: x2E x2T x1$
+  count: 1
+-
+  image: ore3
+  cost: 8
+  value: x2E x2T x2$
+  count: 2
+-
+  image: ore3
+  cost: 9
+  text: Steal one tree or 1 green energy source from 2 different people
+  discard: true
+  count: 1
+-
+  image: ore3
+  cost: 9
+  value: x2E x3T x2$
+  count: 1
+-
+  image: ore3
+  cost: 10
+  text: Steal a card from another player's hand.
+  discard: true
+  count: 2
+-
+  image: bomb
+  cost: 12
+  text: Everyone but you loses a turn this round. Card is then reshuffled into the deck.
+  discard: true
+  count: 2

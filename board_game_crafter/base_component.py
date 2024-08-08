@@ -67,6 +67,7 @@ class BaseComponent:
         if face == Face.FRONT:
             yield from self._render_front(**self._config)
         elif face == Face.BACK:
+
             yield from self._render_back(**self._config)
         elif face == Face.TEMPLATE:
             yield from self._render_template(**self._config)

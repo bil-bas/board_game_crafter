@@ -1,0 +1,10 @@
+---
+-
+  image: ore1
+  value: 1$ 2E
+  count: 4
+-
+
+  image: ore2
+  value: 1T 2$
+  count: 4

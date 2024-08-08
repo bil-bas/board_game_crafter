@@ -4,7 +4,7 @@ from .utils import A4_WIDTH, A4_HEIGHT, mm_to_px
 from .base_component import Face
 
 MARGIN = mm_to_px(10)
-SPACING = mm_to_px(5)
+SPACING = mm_to_px(4)
 REG_MARGIN = mm_to_px(5)
 REG_LEFT, REG_TOP = REG_MARGIN, REG_MARGIN
 REG_LEN, REG_WIDTH = mm_to_px(5), 4
