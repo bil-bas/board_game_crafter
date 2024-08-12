@@ -10,7 +10,6 @@ class DisapprovalCard(GameCard):
     TEXT_Y = mm_to_px(20)
     BACK_IMAGE = "disapproval"
     BACK_LABEL = "Disapproval"
-    BACK_BACKGROUND_COLOR = "grey"
 
     def _render_front(self, title: str, text: str):
         # Title

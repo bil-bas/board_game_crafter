@@ -7,7 +7,7 @@ from .utils import mm_to_px
 
 class Face:
     FRONT = "front"
-    BACK = "Back"
+    BACK = "back"
     TEMPLATE = "template"
 
     ALL = [FRONT, BACK, TEMPLATE]

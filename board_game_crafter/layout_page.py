@@ -1,6 +1,6 @@
 import drawsvg as svg
 
-from .utils import A4_WIDTH, A4_HEIGHT, mm_to_px
+from .utils import mm_to_px
 from .base_component import Face
 
 MARGIN = mm_to_px(10)
@@ -8,17 +8,17 @@ SPACING = mm_to_px(4)
 REG_MARGIN = mm_to_px(5)
 REG_LEFT, REG_TOP = REG_MARGIN, REG_MARGIN
 REG_LEN, REG_WIDTH = mm_to_px(5), 4
-REG_RIGHT = A4_WIDTH - REG_MARGIN
 
 COLOR_BORDER = "grey"
 COLOR_REG = "red"
 COLOR_MARGIN = "lightgrey"
 
 
-def layout_page(components: list, show_border: bool, show_margin: bool, face: str):
+def layout_page(components: list, show_border: bool, show_margin: bool, face: str,
+                page_width: int, page_height: int):
     assert face in Face.ALL
 
-    draw = svg.Drawing(A4_WIDTH, A4_HEIGHT, origin="top-left")
+    draw = svg.Drawing(page_width * 2, page_height, origin="top-left")
 
     cols, rows = components[0].COLS, components[0].ROWS
 
@@ -31,7 +31,7 @@ def layout_page(components: list, show_border: bool, show_margin: bool, face: st
 
     # Ensure we center any components.
     render_width = cols * width + (cols - 1) * SPACING
-    render_offset_y = (A4_WIDTH - render_width) / 2
+    render_offset_y = (page_width - render_width) / 2
 
     page = svg.Group()
 
@@ -41,11 +41,12 @@ def layout_page(components: list, show_border: bool, show_margin: bool, face: st
     page.append(render_area)
 
     reg_bottom += MARGIN * 2 - REG_MARGIN
+    reg_right = page_width - REG_MARGIN
 
     page.extend(reg_mark(REG_LEFT, REG_TOP, left=True, top=True))
-    page.extend(reg_mark(REG_RIGHT, REG_TOP, left=False, top=True))
+    page.extend(reg_mark(reg_right, REG_TOP, left=False, top=True))
     page.extend(reg_mark(REG_LEFT, reg_bottom, left=True, top=False))
-    page.extend(reg_mark(REG_RIGHT, reg_bottom, left=False, top=False))
+    page.extend(reg_mark(reg_right, reg_bottom, left=False, top=False))
 
     draw.append(page)
 
@@ -63,7 +64,7 @@ def render_components(components: list, cols: int, draw, height: int, rotation: 
             index = row * cols + col
 
             # Flip backs the other way around, so they line up with the fronts when printed double-sided.
-            if face == "back":
+            if face == Face.BACK:
                 left = (cols - 1 - col) * (width + SPACING)
             else:
                 left = col * (width + SPACING)

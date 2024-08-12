@@ -5,7 +5,6 @@ from .buy_card import BuyCard
 class StartingCard(BuyCard):
     BACK_IMAGE = "starting"
     BACK_LABEL = "Starting"
-    BACK_BACKGROUND_COLOR = "yellow"
 
 
 class StartingCards(BaseComponents):

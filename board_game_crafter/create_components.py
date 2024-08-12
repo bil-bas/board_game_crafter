@@ -8,10 +8,11 @@ from PyPDF2 import PdfMerger
 
 from .layout_page import layout_page
 from .base_component import Face
-from .utils import output_path, inkscape_path
+from .utils import output_path, inkscape_path, A4_WIDTH, A4_HEIGHT
 
 
 def create_components(component_types: list, name, show_border: bool = False, show_margin: bool = False,
+                      page_width: int = A4_WIDTH, page_height: int= A4_HEIGHT,
                       keep_as_svg: bool = False, face: str = Face.FRONT, extra_config: dict = None) -> None:
     num_components_on_page = component_types[0].cols * component_types[0].rows
 
@@ -24,7 +25,8 @@ def create_components(component_types: list, name, show_border: bool = False, sh
 
     with TemporaryDirectory() as folder:
         for i, components_on_page in enumerate(batched(components, num_components_on_page), 1):
-            doc = layout_page(components_on_page, show_border=show_border, show_margin=show_margin, face=face)
+            doc = layout_page(components_on_page, show_border=show_border, show_margin=show_margin, face=face,
+                              page_width=page_width, page_height=page_height)
             if keep_as_svg:
                 output_file = output_path(f"{name}.svg")
                 doc.save_svg(output_file)

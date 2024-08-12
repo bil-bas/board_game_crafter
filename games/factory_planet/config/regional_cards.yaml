@@ -2,37 +2,37 @@
 -
   image: ore2
   cost: 4
-  value: x2E
+  value: 2E
   count: 1
 -
   image: ore2
   cost: 4
-  value: x2$
+  value: 2$
   count: 1
 -
   image: ore2
   cost: 5
-  value: x2E x1T
+  value: 2E 1T
   count: 1
 -
   image: ore2
   cost: 5
-  value: x2T x1E
+  value: 2T 1E
   count: 1
 -
   image: ore2
   cost: 5
-  value: x2E x1T
+  value: 2E 1T
   count: 1
 -
   image: ore2
   cost: 6
-  value: x2T x1$
+  value: 2T 1$
   count: 1
 -
   image: ore2
   cost: 6
-  value: x2T x2$
+  value: 2T 2$
   count: 1
 -
   image: ore2

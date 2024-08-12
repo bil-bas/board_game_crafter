@@ -14,3 +14,16 @@
 -
   title: Strike action!
   text: Your workers went on strike; miss a turn!
+-
+  title: Rent!
+  text: You need to pay rent. You have $2 less to spend on your next purchase.
+-
+  title: Bankruptcy
+  text: You are bankrupt. Give an energy resource to the person on your right.
+-
+  title: Sabotage
+  text: You have been caught sabotaging another company. Player with least amount of energy producers can choose any one of your energy producers or trees (Use Rock, Paper, Scissors to avoid ties).
+-
+  title: Attacked!
+  text: You have been attacked by a rival factory. The person who wins Rock, Paper, Scissors tournament gets of your of trees.
+

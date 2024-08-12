@@ -8,11 +8,11 @@ class GameCard(PortraitCardMixin, BaseCard):
     TEXT_ICON_SPACING = 2
 
     FONT_HEIGHT_TITLE = 24
-    FONT_HEIGHT_VALUE = 30
+    FONT_HEIGHT_VALUE = 40
     FONT_HEIGHT_TEXT = 20
     FONT_HEIGHT_KEYWORDS = 12
     FONT_HEIGHT_FLAVOUR = 12
-    FONT_HEIGHT_COST = 28
+    FONT_HEIGHT_COST = 36
 
     BACK_BORDER_COLOR = "#555555"  # Dark grey
     BACK_BACKGROUND_COLOR = "#F2EBE3"  # Ivory
@@ -28,7 +28,7 @@ class GameCard(PortraitCardMixin, BaseCard):
     BACK_LABEL_FONT_SIZE = 24
     BACK_LABEL_Y = mm_to_px(75)
 
-    COLS, ROWS = 3, 3
+    COLS, ROWS = 6, 3
     ROTATE = False
 
     def _render_back(self, image: str = "", **config):

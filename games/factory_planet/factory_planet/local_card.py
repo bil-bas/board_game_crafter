@@ -5,7 +5,6 @@ from .buy_card import BuyCard
 class LocalCard(BuyCard):
     BACK_IMAGE = "local"
     BACK_LABEL = "Local"
-    BACK_BACKGROUND_COLOR = "green"
 
 
 class LocalCards(BaseComponents):
