@@ -1,5 +1,6 @@
 import os
 import subprocess
+import platform
 
 MM_TO_PX_96DPI = 3.7795275591
 
@@ -45,8 +46,15 @@ def merge_pdf_fronts_and_backs(fronts: str, backs: str, output: str) -> None:
 
 
 def inkscape_path() -> str:
-    return "/usr/bin/inkscape"
+    if platform.system() == "Windows":
+        return "C:\\Program Files\\Inkscape\\bin\\inkscape.exe"
+    else:
+        return "/usr/bin/inkscape"        
 
 
 def pdftk_path() -> str:
-    return "/usr/bin/pdftk"
+    if platform.system() == "Windows":
+        return "C:\\Program Files (x86)\\PDFtk\\bin\\pdftk.exe"
+    else:
+        return "/usr/bin/pdftk"
+        
