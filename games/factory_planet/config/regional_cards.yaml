@@ -1,53 +1,53 @@
 ---
 -
-  image: ore2
+  image: crystal3
   cost: 4
   value: 2E
   count: 1
 -
-  image: ore2
+  image: quarry
   cost: 4
   value: 2$
   count: 1
 -
-  image: ore2
+  image: ore
   cost: 5
   value: 2E 1T
   count: 1
 -
-  image: ore2
+  image: ore4
   cost: 5
   value: 2T 1E
   count: 1
 -
-  image: ore2
+  image: crystalm
   cost: 5
   value: 2E 1T
   count: 1
 -
-  image: ore2
+  image: bronze
   cost: 6
   value: 2T 1$
   count: 1
 -
-  image: ore2
+  image: crystals2
   cost: 6
   value: 2T 2$
   count: 1
 -
-  image: ore2
+  image: fire
   cost: 7
   text: Steal 1 tree or 1 green energy source from a player.
   instant: true
   count: 1
 -
-  image: ore2
+  image: fireworks
   cost: 7
   text: Choose 1 player to skip a turn.
   instant: true
   count: 1
 -
-  image: ore2
+  image: fireworks
   cost: 8
   text: Steal 2 trees or 2 green energy source from a player.
   instant: true
