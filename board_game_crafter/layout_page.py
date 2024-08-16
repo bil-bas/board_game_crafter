@@ -18,7 +18,7 @@ def layout_page(components: list, show_border: bool, show_margin: bool, face: st
                 page_width: int, page_height: int):
     assert face in Face.ALL
 
-    draw = svg.Drawing(page_width * 2, page_height, origin="top-left")
+    draw = svg.Drawing(page_width, page_height, origin="top-left")
 
     cols, rows = components[0].COLS, components[0].ROWS
 
