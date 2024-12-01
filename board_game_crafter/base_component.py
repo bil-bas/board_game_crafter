@@ -2,7 +2,7 @@ import textwrap
 
 import drawsvg as svg
 
-from .utils import mm_to_px
+from .utils import mm_to_px, image_path
 
 
 class Face:
@@ -21,7 +21,7 @@ class BaseComponent:
     BLEED_MARGIN = mm_to_px(2)
     MARGIN_LEFT = MARGIN_RIGHT = MARGIN_TOP = MARGIN_BOTTOM = None
     MARGIN = 0
-
+    mm_to_px(5)
     ROTATE = False
 
     TEMPLATE_RADIUS = mm_to_px(4)
@@ -125,3 +125,6 @@ class BaseComponent:
     def bleed_height(self) -> float:
         return self.height + self.BLEED_MARGIN * 2
 
+    @staticmethod
+    def _image(x: float, y: float, size: float, name: str) -> svg.Image:
+        return svg.Image(x, y, size, size, path=image_path(f"{name}.png"), embed=True)

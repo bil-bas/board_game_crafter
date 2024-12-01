@@ -4,7 +4,6 @@ from .utils import mm_to_px
 from .base_component import Face
 
 MARGIN = mm_to_px(10)
-SPACING = mm_to_px(4)
 REG_MARGIN = mm_to_px(5)
 REG_LEFT, REG_TOP = REG_MARGIN, REG_MARGIN
 REG_LEN, REG_WIDTH = mm_to_px(5), 4
@@ -30,7 +29,7 @@ def layout_page(components: list, show_border: bool, show_margin: bool, face: st
         rotation = ""
 
     # Ensure we center any components.
-    render_width = cols * width + (cols - 1) * SPACING
+    render_width = cols * width + (cols - 1) * components[0].SPACING
     render_offset_y = (page_width - render_width) / 2
 
     page = svg.Group()
@@ -58,6 +57,7 @@ def render_components(components: list, cols: int, draw, height: int, rotation: 
     assert face in Face.ALL
 
     top = None
+    spacing = components[0].SPACING
 
     for row in range(rows):
         for col in range(cols):
@@ -65,16 +65,16 @@ def render_components(components: list, cols: int, draw, height: int, rotation: 
 
             # Flip backs the other way around, so they line up with the fronts when printed double-sided.
             if face == Face.BACK:
-                left = (cols - 1 - col) * (width + SPACING)
+                left = (cols - 1 - col) * (width + spacing)
             else:
-                left = col * (width + SPACING)
+                left = col * (width + spacing)
 
-            top = row * (height + SPACING)
+            top = row * (height + spacing)
 
             try:
                 component = components[index]
             except IndexError:
-                return top - SPACING if col == 0 else top + height
+                return top - spacing if col == 0 else top + height
 
             group = svg.Group(transform=f"translate({left}, {top}) {rotation}")
 

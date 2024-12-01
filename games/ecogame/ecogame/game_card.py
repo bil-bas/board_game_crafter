@@ -65,6 +65,4 @@ class GameCard(BaseCard):
         if icon:
             yield self._image(icon_x, y + size * 0.2, size * 0.8, icon)
 
-    @staticmethod
-    def _image(x: float, y: float, size: float, name: str) -> svg.Image:
-        return svg.Image(x, y, size, size, path=image_path(f"{name}.png"), embed=True)
+

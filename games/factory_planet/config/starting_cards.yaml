@@ -2,32 +2,8 @@
 -
   image: ore4
   value: 1$ 2E
-  count: 1
--
-  image: ore4
-  value: 1T 2$
-  count: 1
--
-  image: ore
-  value: 1$ 2E
-  count: 1
+  count: 4
 -
   image: ore
   value: 1T 2$
-  count: 1
--
-  image: bronze
-  value: 1$ 2E
-  count: 1
--
-  image: bronze
-  value: 1T 2$
-  count: 1
--
-  image: mineral
-  value: 1$ 2E
-  count: 1
--
-  image: mineral
-  value: 1T 2$
-  count: 1
+  count: 4

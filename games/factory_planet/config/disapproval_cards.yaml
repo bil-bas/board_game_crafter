@@ -2,19 +2,24 @@
 -
   title: Break the Law!
   text: Due to violating environmental law, your equipment is auctioned off. First person to clap claims 1 energy producer or 1 tree.
+  count: 2
 -
   title: Pariah!
   text: A company refused to offer you their services. First person to clap may take a random card from your hand.
+  count: 2
 -
   title: Abandoned!
   text: You lost 10% of your customers. Lose a turn!
+  count: 1
 -
   title: Strike action!
   text: Your workers went on strike; miss a turn!
+  count: 1
 -
   title: Rent!
   text: You need to pay rent. You have $2 less to spend on your next mineral purchase.
+  count: 2
 -
   title: Disapproval
   text: (Write your own effect, below)
-  count: 2
+  count: 3
