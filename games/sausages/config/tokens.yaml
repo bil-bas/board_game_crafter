@@ -1,0 +1,27 @@
+---
+-
+  title: In Position & Braced
+  count: 4
+-
+  title: Aiming
+  count: 4
+-
+  title: Gone to Ground
+  count: 4
+-
+  title: Delayed Actions
+  count: 4
+-
+  title: Ready
+  shape: star
+  count: 8
+-
+  title: Dropped Equipment
+  shape: hexagon
+  count: 1
+-
+  image: suppression
+  count: 20
+-
+  image: wounded
+  count: 4
